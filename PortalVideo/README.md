@@ -11,7 +11,7 @@ I also included webpack. I did a simple configuration that works well for this s
 It's a simple video portal where you first have to log in and then you have some list of videos. You can watch them and also rate the video.
 
 Because it's a simple app, I don't make use of `Redux` (I did but it had no sense for an small app).
-The code is splited following the next pattern:
+The code is splitted following the next pattern:
 
 > In the folder `component` I made `jsx` files based on the route or the page that I wanted to show.
 
