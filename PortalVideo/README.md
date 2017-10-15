@@ -20,6 +20,6 @@ The code is splitted following the next pattern:
 * components/
     * **app.jsx**: It contains the routers and also imports the other files components.
     * **header.jsx**: The name says it. It's a basic header piece of html.
-    * **loginForm** *(based on a page)*: This is the first component loaded. It's a simple form to get inside the app.
-    * **messages**: An stand alone component which only display basic messages such as: `Error`, `Warning` and `Success`. You can use it whenever you want.
-    * **videos** *(based on page)*: It contains two big components and small ones that make the other two work. the big ones are based on two pages: `List of videos` and `Single video`.
+    * **loginForm.jsx** *(based on a page)*: This is the first component loaded. It's a simple form to get inside the app.
+    * **messages.jsx**: An stand alone component which only display basic messages such as: `Error`, `Warning` and `Success`. You can use it whenever you want.
+    * **videos.jsx** *(based on page)*: It contains two big components and small ones that make the other two work. the big ones are based on two pages: `List of videos` and `Single video`.
