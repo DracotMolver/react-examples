@@ -1,0 +1,7 @@
+.notification-container {
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.14);
+  border: 1px solid grey;
+  height: auto;
+  width: 650px;
+  float: left; }
