@@ -30,17 +30,17 @@ var userModel = {};
 
 //seeding database with default users
 userModel.seed = function(){
-	var defaultUser = new User({username:'ali', password:'5f4dcc3b5aa765d61d8327deb882cf99', activeSession:''});
+	var defaultUser = new User({username:'ali', password:'2a4026c992682b7c4c76d79240d72f86', activeSession:''});
 	defaultUser.save(function(err, user) {
 	  if(err) console.dir('error occured in populating database');
 	});
 
-	defaultUser = new User({username:'harry', password:'5f4dcc3b5aa765d61d8327deb882cf99', activeSession:''});
+	defaultUser = new User({username:'harry', password:'2a4026c992682b7c4c76d79240d72f86', activeSession:''});
 	defaultUser.save(function(err, user) {
 	  if(err) console.dir('error occured in populating database');
 	});
 
-	defaultUser = new User({username:'tom', password:'5f4dcc3b5aa765d61d8327deb882cf99', activeSession:''});
+	defaultUser = new User({username:'tom', password:'2a4026c992682b7c4c76d79240d72f86', activeSession:''});
 	defaultUser.save(function(err, user) {
 	  if(err) console.dir('error occured in populating database');
 	});

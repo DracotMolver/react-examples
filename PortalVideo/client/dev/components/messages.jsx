@@ -11,31 +11,34 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 
-// CSS grid framework system
-import {
-    GridContainer,
-    Grid
-} from 'unsemantic';
-
 // -========================== COMPONENTS ==========================-
-let MessageComponent = React.createClass({
-    getInitialState () {
-        return {
-            error: 'msg-error',
-            success: 'msg-success',
-            warning: 'msg-warning'
-        }
-    },
-    render () {
-        let { errorType, errorMessage } = this.props;
-        return (
-            <Grid desktop="100">
-                <div className={ errorType !== '' ? this.state[this.props.errorType] : '' }>
-                    {errorMessage}
-                </div>
-            </Grid>
-        );
-    }
-});
+const msgCSSClass = {
+    error: 'msg-error',
+    success: 'msg-success',
+    warning: 'msg-warning'
+};
+
+/**
+ * It will displays general messages.
+ * - warnings
+ * - erros
+ * - success
+ * 
+ * @param {object} props - The type of message and the type of message
+ */
+const MessageComponent = props => {
+    const {
+        messageType,
+        messageText
+    } = props;
+
+    return (
+        <div className="gird-100">
+            <div className={messageType !== '' ? msgCSSClass[messageType] : ''}>
+                {messageText}
+            </div>
+        </div>
+    );
+};
 
 export default MessageComponent;

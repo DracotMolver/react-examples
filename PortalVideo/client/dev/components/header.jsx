@@ -11,38 +11,25 @@ import SuperAgent from 'superagent';
 
 import React from 'react';
 
-// CSS grid framework system
-import {
-    GridContainer,
-    Grid
-} from 'unsemantic';
-
 // -========================== COMPONENTS ==========================-
 import { LogoutFormComponent } from './loginForm.jsx'
 
-let HeaderComponent = React.createClass({
-    getInitialState () {
-        let username = '';
-        if (sessionStorage.getItem('userData') !== null) {
-            username = JSON.parse(sessionStorage.getItem('userData')).username;
-        }
+const HeaderComponent = () => {
+    let username = '';
+    sessionStorage.getItem('userData') && (
+        username = JSON.parse(sessionStorage.getItem('userData')).username
+    );
 
-        return {
-            username
-        };
-    },
-    render () {
-        return (
-            <Grid desktop="100 header-nav" parent>
-                <GridContainer>
-                    <header>
-                        <span>Hi! {this.state.username}</span>
-                        <LogoutFormComponent />
-                    </header>
-                </GridContainer>
-            </Grid>
-        );
-    }
-});
+    return (
+        <div className="grid-100 grid-parent header-nav">
+            <div className="grid-container">
+                <header>
+                    <span>Hi! {username}</span>
+                    {LogoutFormComponent()}
+                </header>
+            </div>
+        </div>
+    );
+};
 
 export default HeaderComponent;

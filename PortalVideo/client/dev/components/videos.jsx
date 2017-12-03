@@ -15,465 +15,585 @@ import {
     Link
 } from 'react-router-dom';
 
-// CSS grid framework system
-import {
-    GridContainer,
-    Grid
-} from 'unsemantic';
-
 // -========================== COMPONENTS ==========================-
 import HeaderComponent from './header.jsx';
 import MessageComponent from './messages.jsx';
 
-let VideoRatePopPupComponent = React.createClass({
-    getInitialState: function () {
-        return {
-            id: '',
+/**
+ * This component will render a popup dialog to rate the video
+ */
+class VideoRatePopPupComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isSuccess: false,
             value: 0,
-            isSuccess: false
-        }
-    },
-    getInitialMessage () {
-        let inputs = [];
-        for (let i = 0; i < 5; i++) {
-            inputs.push(
-                <div key={i.toString()}>
-                    <Grid desktop="20">
-                        <input
-                            className="option-input"
-                            name="rateVideo"
-                            type="radio"
-                            value={(i + 1).toString()}
-                            onChange={this.handleChangeRate} />+{(i + 1).toString()}
-                    </Grid>
-                </div>
-            )
-        }
-        return (
-            <div>
-                <Grid desktop="100">
-                    <div className="rate-close-popup" onClick={this.handleClickClose}>Close X</div>
-                </Grid>
-                <Grid desktop="100">
-                    <h3>How much do you enjoyed this video?</h3>
-                </Grid>
-                <Grid desktop="100 rate-stars-input">
-                    {inputs}
-                </Grid>
-                <Grid desktop="100">
-                    <div className="rate-button-container">
-                        <button type="button" className="button shadow" onClick={this.handleClickDone}>Done!</button>
-                    </div>
-                </Grid>
-            </div>
-        );
-    },
-    handleChangeRate (e) {
+            id: '',
+        };
+
+        this.getInitialMessage = this.getInitialMessage.bind(this);
+        this.getSuccessMessage = this.getSuccessMessage.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
+        this.handleChangeRate = this.handleChangeRate.bind(this);
+        this.handleClickDone = this.handleClickDone.bind(this);
+    }
+
+    // -============================ OWN EVENTS ============================-
+
+    handleChangeRate(e) {
         this.setState({
             value: e.currentTarget.value
         });
-    },
-    handleClickDone () {
+    }
+
+    handleClickClose() {
+        this.setState({
+            isSuccess: false
+        });
+
+        // Belongs to the parent - VideoSingleCardComponent
+        this.props.hidePopUp();
+    }
+
+    handleClickDone() {
+        const {
+            hidePopUp,
+            idToRate
+        } = this.props;
+
         SuperAgent.post('/video/ratings')
             .type('form')
             .query({
                 'sessionId': JSON.parse(sessionStorage.getItem('userData')).sessionId
             })
             .send({
-                'videoId': this.props.idToRate,
+                'videoId': idToRate,
                 'rating': this.state.value,
             })
-            .end((function (err, res) {
+            .end((err, res) => {
                 if (err) {
                     this.setState({
                         isSuccess: false
                     });
 
-                    this.props.setMessage(
-                        'There was an error trying to rate the video. Please, try later.',
-                        'error'
-                    );
+                    // this.props.setMessage(
+                    //     'There was an error trying to rate the video. Please, try later.',
+                    //     'error'
+                    // );
 
-                    this.props.hidePopUp();
+                    hidePopUp();
                 } else {
                     if (res.body.status === 'success') {
                         this.setState({
                             isSuccess: true
                         });
                     } else {
-                        this.props.setMessage(
-                            'You can\t rate the video now. Please, try later.',
-                            'warning'
-                        );
-    
-                        this.props.hidePopUp();
+                        //                         this.props.setMessage(
+                        //                             'You can\t rate the video now. Please, try later.',
+                        //                             'warning'
+                        //                         );
+
+                        hidePopUp();
                     }
                 }
-            }).bind(this));
-    },
-    handleClickClose () {
-        this.setState({
-            isSuccess: false
-        })
-        this.props.hidePopUp();
-    },
-    getSuccessMessage () {
+            });
+    }
+
+    getSuccessMessage() {
         if (this.state.isSuccess) {
-            let time = setTimeout((function () {
+            let time = setTimeout(() => {
                 this.setState({
                     isSuccess: false
                 });
+
                 this.props.hidePopUp();
                 clearTimeout(time);
-            }).bind(this), 2600);
+            }, 2600);
 
             return (
                 <div>
-                    <Grid desktop="100">
-                        <div className="rate-close-popup" onClick={this.handleClickClose}>Close X</div>
-                    </Grid>
-                    <Grid desktop="100">
-                        <h3>Thank you for rating this video! :)</h3>
-                    </Grid>
+                    <div className="grid-100">
+                        <div className="rate-close-popup"
+                            onClick={this.handleClickClose}>
+                            Close X
+                        </div>
+                    </div>
+                    <div className="grid-100">
+                        <h3>Thanks for rating the video! :)</h3>
+                    </div>
                 </div>
             );
         }
-    },
-    render () {
+    }
+
+    getInitialMessage() {
+        let inputs = [];
+
+        // This foor loop always is gonna be faster than the forEach
+        for (let i = 0; i < 5; i++) {
+            inputs.push(
+                <div key={`rate-${i.toString()}`}>
+                    <div className="grid-20">
+                        <input
+                            className="option-input"
+                            name="rateVideo"
+                            type="radio"
+                            value={(i + 1).toString()}
+                            onChange={this.handleChangeRate} />
+                        +{(i + 1).toString()}
+                    </div>
+                </div>
+            )
+        }
+
         return (
-            <div className={"rate-stars-container " + (this.props.displayPopUp ? '' : 'hide')}>
-                <GridContainer>
-                    <div className={"rate-stars-popup shadow " + (this.props.displayPopUp? 'fadeInDown-anim' : '')} >
+            <div>
+                <div className="grid-100">
+                    <div className="rate-close-popup"
+                        onClick={this.handleClickClose}>
+                        Close X
+                    </div>
+                </div>
+                <div className="grid-100">
+                    <h3>How much did you enjoy the video?</h3>
+                </div>
+                <div className="grid-100 rate-stars-input">
+                    {inputs}
+                </div>
+                <div className="grid-100">
+                    <div className="rate-button-container">
+                        <button type="button"
+                            className="button shadow"
+                            onClick={this.handleClickDone}>
+                            Done!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // -============================ REACT LIFECYLE ============================-
+
+    render() {
+        const {
+            displayPopUp
+        } = this.props;
+
+        return (
+            <div className={
+                `rate-stars-container ${displayPopUp ? '' : 'hide'}`
+            }>
+                <div className="grid-container">
+                    <div className={
+                        `rate-stars-popup shadow ${displayPopUp ? 'fadeInDown-anim' : ''}`
+                    }>
                         {
                             this.state.isSuccess ? this.getSuccessMessage() : this.getInitialMessage()
                         }
                     </div>
-                </GridContainer>
+                </div>
             </div>
         );
     }
-});
+}
 
-let VideoSingleCardComponent = React.createClass({
-    getInitialState () {
-        return {
+/**
+ * This component will render the Video with all its information
+ */
+class VideoSingleCardComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             displayPopUp: false
         };
-    },
-    handleClickRate () {
+
+        this.handleClickRate = this.handleClickRate.bind(this);
+        this.hidePopUp = this.hidePopUp.bind(this);
+    }
+
+    // -============================ OWN EVENTS ============================-
+
+    handleClickRate() {
         this.setState({
             displayPopUp: true
         });
-    },
+    }
+
     hidePopUp() {
         this.setState({
             displayPopUp: false
-        })
-    },
+        });
+    }
+
+    // -============================ REACT LIFECYLE ============================-
     render() {
+        const {
+            videoData
+        } = this.props;
+
         return (
             <div className="video-single-container">
                 <VideoRatePopPupComponent
-                    idToRate={this.props._id}
+                    idToRate={videoData._id}
                     displayPopUp={this.state.displayPopUp}
                     hidePopUp={this.hidePopUp}
-                    {...this.props}/>
-                <GridContainer>
-                    <Grid desktop="100">
-                        <Link className="back-arrow" to="/videos-list">&larr; Back to the list</Link>
-                    </Grid>
-                    <Grid desktop="100 video-container shadow" parent>
-                        <Grid desktop="100">
-                            <Grid desktop="50">
-                                <h4 className="video-title">{this.props.title}</h4>
-                            </Grid>
-                            <Grid desktop="50">
-                                <Grid desktop="100" parent>
-                                    <Grid desktop="80" style={{textAlign: 'right'}}>
-                                        <VideoRatingComponent {...this.props} />
-                                    </Grid>
-                                    <Grid desktop="20" parent>
+                />
+                <div className="grid-container">
+                    <div className="grid-100">
+                        <Link className="back-arrow"
+                            to="/videos-list">
+                            &larr; Back to the list
+                        </Link>
+                    </div>
+                    <div className="grid-100 grid-parent video-container shadow">
+                        <div className="grid-100 grid-parent">
+                            <div className="grid-50">
+                                <h4 className="video-title">
+                                    {videoData.title}
+                                </h4>
+                            </div>
+                            <div className="grid-50 grid-parent">
+                                <div className="grid-100 grid-parent">
+                                    <div className="grid-80" style={
+                                        {
+                                            textAlign: 'right'
+                                        }
+                                    }>
+                                        {VideoRatingComponent(videoData.ratings)}
+                                    </div>
+                                    <div className="grid-20 grid-parent">
                                         <button
                                             type="button"
                                             className="rate-button"
                                             onClick={this.handleClickRate}
-                                        >Rate!</button>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid desktop="100">
-                            <VideoFullSCreenComponent {...this.props} />
-                        </Grid>
-                        <Grid desktop="100">
-                            <VideoDescriptionComponent {...this.props} />
-                        </Grid>
-                    </Grid>
-                </GridContainer>
-            </div>
-        );
-    }
-});
-
-let VideoCardComponent = React.createClass({
-    render () {
-        return (
-            <div id={this.props._id} className="video-list-item">
-                <Grid desktop="25">
-                    <Grid desktop="100 video-container shadow zoomInUp-anim">
-                        <Grid desktop="100">
-                            <h4 className="video-title">
-                                {this.props.title}
-                            </h4>
-                        </Grid>
-                        <Grid desktop="100">
-                            <VideoThumbComponent {...this.props} />
-                        </Grid>
-                        <Grid desktop="100">
-                            <VideoDescriptionComponent {...this.props} />
-                        </Grid>
-                        <Grid desktop="100">
-                            <VideoRatingComponent {...this.props} />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </div>
-        );
-    }
-});
-
-let VideoComponent = React.createClass({
-    render () {
-        return (
-            <div>
-                <video
-                    className="video-source-container"
-                    height="auto"
-                    width="100%"
-                    controls={this.props.controls}>
-                    <source src={this.props.url} type="video/mp4"></source>
-                </video>
-                <div className="video-hover" >Play!</div>
-            </div>
-        );
-    }
-});
-
-let VideoThumbComponent = React.createClass({
-    render () {
-        return (
-            <Link to={'/single-video/' + this.props._id}>
-                <div className="video-thumb">
-                    <VideoComponent {...this.props}/>
+                                        >
+                                            Rate!
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid-100">
+                            {VideoFullSCreenComponent(videoData.url)}
+                        </div>
+                        <div className="grid-100">
+                            {VideoDescriptionComponent(videoData.description)}
+                        </div>
+                    </div>
                 </div>
-            </Link>
-        );
-    }
-});
-
-let VideoFullSCreenComponent = React.createClass({
-    render: function () {
-        return (
-            <div className="video-full-screen">
-                <VideoComponent {...this.props} />
             </div>
         );
     }
-});
+}
 
-let VideoRatingComponent = React.createClass({
-    getPercentRating () {
-        const total = this.props.ratings.reduce(function (a, b) {
-            return a + b;
-        });
-        return (100 * total) / (this.props.ratings.length * 5);
-    },
-    render () {
-        return (
-            <div className="video-img">
-                <div
-                    className="video-img-rating"
-                    style={{ width: this.getPercentRating().toString() + '%' }}>
+/**
+ * Acts as video container.
+ * Within it are:
+ * 
+ * - The image of the video
+ * - The description
+ * - The rating
+ *
+ * @param {array} props - List of videos
+ */
+const VideoCardComponent = props => {
+    // Generate the list of videos (Cards).
+    const videoList = props;
+    const counter = videoList.length;
+
+    return props.map(video => (
+        <div id={video._id} className="video-list-item" key={video._id}>
+            <div className="grid-25">
+                <div className="grid-100 video-container shadow zoomInUp-anim">
+                    <div className="grid-100">
+                        <h4 className="video-title">
+                            {video.title}
+                        </h4>
+                    </div>
+                    <div className="grid-100">
+                        {VideoThumbComponent(video)}
+                    </div>
+                    <div className="grid-100">
+                        {VideoDescriptionComponent(video.description)}
+                    </div>
+                    <div className="grid-100">
+                        {VideoRatingComponent(video.ratings)}
+                    </div>
                 </div>
-                <img srcSet="output/stars.png" width="100%" height="100%" />
             </div>
-        );
-    }
-});
+        </div>
+    ));
+}
 
-let VideoDescriptionComponent = React.createClass({
-    render () {
-        return (
-            <div>
-                <p className="video-description">
-                    {this.props.description}
-                </p>
-                <div className="line-separator"></div>
+// The small image of the video
+const VideoThumbComponent = props => {
+    const {
+        _id,
+        description
+    } = props;
+
+    return (
+        <Link to={`/single-video/${_id}`}>
+            <div className="video-thumb">
+                <img src="" alt={description} />
             </div>
-        );
-    }
-});
+        </Link>
+    );
+};
 
-let VideoShowMoreComponent = React.createClass({
-    render () {
-        return (
-            <Grid desktop="25 zoomInUp-anim">
-                <button
-                    onClick={this.props.getMoreVideos}
-                    id="show-more"
-                    className="button shadow"
-                    type="button">Show me more videos!</button>
-            </Grid>
-        );
-    }
-});
+/**
+ * it will get the video to render it
+ * 
+ * @param {string} props - The video URL
+ */
+const VideoFullSCreenComponent = props => (
+    <div className="video-full-screen">
+        <video
+            className="video-source-container"
+            height="auto"
+            width="100%"
+            controls="true">
+            <source src={props} type="video/mp4"></source>
+        </video>
+        <div className="video-hover" >Play!</div>
+    </div>
+);
 
-let VideoListComponent = React.createClass({
-    getInitialState () {
-        return {
-            lastValue: 10,
-            videoList: []
+/**
+ * It will show the amount of rating
+ * filling the starts.
+ *
+ * @param {number} props - The amount of rating
+ */
+const VideoRatingComponent = props => {
+    const ratings = props;
+
+    const getPercentRating = () => {
+        const total = ratings.reduce((a, b) => a + b);
+        return ((100 * total) / (ratings.length * 5)).toString();
+    };
+
+    return (
+        <div className="video-img">
+            <div
+                className="video-img-rating"
+                style={
+                    {
+                        width: `${getPercentRating()}%`
+                    }
+                }>
+            </div>
+            <img srcSet="output/stars.png" width="100%" height="100%" />
+        </div>
+    );
+};
+
+/**
+ * It will display the description of the video
+ *
+ * @param {string} props - The description of the video
+ */
+const VideoDescriptionComponent = props => (
+    <div>
+        <p className="video-description">
+            {props}
+        </p>
+        <div className="line-separator"></div>
+    </div>
+);
+
+/**
+ * This class will render the whole list of videos in the main page
+ */
+class VideoListComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            messageType: '',
+            messageText: '',
+            lastValue: 10, // The last video on the list
+            videoList: [] // A list container of the videos,
         }
-    },
-    getMoreVideos () {
+
+        // Get immediately the list of videos
+        this.getMoreVideos = this.getMoreVideos.bind(this);
+
+        this.getMoreVideos();
+    }
+
+    // -============================ OWN EVENTS ============================-
+
+    getMoreVideos() {
+        const {
+            lastValue,
+            videoList
+        } = this.state;
+
+        // Check always for the session
+        // The list of videos are stored in the session
+        // because if you refresh the browser, the list will be reseted.
         const userData = JSON.parse(sessionStorage.getItem('userData'));
-        if (userData) {
+
+        // Redirect to the home if the session doesn't exist
+        if (!userData) {
+            this.props.history.push('/');
+        } else {
+
             // Fetch the data from the API
             // http://localhost:3000/videos
+            // ------------------------------
+            // Get the last 9 videos
             SuperAgent.get('/videos')
                 .query({
                     sessionId: userData.sessionId.toString(),
-                    skip: this.state.lastValue - 9,
-                    limit: this.state.lastValue
+                    skip: lastValue - 9,
+                    limit: lastValue
                 })
-                .end((function (err, res) {
+                .end((err, res) => {
                     if (err) {
-                        this.props.setMessage(
-                            'There was an error trying to load the video. Please, try later',
-                            'error'
-                        );
-                    } else {
-                        if (res.body.status === 'success') {
-                            // Save all the ids to use them later when the user click on
-                            // a videa and we could show him some other that he could watch
-                            sessionStorage.setItem('videoList',
-                                JSON.stringify(res.body.data.map(function (v) {
-                                    return {
-                                        title: v.name,
-                                        id: v._id
-                                    };
-                                })
-                                ));
-    
-                            // Make the list of videos (Cards).
-                            let counter = this.state.videoList.length;
-                            let videoList = res.body.data.map((function (v) {
-                                return <VideoCardComponent
-                                    key={++counter}
-                                    _id={v._id}
-                                    description={v.description}
-                                    url={v.url}
-                                    title={v.name}
-                                    ratings={v.ratings}
-                                    controls={false}
-                                />;
-                            }).bind(this));
-    
-                            this.setState({
-                                videoList: this.state.videoList.concat(videoList)
-                            });
-                        } else {
-                            this.props.setMessage(
-                                'We can\t load some videos now. Sorry',
-                                'warning'
-                            );
-                        }
-                    }
-                }).bind(this));
-        } else {
-            this.props.history.push('/');
-        }
-    },
-    componentWillMount() {
-        this.getMoreVideos();
-    },
-    render () {
-        return (
-            <div>
-                <HeaderComponent />
-                <GridContainer>
-                    {this.state.videoList}
-                    <VideoShowMoreComponent getMoreVideos={this.getMoreVideos} />
-                </GridContainer>
-            </div>
-        );
-    }
-});
-
-let VideoSingleComponent = React.createClass({
-    getInitialState: function () {
-        return {
-            singleVideo: null,
-            errorMessage: '',
-            errorType: ''
-        };
-    },
-    componentWillMount: function () {
-        const userData = JSON.parse(sessionStorage.getItem('userData'));
-
-        if (userData === null) {
-            this.props.history.push('/');
-        }
-
-        SuperAgent.get('/video')
-            .query({
-                sessionId: userData.sessionId,
-                videoId: this.props.match.params.id // Match allow us to get the data from the URL
-            })
-            .end((function (err, res) {
-                if (err) {
-                    this.props.history.push('/videos-list');
-                } else {
-                    if (res.body.status === 'success') {
                         this.setState({
-                            singleVideo: (
-                                <VideoSingleCardComponent
-                                    key={this.props.match.params.id}
-                                    title={res.body.data.name}
-                                    _id={res.body.data._id}
-                                    description={res.body.data.description}
-                                    url={res.body.data.url}
-                                    ratings={res.body.data.ratings}
-                                    controls={true}
-                                    setMessage={this.setMessage}
-                                />)
+                            messageText: 'There was an error trying to load the videos. Please, try later',
+                            messageType: 'error'
                         });
                     } else {
-                        this.setMessage(
-                            'There was an error trying to load the videos. Please, try later.',
-                            'error'
-                        );
+                        if (res.body.status === 'success') {
+                            // Save all the ids to use them later when the user clicks on
+                            // a video. Could show him some shuffles one to watch
+                            sessionStorage.setItem('videoList',
+                                JSON.stringify(
+                                    res.body.data.map(v =>
+                                        ({ // Extracted from the data base (mongodb)
+                                            title: v.name,
+                                            id: v._id
+                                        })
+                                    )
+                                )
+                            );
+
+                            this.setState({
+                                videoList: videoList.concat(res.body.data)
+                            });
+                        } else {
+                            this.setState({
+                                messageText: 'We can\t load some videos now. Sorry',
+                                messageType: 'warning'
+                            });
+                        }
                     }
-                }
-            }).bind(this));
-    },
-    setMessage(msg, _type) {
-        this.setState({
-            errorType: _type,
-            errorMessage: msg
-        });
-    },
-    render () {
+                });
+        }
+    }
+
+    // -============================ REACT LIFECYLE ============================-
+
+    render() {
         return (
             <div>
-                <HeaderComponent />
-                <MessageComponent
-                    errorMessage={this.state.errorMessage}
-                    errorType={this.state.errorType} />
-                {this.state.singleVideo}
+                {HeaderComponent()}
+                <div className="grid-container">
+                    {
+                        !!this.state.videoList.length &&
+                        VideoCardComponent(this.state.videoList)
+                    }
+                    <div className="grid-25 zoomInUp-anim">
+                        <button
+                            onClick={this.getMoreVideos}
+                            id="show-more"
+                            className="button shadow"
+                            type="button">
+                            Show me more videos!
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
-});
+}
 
-export { VideoListComponent, VideoSingleComponent };
+/**
+ * This class display only one video in a full screen mode
+ */
+class VideoSingleComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            messageText: '',
+            messageType: '',
+            videoData: {}
+        };
+
+        this.getVideoData = this.getVideoData.bind(this);
+
+        this.getVideoData();
+    }
+
+    // -============================ OWN EVENTS ============================-
+
+    getVideoData() {
+        const userData = JSON.parse(sessionStorage.getItem('userData'));
+
+        // Redirect to the home if the sessión doesn't exist
+        if (!userData) {
+            this.props.history.push('/');
+        } else {
+
+            const {
+                videoData
+            } = this.state;
+
+            SuperAgent.get('/video')
+                .query({
+                    sessionId: userData.sessionId,
+                    videoId: this.props.match.params.id // Match allow us to get the data from the URL
+                })
+                .end((err, res) => {
+                    // Redirect to the home if the sessión doesn't exist
+                    if (err) {
+                        this.props.history.push('/videos-list');
+                    } else {
+                        if (res.body.status === 'success') {
+                            this.setState({
+                                videoData: res.body.data
+                            });
+                        } else {
+                            this.setState({
+                                messageText: 'There was an error trying to load the videos. Please, try later.',
+                                messageType: 'error'
+                            });
+                        }
+                    }
+                });
+        }
+    }
+
+    // -============================ REACT LIFECYLE ============================-
+
+    render() {
+        const {
+            messageText,
+            messageType,
+            videoData
+        } = this.state;
+
+        return (
+            <div>
+                {HeaderComponent()}
+                {MessageComponent({ messageText, messageType })}
+                {
+                    !!Object.keys(videoData).length &&
+                    <VideoSingleCardComponent videoData={videoData} />
+                }
+            </div>
+        );
+    }
+}
+
+export {
+    VideoListComponent,
+    VideoSingleComponent
+};

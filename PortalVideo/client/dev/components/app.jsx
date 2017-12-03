@@ -14,21 +14,27 @@ import {
 } from 'react-router-dom';
 
 // -========================== COMPONENTS ==========================-
-import { LoginFormComponent } from './loginForm.jsx';
-import { VideoListComponent, VideoSingleComponent } from './videos.jsx';
+import {
+    LoginFormComponent
+} from './loginForm.jsx';
+import {
+    VideoListComponent,
+    VideoSingleComponent
+} from './videos.jsx';
 
-let App = React.createClass({
-    render() {
-        return (
-            <HashRouter>
-                <Switch>
-                    <Route exact path="/" component={LoginFormComponent} />
-                    <Route exact path="/videos-list" component={VideoListComponent} />
-                    <Route exact path="/single-video/:id" component={VideoSingleComponent} />
-                </Switch>
-            </HashRouter>
-        );
-    }
-})
+const App = () => {
+    // Check the session before the rendering happens
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+
+    return (
+        <HashRouter>
+            <Switch>
+                <Route exact path="/" component={LoginFormComponent} />
+                <Route exact path="/videos-list" component={VideoListComponent} />
+                <Route exact path="/single-video/:id" component={VideoSingleComponent} />
+            </Switch>
+        </HashRouter>
+    );
+};
 
 export default App;
