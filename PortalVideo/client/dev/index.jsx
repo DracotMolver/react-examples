@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 
 // -========================== ASSETS ==========================-
 import 'unsemantic/assets/stylesheets/unsemantic-grid-responsive.css';
+import './src/css/unsemantic-grid-responsive.css';
 import './src/sass/style.sass';
 import './src/img/stars.png';
 
