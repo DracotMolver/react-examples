@@ -1,12 +1,8 @@
-/**
- * WARING!. Don't use PURIFYCSS OR PURIFYCSSPLUGING
- */
-const path = require('path')
-const glob = require('glob-all')
+const path = require('path');
+const glob = require('glob-all');
 
 const webpack = require("webpack");
-const ExtractText = require("extract-text-webpack-plugin")
-const PurifyCSSPlugin = require('purifycss-webpack')
+const ExtractText = require("extract-text-webpack-plugin");
 
 const DEV = path.resolve(path.join(__dirname, 'client', 'dev'));
 const OUTPUT = path.resolve(path.join(__dirname, 'client', 'output'));
@@ -14,7 +10,7 @@ const OUTPUT = path.resolve(path.join(__dirname, 'client', 'output'));
 const ExtractCss = new ExtractText({
     filename: 'style.css',
     allChunks: true
-})
+});
 
 const config = {
     entry: {
@@ -41,13 +37,13 @@ const config = {
                 test: /\.css$/,
                 use: ExtractCss.extract({
                     fallback: 'style-loader',
-                    use: 
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            url: false
+                    use:
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                url: false
+                            }
                         }
-                    }
                 })
             },
             { // -======= SASS =======-
@@ -78,8 +74,8 @@ const config = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            "process.env": { 
-                NODE_ENV: JSON.stringify("production") 
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
             }
         }),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -91,18 +87,8 @@ const config = {
                 comments: false
             }
         }),
-        ExtractCss,
-        new PurifyCSSPlugin({
-            paths: glob.sync([
-                path.join(__dirname, '/client/dev/components/*.jsx'),
-                path.join(__dirname, '/client/*.html')
-            ]),
-            minimize: true,
-            purifyOptions: {
-                whitelist: ['*anim*']
-            }
-        })
+        ExtractCss
     ]
-}
+};
 
 module.exports = config;
