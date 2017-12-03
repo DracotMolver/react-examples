@@ -30,8 +30,18 @@ const App = () => {
         <HashRouter>
             <Switch>
                 <Route exact path="/" component={LoginFormComponent} />
-                <Route exact path="/videos-list" component={VideoListComponent} />
-                <Route exact path="/single-video/:id" component={VideoSingleComponent} />
+                <Route path="/videos-list"
+                    render={(props) => (
+                        <div>
+                            <Route exact path="/videos-list" render={(props) => (
+                                <VideoListComponent />
+                            )}/>
+                            <Route path="/videos-list/:id" render={(props) => (
+                                <VideoSingleComponent videoId={props.match.params.id} />
+                            )} />
+                        </div>
+                    )} />
+                {/* <Route exact path="/single-video/:id" component={VideoSingleComponent} /> */}
             </Switch>
         </HashRouter>
     );

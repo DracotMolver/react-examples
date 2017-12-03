@@ -336,7 +336,7 @@ const VideoThumbComponent = props => {
     } = props;
 
     return (
-        <Link to={`/single-video/${_id}`}>
+        <Link to={`/videos-list/${_id}`}>
             <div className="video-thumb">
                 <img src="" alt={description} />
             </div>
@@ -549,7 +549,7 @@ class VideoSingleComponent extends React.Component {
             SuperAgent.get('/video')
                 .query({
                     sessionId: userData.sessionId,
-                    videoId: this.props.match.params.id // Match allow us to get the data from the URL
+                    videoId: this.props.videoId // Match allow us to get the data from the URL
                 })
                 .end((err, res) => {
                     // Redirect to the home if the sessión doesn't exist
