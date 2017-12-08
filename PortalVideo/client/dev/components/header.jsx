@@ -25,7 +25,7 @@ const HeaderComponent = () => {
             <div className="grid-container">
                 <header>
                     <span>Hi! {username}</span>
-                    {LogoutFormComponent()}
+                    <LogoutFormComponent />
                 </header>
             </div>
         </div>

@@ -77,11 +77,6 @@ class VideoRatePopPupComponent extends React.Component {
                         isSuccess: false
                     });
 
-                    // this.props.setMessage(
-                    //     'There was an error trying to rate the video. Please, try later.',
-                    //     'error'
-                    // );
-
                     hidePopUp();
                 } else {
                     if (res.body.status === 'success') {
@@ -89,11 +84,6 @@ class VideoRatePopPupComponent extends React.Component {
                             isSuccess: true
                         });
                     } else {
-                        //                         this.props.setMessage(
-                        //                             'You can\t rate the video now. Please, try later.',
-                        //                             'warning'
-                        //                         );
-
                         hidePopUp();
                     }
                 }
@@ -133,15 +123,16 @@ class VideoRatePopPupComponent extends React.Component {
         // This foor loop always is gonna be faster than the forEach
         for (let i = 0; i < 5; i++) {
             inputs.push(
-                <div key={`rate-${i.toString()}`}>
+                <div key={`rate-${i}`}>
                     <div className="grid-20">
                         <input
                             className="option-input"
                             name="rateVideo"
                             type="radio"
-                            value={(i + 1).toString()}
-                            onChange={this.handleChangeRate} />
-                        +{(i + 1).toString()}
+                            value={`${i + 1}`}
+                            onChange={this.handleChangeRate}
+                        />
+                        {`+${i + 1}`}
                     </div>
                 </div>
             )
@@ -262,7 +253,7 @@ class VideoSingleCardComponent extends React.Component {
                                             textAlign: 'right'
                                         }
                                     }>
-                                        {VideoRatingComponent(videoData.ratings)}
+                                        <VideoRatingComponent ratings={videoData.ratings} />
                                     </div>
                                     <div className="grid-20 grid-parent">
                                         <button
@@ -277,10 +268,10 @@ class VideoSingleCardComponent extends React.Component {
                             </div>
                         </div>
                         <div className="grid-100">
-                            {VideoFullSCreenComponent(videoData.url)}
+                            <VideoFullSCreenComponent url={videoData.url} />
                         </div>
                         <div className="grid-100">
-                            {VideoDescriptionComponent(videoData.description)}
+                            <VideoDescriptionComponent description={videoData.description} />
                         </div>
                     </div>
                 </div>
@@ -301,11 +292,14 @@ class VideoSingleCardComponent extends React.Component {
  */
 const VideoCardComponent = props => {
     // Generate the list of videos (Cards).
-    const videoList = props;
-    const counter = videoList.length;
+    const videoList = props.videoList;
 
-    return props.map(video => (
-        <div id={video._id} className="video-list-item" key={video._id}>
+    const videoThumbComponent = <VideoThumbComponent />;
+    const videoDescriptionComponent = <VideoDescriptionComponent />;
+    const videoRatingComponent = <VideoRatingComponent />;
+
+    return videoList.map((video, iter) => (
+        <div id={`${video._id}`} className="video-list-item" key={`v${iter}${video._id}`}>
             <div className="grid-25">
                 <div className="grid-100 video-container shadow zoomInUp-anim">
                     <div className="grid-100">
@@ -314,13 +308,29 @@ const VideoCardComponent = props => {
                         </h4>
                     </div>
                     <div className="grid-100">
-                        {VideoThumbComponent(video)}
+                        {React.cloneElement(
+                            videoThumbComponent,
+                            {
+                                _id: video._id,
+                                description: video.description
+                            }
+                        )}
                     </div>
                     <div className="grid-100">
-                        {VideoDescriptionComponent(video.description)}
+                        {React.cloneElement(
+                            videoDescriptionComponent,
+                            {
+                                description: video.description
+                            }
+                        )}
                     </div>
                     <div className="grid-100">
-                        {VideoRatingComponent(video.ratings)}
+                        {React.cloneElement(
+                            videoRatingComponent,
+                            {
+                                ratings: video.ratings
+                            }
+                        )}
                     </div>
                 </div>
             </div>
@@ -356,7 +366,7 @@ const VideoFullSCreenComponent = props => (
             height="auto"
             width="100%"
             controls="true">
-            <source src={props} type="video/mp4"></source>
+            <source src={props.url} type="video/mp4"></source>
         </video>
         <div className="video-hover" >Play!</div>
     </div>
@@ -369,7 +379,7 @@ const VideoFullSCreenComponent = props => (
  * @param {number} props - The amount of rating
  */
 const VideoRatingComponent = props => {
-    const ratings = props;
+    const ratings = props.ratings;
 
     const getPercentRating = () => {
         const total = ratings.reduce((a, b) => a + b);
@@ -399,7 +409,7 @@ const VideoRatingComponent = props => {
 const VideoDescriptionComponent = props => (
     <div>
         <p className="video-description">
-            {props}
+            {props.description}
         </p>
         <div className="line-separator"></div>
     </div>
@@ -421,8 +431,6 @@ class VideoListComponent extends React.Component {
 
         // Get immediately the list of videos
         this.getMoreVideos = this.getMoreVideos.bind(this);
-
-        this.getMoreVideos();
     }
 
     // -============================ OWN EVENTS ============================-
@@ -440,7 +448,7 @@ class VideoListComponent extends React.Component {
 
         // Redirect to the home if the session doesn't exist
         if (!userData) {
-            this.props.history.push('/');
+            window.location.href = '/';
         } else {
 
             // Fetch the data from the API
@@ -489,26 +497,32 @@ class VideoListComponent extends React.Component {
     }
 
     // -============================ REACT LIFECYLE ============================-
+    componentWillMount() {
+        this.getMoreVideos();
+    }
 
     render() {
         return (
             <div>
-                {HeaderComponent()}
-                <div className="grid-container">
-                    {
-                        !!this.state.videoList.length &&
-                        VideoCardComponent(this.state.videoList)
-                    }
-                    <div className="grid-25 zoomInUp-anim">
-                        <button
-                            onClick={this.getMoreVideos}
-                            id="show-more"
-                            className="button shadow"
-                            type="button">
-                            Show me more videos!
+                {
+                    !!this.state.videoList.length &&
+                    <div>
+                        <HeaderComponent/>
+                        <div className="grid-container">
+
+                            <VideoCardComponent videoList={this.state.videoList} />
+                            <div className="grid-25 zoomInUp-anim">
+                                <button
+                                    onClick={this.getMoreVideos}
+                                    id="show-more"
+                                    className="button shadow"
+                                    type="button">
+                                    Show me more videos!
                         </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         );
     }
@@ -528,23 +542,19 @@ class VideoSingleComponent extends React.Component {
         };
 
         this.getVideoData = this.getVideoData.bind(this);
-
-        this.getVideoData();
     }
 
     // -============================ OWN EVENTS ============================-
-
     getVideoData() {
         const userData = JSON.parse(sessionStorage.getItem('userData'));
 
         // Redirect to the home if the sessión doesn't exist
         if (!userData) {
-            this.props.history.push('/');
+            window.location.href = '/';
         } else {
-
             const {
-                videoData
-            } = this.state;
+            videoData
+        } = this.state;
 
             SuperAgent.get('/video')
                 .query({
@@ -554,7 +564,7 @@ class VideoSingleComponent extends React.Component {
                 .end((err, res) => {
                     // Redirect to the home if the sessión doesn't exist
                     if (err) {
-                        this.props.history.push('/videos-list');
+                        window.location.href = '/videos-list';
                     } else {
                         if (res.body.status === 'success') {
                             this.setState({
@@ -572,6 +582,9 @@ class VideoSingleComponent extends React.Component {
     }
 
     // -============================ REACT LIFECYLE ============================-
+    componentWillMount() {
+        this.getVideoData();
+    }
 
     render() {
         const {
@@ -582,11 +595,16 @@ class VideoSingleComponent extends React.Component {
 
         return (
             <div>
-                {HeaderComponent()}
-                {MessageComponent({ messageText, messageType })}
                 {
                     !!Object.keys(videoData).length &&
-                    <VideoSingleCardComponent videoData={videoData} />
+                    <div>
+                        <HeaderComponent />
+                        <MessageComponent
+                            messageText={messageText}
+                            messageType={messageType}
+                        />
+                        <VideoSingleCardComponent videoData={videoData} />
+                    </div>
                 }
             </div>
         );

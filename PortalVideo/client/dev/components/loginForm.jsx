@@ -20,7 +20,6 @@ import React from 'react';
 // -========================== COMPONENTS ==========================-
 import MessageComponent from './messages.jsx'
 
-
 /**
  * Form to login to the application.
  * It makes a call the the api to log in.
@@ -67,7 +66,7 @@ class LoginFormComponent extends React.Component {
                         // Save in sessionStorage the params returned by the server
                         // Just in case the user refresh the website
                         if (res.body.status === 'success') {
-                            sessionStorage.setItem('userData', JSON.stringify(res.body))
+                            sessionStorage.setItem('userData', JSON.stringify(res.body));
                             this.props.history.push('videos-list');
                         } else {
                             this.setState({
@@ -146,7 +145,10 @@ class LoginFormComponent extends React.Component {
                             <span>Video portal</span>
                         </div>
                         <div className="grid-100 grid-parent">
-                            {MessageComponent({messageText, messageType})}
+                            <MessageComponent
+                                messageText={messageText}
+                                messageType={messageType}
+                            />
                         </div>
                         <div className="grid-100">
                             <label
@@ -202,7 +204,7 @@ class LoginFormComponent extends React.Component {
  * Lougout the user.
  * This is use in the header component
  */
-let LogoutFormComponent = () => {
+const LogoutFormComponent = () => {
     const handleClickButtonForm = () => {
         const userData = JSON.parse(sessionStorage.getItem('userData'));
 
@@ -216,18 +218,18 @@ let LogoutFormComponent = () => {
                     if (res.body.status === 'success') {
                         // Clean all sessions
                         sessionStorage.clear();
-                        window.location.href = '/';
+                        window.location.href = '/'
                     } else {
                         // #TODO
                         // Display error message
                     }
                 });
         }
-    };
+    }
 
     return (
         <button type="button" onClick={handleClickButtonForm}>
-            Logout
+            Log out
         </button>
     );
 }
