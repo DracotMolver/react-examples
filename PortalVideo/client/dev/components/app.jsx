@@ -7,10 +7,8 @@
 import React from 'react';
 import {
     HashRouter,
-    IndexRoute,
     Switch,
-    Router,
-    Route
+    Route,
 } from 'react-router-dom';
 
 // -========================== COMPONENTS ==========================-
@@ -28,21 +26,22 @@ const App = () => {
 
     return (
         <HashRouter>
-            <Switch>
-                <Route exact path="/" component={LoginFormComponent} />
-                <Route path="/videos-list"
-                    render={(props) => (
-                        <div>
-                            <Route exact path="/videos-list" render={(props) => (
-                                <VideoListComponent />
-                            )}/>
-                            <Route path="/videos-list/:id" render={(props) => (
-                                <VideoSingleComponent videoId={props.match.params.id} />
-                            )} />
-                        </div>
-                    )} />
-                {/* <Route exact path="/single-video/:id" component={VideoSingleComponent} /> */}
-            </Switch>
+            <fade>
+                <Switch>
+                    <Route exact path="/" component={LoginFormComponent} />
+                    <Route path="/videos-list"
+                        render={(props) => (
+                            <div>
+                                <Route exact path="/videos-list" render={(props) => (
+                                    <VideoListComponent />
+                                )} />
+                                <Route path="/videos-list/:id" render={(props) => (
+                                    <VideoSingleComponent videoId={props.match.params.id} />
+                                )} />
+                            </div>
+                        )} />
+                </Switch>
+            </fade>
         </HashRouter>
     );
 };
