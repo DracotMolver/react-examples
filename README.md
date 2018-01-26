@@ -4,4 +4,5 @@ The idea is to upload some small React app to show how to use react in a simple 
 
 * [ReactTutorial (v16.0.0)](https://github.com/DracotMolver/React-Practicing/tree/master/ReactTutorial) - *The tic-tac-toe game tutorial that you find on the React's website*
 
+* [Test-enzyme (v16.2.0)](https://github.com/DracotMolver/React-Practicing/tree/master/Test-enzyme) - * A very simple configuration to work with enzyme to testing your app. This was my first successful react testing.
 <!-- * [PostTimeline (v16.0.0)](https://github.com/DracotMolver/React-Practicing/tree/master/PostTimeline) - *An small aplication based on a tutorial called 30-days-of-react-ebook-fullstackio. The pdf is avaible in the `file` folder*  -->
