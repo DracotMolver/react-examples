@@ -29,7 +29,7 @@ const config = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['es2015', 'react'],
-                        plugins: ['syntax-dynamic-import']
+                        plugins: ['syntax-dynamic-import','transform-object-rest-spread']
                     }
                 }
             },
@@ -75,7 +75,7 @@ const config = {
     plugins: [
         new webpack.DefinePlugin({
             "process.env": {
-                NODE_ENV: JSON.stringify("production")
+                NODE_ENV: JSON.stringify("development")
             }
         }),
         new webpack.NoEmitOnErrorsPlugin(),
