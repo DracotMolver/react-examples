@@ -78,15 +78,15 @@ const config = {
                 NODE_ENV: JSON.stringify("development")
             }
         }),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            }
-        }),
+        // new webpack.NoEmitOnErrorsPlugin(),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: 
+        //         warnings: false
+        //     },
+        //     output: {
+        //         comments: false
+        //     }
+        // }),
         ExtractCss
     ]
 };
