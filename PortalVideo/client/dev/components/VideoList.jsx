@@ -27,4 +27,4 @@ const VideoList = props => {
     ));
 };
 
-export default videoLoader(VideoList);
+export default videoLoader('videoList')(VideoList);
