@@ -6,7 +6,7 @@ The app use `NodeJS`, `ExpressJS` and `MongoDB`
 
 I also included "ebpack. I did a simple configuration that works well for this small app. But for complex larges apps, you have to find out the way to make you app faster and better :).
 
-##What is the app about?
+## What is the app about?
 It's a simple video portal where you first have to log in and you can check a list of videos. You can watch them and also rate them.
 
 Here I do a nice folder structor for the components. I try to follow a good and nice pattern to make components clean and reusables.
