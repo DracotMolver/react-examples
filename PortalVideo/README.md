@@ -4,7 +4,7 @@ This is just a demo that I had to do to apply for a job.
 
 The app use `NodeJS`, `ExpressJS` and `MongoDB`
 
-I also included "ebpack. I did a simple configuration that works well for this small app. But for complex larges apps, you have to find out the way to make you app faster and better :).
+I also included webpack. I did a simple configuration that works well for this small app. But for complex larges apps, you have to find out the way to make you app faster and better :).
 
 ## What is the app about?
 It's a simple video portal where you first have to log in and you can check a list of videos. You can watch them and also rate them.
