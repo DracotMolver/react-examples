@@ -14,7 +14,7 @@ import './src/sass/style.sass';
 import './src/img/stars.png';
 
 // -========================== COMPONENTS ==========================-
-import App from './components/app.jsx';
+import App from './components/App.jsx';
 
 ReactDOM.render(
     <App />,
