@@ -18,3 +18,5 @@ const VideoFullScreen = props =>
         </video>
         <div className="video-hover" >Play!</div>
     </div>;
+
+export default VideoFullScreen;
