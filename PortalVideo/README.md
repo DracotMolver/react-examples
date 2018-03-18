@@ -1,28 +1,17 @@
 # Video Portal
 This is just a demo that I had to do to apply for a job.
-*(If you wanna know the story... I didn't get the job XD, because I had no idea how to make a test of the UI using karma. Well, we are all learning)*
-The idea is that, if you are a beginner, you could take this example and do it by your own or just putting your hand onto the code. Also, I'd like to get somes `request` about using `karma` or how I could improve everything using `webpack`.
+*(If you wanna know the story... I didn't get the job because I had no idea how to make a test using Karma. Well, we are all learning)*.
 
 The app use `NodeJS`, `ExpressJS` and `MongoDB`
 
-I also included webpack. I did a simple configuration that works well for this small app, but for complex larges apps, you have to find out the way to make you app faster and better :).
+I also included "ebpack. I did a simple configuration that works well for this small app. But for complex larges apps, you have to find out the way to make you app faster and better :).
 
 ##What is the app about?
 It's a simple video portal where you first have to log in and you can check a list of videos. You can watch them and also rate them.
 
+Here I do a nice folder structor for the components. I try to follow a good and nice pattern to make components clean and reusables.
+
 Because it is a simple app, I don't make use of `Redux` (I did but it had no sense for an small app).
-The code is splitted following the next pattern:
-
-> In the folder `component` I made `jsx` files based on the route or the page that I wanted to show.
-
-> Within each file I had small pieces of components which create the whole needed page.
-
-* components/
-    * **app.jsx**: It contains the routers and also imports the other files components.
-    * **header.jsx**: The name says it. It's a basic header piece of html.
-    * **loginForm.jsx** *(based on a page)*: This is the first component loaded. It's a simple form to get inside the app.
-    * **messages.jsx**: An stand alone component which only display basic messages such as: `Error`, `Warning` and `Success`. You can use it whenever you want.
-    * **videos.jsx** *(based on page)*: It contains two big components and small ones that make the other two work. the big ones are based on two pages: `List of videos` and `Single video`.
 
 ## User and Password
 The password is the same for all the users: *react123*
@@ -33,5 +22,5 @@ The password is the same for all the users: *react123*
     * tom
 
 ## TODO
-* Add shuffle videos to watch when the user is watching a video.
-* Update the rate when the user is rating
+* Add shuffle videos to watch when the user is watching a different video.
+* Update the rate - realtime - when the user is rating.
