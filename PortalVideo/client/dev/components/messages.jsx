@@ -2,7 +2,6 @@
  * @author Diego Alberto Molina Vera
  * @copyright 2017
  *
- * @class MessageComponent - Message component
  * A simple component to disply messages:
  * Error,
  * Warning,
@@ -23,10 +22,8 @@ const msgCSSClass = {
  * - warnings
  * - erros
  * - success
- * 
- * @param {object} props - The type of message and the type of message
  */
-const MessageComponent = props => {
+const Message = props => {
     const {
         messageType,
         messageText
@@ -41,4 +38,4 @@ const MessageComponent = props => {
     );
 };
 
-export default MessageComponent;
+export default Message;
