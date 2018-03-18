@@ -24,7 +24,7 @@ import MessageComponent from './messages.jsx'
  * Form to login to the application.
  * It makes a call the the api to log in.
  */
-class LoginFormComponent extends React.Component {
+export class LoginForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -204,7 +204,7 @@ class LoginFormComponent extends React.Component {
  * Lougout the user.
  * This is use in the header component
  */
-const LogoutFormComponent = () => {
+export const LogoutForm = () => {
     const handleClickButtonForm = () => {
         const userData = JSON.parse(sessionStorage.getItem('userData'));
 
@@ -232,9 +232,4 @@ const LogoutFormComponent = () => {
             Log out
         </button>
     );
-}
-
-export {
-    LoginFormComponent,
-    LogoutFormComponent
 };
