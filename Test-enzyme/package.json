@@ -1,5 +1,5 @@
 {
-  "name": "pruebas_con_tests",
+  "name": "test_enzyme",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "test": "karma start --colors --single-run",
     "dev": "webpack-dev-server --port 3000 --progress --colors --hot --inline"
   },
-  "author": "",
+  "author": "Diego Molina",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",

@@ -63,11 +63,9 @@ module.exports = function karmaConfig(config) {
         // Activar o desactivar la observación de cambios sobre un archivo
         autoWatch: false,
 
-
         // Iniciar el navegador(es) definido(s)
         // disponibles: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['Chrome'],/*, 'Firefox'*/
-
 
         // CI - Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
@@ -77,8 +75,8 @@ module.exports = function karmaConfig(config) {
         // cuantos navegadores se debería de inicializar
         concurrency: Infinity,
 
+        // Capture all console output and pipe it to the terminal.
         client: {
-            // Capture all console output and pipe it to the terminal.
             captureConsole: true,
         }
 
@@ -86,7 +84,6 @@ module.exports = function karmaConfig(config) {
         // which enables better error reporting for JavaScript files served from a different origin.
         // Disable this when you need to load external scripts that are served without the necessary Access-Control-Allow-Origin header.
         // crossOriginAttribute: false,
-
         // browserNoActivityTimeout: 60000 // 60 seconds
     })
 };
