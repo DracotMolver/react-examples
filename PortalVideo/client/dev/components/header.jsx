@@ -12,24 +12,21 @@ import SuperAgent from 'superagent';
 import React from 'react';
 
 // -========================== COMPONENTS ==========================-
-import { LogoutFormComponent } from './loginForm.jsx'
+import { LogoutForm } from './LoginForm.jsx';
 
-const HeaderComponent = () => {
-    let username = '';
-    sessionStorage.getItem('userData') && (
-        username = JSON.parse(sessionStorage.getItem('userData')).username
-    );
+const Header = () => {
+    const username = JSON.parse(sessionStorage.getItem('userData')).username
 
     return (
         <div className="grid-100 grid-parent header-nav">
             <div className="grid-container">
                 <header>
                     <span>Hi! {username}</span>
-                    <LogoutFormComponent />
+                    <LogoutForm />
                 </header>
             </div>
         </div>
     );
 };
 
-export default HeaderComponent;
+export default Header;
