@@ -1,24 +1,16 @@
 /**
  * @author Diego Alberto Molina Vera
- * @copyright 2017
- *
+ * @copyright 2017 - 2018
  */
 // -========================== MODULES ==========================-
 import React from 'react';
-import {
-    HashRouter,
-    Switch,
-    Route,
-} from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 
 // -========================== COMPONENTS ==========================-
-import {
-    LoginFormComponent
-} from './loginForm.jsx';
-import {
-    VideoListComponent,
-    VideoSingleComponent
-} from './videos.jsx';
+import { LoginForm } from './LoginForm.jsx';
+import PrivateRouter from './HOC/PrivateRouter.jsx';
+import VideoListContainer from './../containers/VideoListContainer.jsx';
+import VideoSingleContainer from './../containers/VideoSingleContainer.jsx';
 
 const App = () => {
     // Check the session before the rendering happens
@@ -26,22 +18,18 @@ const App = () => {
 
     return (
         <HashRouter>
-            <fade>
-                <Switch>
-                    <Route exact path="/" component={LoginFormComponent} />
-                    <Route path="/videos-list"
-                        render={(props) => (
-                            <div>
-                                <Route exact path="/videos-list" render={(props) => (
-                                    <VideoListComponent />
-                                )} />
-                                <Route path="/videos-list/:id" render={(props) => (
-                                    <VideoSingleComponent videoId={props.match.params.id} />
-                                )} />
-                            </div>
-                        )} />
-                </Switch>
-            </fade>
+            <Switch>
+                <Route exact path="/" component={LoginForm} />
+                <PrivateRouter
+                    exact
+                    path="/videos-list"
+                    component={VideoListContainer}
+                />
+                <PrivateRouter
+                    path="/videos-list/:id"
+                    component={VideoSingleContainer}
+                />
+            </Switch>
         </HashRouter>
     );
 };
