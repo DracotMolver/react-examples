@@ -17,8 +17,10 @@ import { Link } from "react-router-dom";
 
 // -========================== COMPONENTS ==========================-
 import VideoDescription from './VideoDescription.jsx';
+import VideoRatePopPup from './VideoRatePopPup.jsx';
 import VideoFullScreen from './VideoFullScreen.jsx';
 import VideoRating from './VideoRating.jsx';
+import videoLoader from './HOC/VideoLoader.jsx';
 import VideoThumb from './VideoThumb.jsx';
 
 export class VideoCardItem extends React.Component {
@@ -63,7 +65,7 @@ export class VideoCardItem extends React.Component {
     }
 };
 
-export class VideoCardBig extends React.Component {
+class VideoCardBigWrapper extends React.Component {
     constructor(props) {
         super(props);
 
@@ -94,18 +96,17 @@ export class VideoCardBig extends React.Component {
             description,
             ratings,
             title,
-            url
+            url,
+            _id
         } = this.props.videoData;
-        console.log(this.props);
-        console.log('VideoCardBig');
 
         return (
             <div className="video-single-container">
-                {/* <VideoRatePopPupComponent
-                    idToRate={videoData._id}
+                <VideoRatePopPup
+                    idToRate={_id}
                     displayPopUp={this.state.displayPopUp}
                     hidePopUp={this.hidePopUp}
-                /> */}
+                />
                 <div className="grid-container">
                     <div className="grid-100">
                         <Link className="back-arrow" to="/videos-list">
@@ -148,3 +149,5 @@ export class VideoCardBig extends React.Component {
         );
     }
 }
+
+export const VideoCardBig = videoLoader('videoData')(VideoCardBigWrapper);
