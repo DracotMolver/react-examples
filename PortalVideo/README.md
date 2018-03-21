@@ -13,6 +13,13 @@ Here I do a nice folder structor for the components. I try to follow a good and 
 
 Because it is a simple app, I don't make use of `Redux` (I did but it had no sense for an small app).
 
+## How to run the app?
+* Start your mongoDB
+* Run `npm run start`
+* Then run `npm run build`
+
+The application is in `developement` mode. You may be askin, why I'm not using `webpack-dev-server`. Simple, this was my first app made with React and also using seriously webpack. For the moment just do the steps below and you can test the app. I will make a proper setting up for the next time :bowtie:
+
 ## User and Password
 The password is the same for all the users: *react123*
 <br>
