@@ -1,5 +1,4 @@
 node_modules/*
+**/node_modules/*
 Curso_01/*
 Curso_02/*
-**/node_modules/*
-DragAndDrop
