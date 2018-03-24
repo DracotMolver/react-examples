@@ -1,0 +1,46 @@
+html,
+body {
+    height: 100%;
+    float: left;
+    width: 100%
+}
+
+h2 {
+    margin-bottom: 0;
+    margin-top: 0
+}
+
+p {
+    margin-bottom: 4px;
+    margin-top: 4px
+}
+
+#root {
+    width: 100%;
+    float: left;
+}
+
+.app-container {
+    max-width: 540px
+}
+
+.item-container {
+    -webkit-transform-origin: center;
+    -moz-transform-origin: center;
+    -o-transform-origin: center;
+    transform-origin: center;
+    background-color: #c5c5c5;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%;
+    float: left
+}
+
+.item {
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    width: 100%;
+    float: left
+}
