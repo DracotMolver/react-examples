@@ -1,13 +1,10 @@
 import React from 'react';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { expect } from 'chai';
-import Adapter from 'enzyme-adapter-react-16';
 
 // Own components
 import Item from '../components/Item';
 import data from '../helpers/mockup';
-
-configure({ adapter: new Adapter() });
 
 describe('Testing the Item component', () => {
     'use strict';
