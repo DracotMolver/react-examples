@@ -13,14 +13,15 @@
  */
 // -========================== MODULES ==========================-
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
 import VideoDescription from './VideoDescription.jsx';
 import VideoRatePopPup from './VideoRatePopPup.jsx';
 import VideoFullScreen from './VideoFullScreen.jsx';
 import VideoRating from './VideoRating.jsx';
-import videoLoader from './HOC/VideoLoader.jsx';
+import videoLoader from './../HOC/VideoLoader.jsx';
 import VideoThumb from './VideoThumb.jsx';
 
 export class VideoCardItem extends React.Component {
@@ -64,6 +65,15 @@ export class VideoCardItem extends React.Component {
         );
     }
 };
+
+VideoCardItem.propTypes = {
+    description: PropTypes.string,
+    ratings: PropTypes.arrayOf(PropTypes.number),
+    title: PropTypes.string,
+    id: PropTypes.string
+};
+
+// ----------------------------------------------------------------------
 
 class VideoCardBigWrapper extends React.Component {
     constructor(props) {
@@ -149,5 +159,15 @@ class VideoCardBigWrapper extends React.Component {
         );
     }
 }
+
+VideoCardBigWrapper.propTypes = {
+    videoData: PropTypes.shape({
+        description: PropTypes.string,
+        ratings: PropTypes.arrayOf(PropTypes.number),
+        title: PropTypes.sring,
+        url: PropTypes.sring,
+        _id: PropTypes.string
+    })
+};
 
 export const VideoCardBig = videoLoader('videoData')(VideoCardBigWrapper);

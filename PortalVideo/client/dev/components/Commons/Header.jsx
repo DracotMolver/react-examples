@@ -1,18 +1,16 @@
 /**
  * @author Diego Alberto Molina Vera
- * @copyright 2017
+ * @copyright 2017 - 2018
  *
  * @class HeaderComponent - Header of the website
  * Just a simple header where the user can logout later.
  */
 // -========================== MODULES ==========================-
-// HTTP Requests
+import React from 'react';
 import SuperAgent from 'superagent';
 
-import React from 'react';
-
 // -========================== COMPONENTS ==========================-
-import { LogoutForm } from './LoginForm.jsx';
+import { LogoutForm } from './../Login/LoginForm.jsx';
 
 const Header = () => {
     const username = JSON.parse(sessionStorage.getItem('userData')).username

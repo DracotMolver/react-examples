@@ -6,15 +6,13 @@
  * This class display only one video in a full screen mode
  */
 // -========================== MODULES ==========================-
+import React from "react";
 import SuperAgent from 'superagent';
 
-import React from "react";
-
-
 // -========================== COMPONENTS ==========================-
-import Header from './../components/Header.jsx';
-import { VideoCardBig } from './../components/VideoCard.jsx';
-import Message from './../components/Messages.jsx';
+import Header from './../../components/Commons/Header.jsx';
+import { VideoCardBig } from './../../components/Video/VideoCard.jsx';
+import Message from './../../components/Commons/Messages.jsx';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {

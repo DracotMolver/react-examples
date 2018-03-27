@@ -7,10 +7,10 @@ import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
 // -========================== COMPONENTS ==========================-
-import { LoginForm } from './LoginForm.jsx';
-import PrivateRouter from './HOC/PrivateRouter.jsx';
-import VideoListContainer from './../containers/VideoListContainer.jsx';
-import VideoSingleContainer from './../containers/VideoSingleContainer.jsx';
+import { LoginForm } from './../components/Login/LoginForm.jsx';
+import PrivateRouter from './../components/HOC/PrivateRouter.jsx';
+import VideoListContainer from './../containers/VideoList/VideoListContainer.jsx';
+import VideoSingleContainer from './../containers/VideoSingle/VideoSingleContainer.jsx';
 
 const App = () => {
     // Check the session before the rendering happens

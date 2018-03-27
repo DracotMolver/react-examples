@@ -1,6 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
- * @copyright 2017
+ * @copyright 2017 -2018
  *
  * A simple component to disply messages:
  * Error,
@@ -9,6 +9,7 @@
  */
 // -========================== MODULES ==========================-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
 const msgCSSClass = {
@@ -36,6 +37,11 @@ const Message = props => {
             </div>
         </div>
     );
+};
+
+Message.propTypes = {
+    messageText: PropTypes.string,
+    messageText: PropTypes.string
 };
 
 export default Message;

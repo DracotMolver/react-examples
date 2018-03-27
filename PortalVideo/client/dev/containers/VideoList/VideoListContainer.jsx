@@ -10,8 +10,8 @@ import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Header from './../components/Header.jsx';
-import VideoList from './../components/VideoList.jsx';
+import Header from './../../components/Commons/Header.jsx';
+import VideoList from './../../components/Video/VideoList.jsx';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {

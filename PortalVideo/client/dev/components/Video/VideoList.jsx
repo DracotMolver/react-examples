@@ -6,10 +6,11 @@
  */
 // -========================== MODULES ==========================-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import { VideoCardItem } from './VideoCard.jsx';
-import videoLoader from './HOC/VideoLoader.jsx';
+import { VideoCardItem } from './../Video/VideoCard.jsx';
+import videoLoader from './../HOC/VideoLoader.jsx';
 
 const VideoList = props => {
     // Generate the list of videos cards.
@@ -25,6 +26,10 @@ const VideoList = props => {
             </div>
         </div>
     ));
+};
+
+VideoList.propTypes = {
+    videoList: PropTypes.array
 };
 
 export default videoLoader('videoList')(VideoList);

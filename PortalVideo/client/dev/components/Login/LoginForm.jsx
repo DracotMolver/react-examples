@@ -1,6 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
- * @copyright 2017
+ * @copyright 2017 -2018
  *
  * @class  LoginFormComponent - Login form component.
  * This must be the first and only component rendered in the root path "/"
@@ -9,16 +9,12 @@
  * API:  http://localhost:3000/user/auth
  */
 // -========================== MODULES ==========================-
-// HTTP request
+import React from 'react';
 import SuperAgent from 'superagent';
-
-// Hashing using MD5
 import MD5 from 'js-md5';
 
-import React from 'react';
-
 // -========================== COMPONENTS ==========================-
-import MessageComponent from './messages.jsx'
+import Message from './../Commons/Messages.jsx'
 
 /**
  * Form to login to the application.
@@ -145,7 +141,7 @@ export class LoginForm extends React.Component {
                             <span>Video portal</span>
                         </div>
                         <div className="grid-100 grid-parent">
-                            <MessageComponent
+                            <Message
                                 messageText={messageText}
                                 messageType={messageType}
                             />
