@@ -81,6 +81,40 @@ if (false) {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (true) {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(57)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = require('./factoryWithThrowingShims')();
+}
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -142,40 +176,6 @@ if (true) {
 }
 
 module.exports = warning;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-if (true) {
-  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-    Symbol.for &&
-    Symbol.for('react.element')) ||
-    0xeac7;
-
-  var isValidElement = function(object) {
-    return typeof object === 'object' &&
-      object !== null &&
-      object.$$typeof === REACT_ELEMENT_TYPE;
-  };
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(57)(isValidElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = require('./factoryWithThrowingShims')();
-}
 
 
 /***/ }),
@@ -1860,7 +1860,7 @@ var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a
 
 exports.__esModule = true;
 
-var _warning = __webpack_require__(1);
+var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -1958,13 +1958,13 @@ exports.default = createTransitionManager;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2154,7 +2154,7 @@ var matchPath = function matchPath(pathname) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 
 
@@ -2466,7 +2466,7 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
@@ -2585,13 +2585,13 @@ Link.contextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__matchPath__ = __webpack_require__(18);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3137,7 +3137,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(2);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -3268,7 +3268,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(10);
 
-var _propTypes = __webpack_require__(2);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -3336,7 +3336,7 @@ var VideoCardItem = exports.VideoCardItem = function (_React$Component) {
             var _this2 = this;
 
             if (this.props.description === nextProps.description && this.props.ratings.length === nextProps.ratings.length && this.props.ratings.every(function (prevRating, index) {
-                return prevRating === nextProps.ratings[index] && _this2.props.title === nextProps.title;
+                return prevRating === nextProps.ratings[index] && _this2.props.name === nextProps.name;
             })) {
                 return true;
             }
@@ -3349,7 +3349,7 @@ var VideoCardItem = exports.VideoCardItem = function (_React$Component) {
             var _props = this.props,
                 description = _props.description,
                 ratings = _props.ratings,
-                title = _props.title,
+                name = _props.name,
                 id = _props.id;
 
 
@@ -3362,7 +3362,7 @@ var VideoCardItem = exports.VideoCardItem = function (_React$Component) {
                     _react2.default.createElement(
                         'h4',
                         { className: 'video-title' },
-                        title
+                        name
                     )
                 ),
                 _react2.default.createElement(
@@ -3392,7 +3392,7 @@ var VideoCardItem = exports.VideoCardItem = function (_React$Component) {
 VideoCardItem.propTypes = {
     description: _propTypes2.default.string,
     ratings: _propTypes2.default.arrayOf(_propTypes2.default.number),
-    title: _propTypes2.default.string,
+    name: _propTypes2.default.string,
     id: _propTypes2.default.string
 };
 
@@ -3441,7 +3441,7 @@ var VideoCardBigWrapper = function (_React$Component2) {
             var _props$videoData = this.props.videoData,
                 description = _props$videoData.description,
                 ratings = _props$videoData.ratings,
-                title = _props$videoData.title,
+                name = _props$videoData.name,
                 url = _props$videoData.url,
                 _id = _props$videoData._id;
 
@@ -3478,7 +3478,7 @@ var VideoCardBigWrapper = function (_React$Component2) {
                                 _react2.default.createElement(
                                     'h4',
                                     { className: 'video-title' },
-                                    title
+                                    name
                                 )
                             ),
                             _react2.default.createElement(
@@ -3486,24 +3486,20 @@ var VideoCardBigWrapper = function (_React$Component2) {
                                 { className: 'grid-50 grid-parent' },
                                 _react2.default.createElement(
                                     'div',
-                                    { className: 'grid-100 grid-parent' },
+                                    { className: 'grid-80 mobile-grid-70', style: { textAlign: 'right' } },
+                                    _react2.default.createElement(_VideoRating2.default, { ratings: ratings })
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'grid-20 mobile-grid-30' },
                                     _react2.default.createElement(
-                                        'div',
-                                        { className: 'grid-80', style: { textAlign: 'right' } },
-                                        _react2.default.createElement(_VideoRating2.default, { ratings: ratings })
-                                    ),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'grid-20 grid-parent' },
-                                        _react2.default.createElement(
-                                            'button',
-                                            {
-                                                type: 'button',
-                                                className: 'rate-button',
-                                                onClick: this.handleClickRate
-                                            },
-                                            'Rate!'
-                                        )
+                                        'button',
+                                        {
+                                            type: 'button',
+                                            className: 'rate-button',
+                                            onClick: this.handleClickRate
+                                        },
+                                        'Rate!'
                                     )
                                 )
                             )
@@ -3531,7 +3527,7 @@ VideoCardBigWrapper.propTypes = {
     videoData: _propTypes2.default.shape({
         description: _propTypes2.default.string,
         ratings: _propTypes2.default.arrayOf(_propTypes2.default.number),
-        title: _propTypes2.default.sring,
+        name: _propTypes2.default.sring,
         url: _propTypes2.default.sring,
         _id: _propTypes2.default.string
     })
@@ -21055,11 +21051,11 @@ exports.default = App;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__);
@@ -21679,7 +21675,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(1);
+var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -21984,11 +21980,11 @@ exports.default = createBrowserHistory;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createHashHistory__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createHashHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createHashHistory__);
@@ -22056,7 +22052,7 @@ exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(1);
+var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -22391,11 +22387,11 @@ exports.default = createHashHistory;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createMemoryHistory__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createMemoryHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createMemoryHistory__);
@@ -22466,7 +22462,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(1);
+var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -22636,7 +22632,7 @@ exports.default = createMemoryHistory;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Route__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Link__ = __webpack_require__(25);
@@ -23169,7 +23165,7 @@ module.exports = Array.isArray || function (arr) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
@@ -23271,9 +23267,9 @@ Prompt.contextTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
@@ -23404,7 +23400,7 @@ Redirect.contextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -23708,7 +23704,7 @@ var createBrowserHistory = function createBrowserHistory() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -24029,7 +24025,7 @@ var createHashHistory = function createHashHistory() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(11);
@@ -24208,13 +24204,13 @@ var createMemoryHistory = function createMemoryHistory() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_history_PathUtils__);
@@ -24404,9 +24400,9 @@ StaticRouter.childContextTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
@@ -24520,7 +24516,7 @@ Switch.propTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__);
@@ -26813,7 +26809,7 @@ var VideoSingleContainer = function (_React$Component) {
                         // a video. Could show him some shuffles one to watch
                         sessionStorage.setItem('videoList', JSON.stringify(res.body.data.map(function (v) {
                             return { // Extracted from the data base (mongodb)
-                                title: v.name,
+                                name: v.name,
                                 id: v._id
                             };
                         })));
@@ -26851,7 +26847,7 @@ var VideoSingleContainer = function (_React$Component) {
                     _react2.default.createElement(_VideoList2.default, { videoList: this.state.videoList }),
                     _react2.default.createElement(
                         'div',
-                        { className: 'grid-25 zoomInUp-anim' },
+                        { className: 'grid-25 mobile-grid-100 zoomInUp-anim' },
                         _react2.default.createElement(
                             'button',
                             {
@@ -26888,7 +26884,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(2);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -26913,17 +26909,14 @@ var VideoList = function VideoList(props) {
     return props.videoList.map(function (video) {
         return _react2.default.createElement(
             'div',
-            { key: '' + video._id, id: '' + video._id, className: 'video-list-item' },
-            _react2.default.createElement(
-                'div',
-                { className: 'grid-25' },
-                _react2.default.createElement(_VideoCard.VideoCardItem, {
-                    title: video.name,
-                    id: video._id,
-                    description: video.description,
-                    ratings: video.ratings
-                })
-            )
+            { key: '' + video._id, id: '' + video._id,
+                className: 'video-list-item grid-25 mobile-grid-50' },
+            _react2.default.createElement(_VideoCard.VideoCardItem, {
+                name: video.name,
+                id: video._id,
+                description: video.description,
+                ratings: video.ratings
+            })
         );
     });
 };
@@ -26949,26 +26942,36 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * @author Diego Alberto Molina Vera
+ * @copyright 2017 - 2018
+ *
+ * It will display the description of the video
+ */
+// -========================== MODULES ==========================-
 var VideoDescription = function VideoDescription(props) {
     return _react2.default.createElement(
-        "div",
+        'div',
         null,
         _react2.default.createElement(
-            "p",
-            { className: "video-description" },
+            'p',
+            { className: 'video-description' },
             props.description
         ),
-        _react2.default.createElement("div", { className: "line-separator" })
+        _react2.default.createElement('div', { className: 'line-separator' })
     );
-}; /**
-    * @author Diego Alberto Molina Vera
-    * @copyright 2017 - 2018
-    *
-    * It will display the description of the video
-    */
-// -========================== MODULES ==========================-
+};
+
+VideoDescription.propTypes = {
+    description: _propTypes2.default.string
+};
+
 exports.default = VideoDescription;
 
 /***/ }),
@@ -26984,13 +26987,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _superagent = __webpack_require__(7);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _superagent = __webpack_require__(7);
+
+var _superagent2 = _interopRequireDefault(_superagent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27010,7 +27017,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // A common wrapper component as popup
 var PopUpParent = function PopUpParent(props) {
     var handleClickClose = props.handleClickClose,
-        title = props.title;
+        name = props.name;
 
 
     return _react2.default.createElement(
@@ -27033,7 +27040,7 @@ var PopUpParent = function PopUpParent(props) {
             _react2.default.createElement(
                 'h3',
                 null,
-                title
+                name
             )
         ),
         _react2.default.createElement(
@@ -27043,6 +27050,13 @@ var PopUpParent = function PopUpParent(props) {
         )
     );
 };
+
+PopUpParent.propTypes = {
+    name: _propTypes2.default.string,
+    handleClickClose: _propTypes2.default.func
+};
+
+// ------------------------------------------------------------------------
 
 var InitialMessage = function InitialMessage(props) {
     var handleChangeRate = props.handleChangeRate,
@@ -27058,7 +27072,7 @@ var InitialMessage = function InitialMessage(props) {
             { key: 'rate-' + i },
             _react2.default.createElement(
                 'div',
-                { className: 'grid-20' },
+                { className: 'grid-20 mobile-grid-20' },
                 _react2.default.createElement('input', {
                     className: 'option-input',
                     name: 'rateVideo',
@@ -27075,7 +27089,7 @@ var InitialMessage = function InitialMessage(props) {
         PopUpParent,
         {
             handleClickClose: handleClickClose,
-            title: 'How much did you enjoy the video?'
+            name: 'How much did you enjoy the video?'
         },
         _react2.default.createElement(
             'div',
@@ -27105,6 +27119,14 @@ var InitialMessage = function InitialMessage(props) {
     );
 };
 
+InitialMessage.propTypes = {
+    handleChangeRate: _propTypes2.default.func,
+    handleClickClose: _propTypes2.default.func,
+    handleClickDone: _propTypes2.default.func
+};
+
+// ------------------------------------------------------------------------
+
 var SuccessMessage = function SuccessMessage(props) {
     var handleClickClose = props.handleClickClose;
 
@@ -27116,9 +27138,15 @@ var SuccessMessage = function SuccessMessage(props) {
 
     return _react2.default.createElement(PopUpParent, {
         handleClickClose: handleClickClose,
-        title: 'Thanks for rating the video! :)'
+        name: 'Thanks for rating the video! :)'
     });
 };
+
+SuccessMessage.propTypes = {
+    handleClickClose: _propTypes2.default.func
+};
+
+// ------------------------------------------------------------------------
 
 var VideoRatePopPup = function (_React$Component) {
     _inherits(VideoRatePopPup, _React$Component);
@@ -27153,7 +27181,9 @@ var VideoRatePopPup = function (_React$Component) {
         key: 'handleClickClose',
         value: function handleClickClose() {
             this.setState({
-                isSuccess: false
+                isSuccess: false,
+                value: 0,
+                id: ''
             });
 
             // Belongs to the parent - VideoCardBigWrapper
@@ -27175,6 +27205,7 @@ var VideoRatePopPup = function (_React$Component) {
                 'videoId': idToRate,
                 'rating': this.state.value
             }).end(function (err, res) {
+                console.log(JSON.parse(res.text).data.ratings.length);
                 if (err) {
                     _this2.setState({
                         isSuccess: false
@@ -27228,6 +27259,13 @@ var VideoRatePopPup = function (_React$Component) {
 
 exports.default = VideoRatePopPup;
 
+
+VideoRatePopPup.propTypes = {
+    hidePopUp: _propTypes2.default.func,
+    idToRate: _propTypes2.default.string,
+    displayPopUp: _propTypes2.default.bool
+};
+
 /***/ }),
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -27243,34 +27281,44 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * @author Diego Alberto Molina Vera
+ * @copyright 2017 - 2018
+ *
+ * it will get the video to render it
+ */
+// -========================== MODULES ==========================-
 var VideoFullScreen = function VideoFullScreen(props) {
     return _react2.default.createElement(
-        "div",
-        { className: "video-full-screen" },
+        'div',
+        { className: 'video-full-screen' },
         _react2.default.createElement(
-            "video",
+            'video',
             {
-                className: "video-source-container",
-                height: "auto",
-                width: "100%",
-                controls: "true" },
-            _react2.default.createElement("source", { src: props.url, type: "video/mp4" })
+                className: 'video-source-container',
+                height: 'auto',
+                width: '100%',
+                controls: 'true' },
+            _react2.default.createElement('source', { src: props.url, type: 'video/mp4' })
         ),
         _react2.default.createElement(
-            "div",
-            { className: "video-hover" },
-            "Play!"
+            'div',
+            { className: 'video-hover' },
+            'Play!'
         )
     );
-}; /**
-    * @author Diego Alberto Molina Vera
-    * @copyright 2017 - 2018
-    *
-    * it will get the video to render it
-    */
-// -========================== MODULES ==========================-
+};
+
+VideoFullScreen.propTypes = {
+    url: _propTypes2.default.string
+};
+
 exports.default = VideoFullScreen;
 
 /***/ }),
@@ -27288,10 +27336,22 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * @author Diego Alberto Molina Vera
+ * @copyright 2017 - 2018
+ *
+ * It will show the amount of rating filling the starts.
+ */
+// -========================== MODULES ==========================-
 var VideoRating = function VideoRating(props) {
     var ratings = props.ratings;
+
 
     var getPercentRating = function getPercentRating() {
         var total = ratings.reduce(function (a, b) {
@@ -27301,20 +27361,19 @@ var VideoRating = function VideoRating(props) {
     };
 
     return _react2.default.createElement(
-        "div",
-        { className: "video-img" },
-        _react2.default.createElement("div", {
-            className: "video-img-rating",
-            style: { width: getPercentRating() + "%" } }),
-        _react2.default.createElement("img", { srcSet: "output/stars.png", width: "100%", height: "100%" })
+        'div',
+        { className: 'video-img' },
+        _react2.default.createElement('div', {
+            className: 'video-img-rating',
+            style: { width: getPercentRating() + '%' } }),
+        _react2.default.createElement('img', { srcSet: 'output/stars.png', width: '100%', height: '100%' })
     );
-}; /**
-    * @author Diego Alberto Molina Vera
-    * @copyright 2017 - 2018
-    *
-    * It will show the amount of rating filling the starts.
-    */
-// -========================== MODULES ==========================-
+};
+
+VideoRating.propTypes = {
+    ratings: _propTypes2.default.arrayOf(_propTypes2.default.number)
+};
+
 exports.default = VideoRating;
 
 /***/ }),
@@ -27334,15 +27393,12 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(10);
 
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * @author Diego Alberto Molina Vera
- * @copyright 2017 - 2018
- *
- * The small image of the video
- */
-// -========================== MODULES ==========================-
 var VideoThumb = function VideoThumb(props) {
     var description = props.description,
         id = props.id;
@@ -27357,6 +27413,18 @@ var VideoThumb = function VideoThumb(props) {
             _react2.default.createElement('img', { src: '', alt: description })
         )
     );
+}; /**
+    * @author Diego Alberto Molina Vera
+    * @copyright 2017 - 2018
+    *
+    * The small image of the video
+    */
+// -========================== MODULES ==========================-
+
+
+VideoThumb.propTypes = {
+    description: _propTypes2.default.string,
+    id: _propTypes2.default.string
 };
 
 exports.default = VideoThumb;

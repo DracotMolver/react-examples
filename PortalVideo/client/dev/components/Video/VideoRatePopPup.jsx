@@ -5,15 +5,15 @@
  * This component will render a popup dialog to rate the video
  */
 // -========================== MODULES ==========================-
-import SuperAgent from 'superagent';
-
 import React from 'react';
+import PropTypes from 'prop-types';
+import SuperAgent from 'superagent';
 
 // A common wrapper component as popup
 const PopUpParent = props => {
     const {
         handleClickClose,
-        title
+        name
     } = props;
 
     return (
@@ -26,7 +26,7 @@ const PopUpParent = props => {
                 </div>
             </div>
             <div className="grid-100">
-                <h3>{title}</h3>
+                <h3>{name}</h3>
             </div>
             <div className="grid-100 grid-parent">
                 {props.children}
@@ -34,6 +34,13 @@ const PopUpParent = props => {
         </div>
     );
 }
+
+PopUpParent.propTypes = {
+    name: PropTypes.string,
+    handleClickClose: PropTypes.func
+};
+
+// ------------------------------------------------------------------------
 
 const InitialMessage = props => {
     const {
@@ -47,7 +54,7 @@ const InitialMessage = props => {
     for (let i = 0; i < 5; i++) {
         inputs.push(
             <div key={`rate-${i}`}>
-                <div className="grid-20">
+                <div className="grid-20 mobile-grid-20">
                     <input
                         className="option-input"
                         name="rateVideo"
@@ -64,7 +71,7 @@ const InitialMessage = props => {
     return (
         <PopUpParent
             handleClickClose={handleClickClose}
-            title="How much did you enjoy the video?"
+            name="How much did you enjoy the video?"
         >
             <div>
                 <div className="grid-100 rate-stars-input">
@@ -85,6 +92,14 @@ const InitialMessage = props => {
     );
 };
 
+InitialMessage.propTypes = {
+    handleChangeRate: PropTypes.func,
+    handleClickClose: PropTypes.func,
+    handleClickDone: PropTypes.func
+};
+
+// ------------------------------------------------------------------------
+
 const SuccessMessage = props => {
     const {
         handleClickClose
@@ -97,9 +112,15 @@ const SuccessMessage = props => {
 
     return <PopUpParent
         handleClickClose={handleClickClose}
-        title="Thanks for rating the video! :)"
+        name="Thanks for rating the video! :)"
     />;
 };
+
+SuccessMessage.propTypes = {
+    handleClickClose: PropTypes.func
+};
+
+// ------------------------------------------------------------------------
 
 export default class VideoRatePopPup extends React.Component {
     constructor(props) {
@@ -126,7 +147,9 @@ export default class VideoRatePopPup extends React.Component {
 
     handleClickClose() {
         this.setState({
-            isSuccess: false
+            isSuccess: false,
+            value: 0,
+            id: ''
         });
 
         // Belongs to the parent - VideoCardBigWrapper
@@ -195,3 +218,9 @@ export default class VideoRatePopPup extends React.Component {
         );
     }
 }
+
+VideoRatePopPup.propTypes = {
+    hidePopUp: PropTypes.func,
+    idToRate: PropTypes.string,
+    displayPopUp: PropTypes.bool
+};
