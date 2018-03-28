@@ -6,6 +6,7 @@
  */
 // -========================== MODULES ==========================-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const VideoFullScreen = props =>
     <div className="video-full-screen">
@@ -18,5 +19,9 @@ const VideoFullScreen = props =>
         </video>
         <div className="video-hover" >Play!</div>
     </div>;
+
+VideoFullScreen.propTypes = {
+    url: PropTypes.string
+};
 
 export default VideoFullScreen;

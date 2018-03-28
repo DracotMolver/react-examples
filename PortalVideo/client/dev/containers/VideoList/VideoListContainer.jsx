@@ -65,7 +65,7 @@ export default class VideoSingleContainer extends React.Component {
                             JSON.stringify(
                                 res.body.data.map(v =>
                                     ({ // Extracted from the data base (mongodb)
-                                        title: v.name,
+                                        name: v.name,
                                         id: v._id
                                     })
                                 )
@@ -96,7 +96,7 @@ export default class VideoSingleContainer extends React.Component {
                 <Header />
                 <div className="grid-container">
                     <VideoList videoList={this.state.videoList} />
-                    <div className="grid-25 zoomInUp-anim">
+                    <div className="grid-25 mobile-grid-100 zoomInUp-anim">
                         <button
                             onClick={this.getMoreVideos}
                             id="show-more"

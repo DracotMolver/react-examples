@@ -15,15 +15,14 @@ import videoLoader from './../HOC/VideoLoader.jsx';
 const VideoList = props => {
     // Generate the list of videos cards.
     return props.videoList.map(video => (
-        <div key={`${video._id}`} id={`${video._id}`} className="video-list-item">
-            <div className="grid-25">
-                <VideoCardItem
-                    title={video.name}
-                    id={video._id}
-                    description={video.description}
-                    ratings={video.ratings}
-                />
-            </div>
+        <div key={`${video._id}`} id={`${video._id}`}
+            className="video-list-item grid-25 mobile-grid-50">
+            <VideoCardItem
+                name={video.name}
+                id={video._id}
+                description={video.description}
+                ratings={video.ratings}
+            />
         </div>
     ));
 };

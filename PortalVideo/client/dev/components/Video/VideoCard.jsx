@@ -29,7 +29,7 @@ export class VideoCardItem extends React.Component {
         if (this.props.description === nextProps.description &&
             this.props.ratings.length === nextProps.ratings.length &&
             this.props.ratings.every((prevRating, index) => prevRating === nextProps.ratings[index] &&
-                this.props.title === nextProps.title)
+                this.props.name === nextProps.name)
         ) {
             return true;
         }
@@ -41,7 +41,7 @@ export class VideoCardItem extends React.Component {
         const {
             description,
             ratings,
-            title,
+            name,
             id
         } = this.props;
 
@@ -49,7 +49,7 @@ export class VideoCardItem extends React.Component {
             <div className="grid-100 video-container shadow zoomInUp-anim">
                 <div className="grid-100">
                     <h4 className="video-title">
-                        {title}
+                        {name}
                     </h4>
                 </div>
                 <div className="grid-100">
@@ -69,7 +69,7 @@ export class VideoCardItem extends React.Component {
 VideoCardItem.propTypes = {
     description: PropTypes.string,
     ratings: PropTypes.arrayOf(PropTypes.number),
-    title: PropTypes.string,
+    name: PropTypes.string,
     id: PropTypes.string
 };
 
@@ -105,7 +105,7 @@ class VideoCardBigWrapper extends React.Component {
         const {
             description,
             ratings,
-            title,
+            name,
             url,
             _id
         } = this.props.videoData;
@@ -127,23 +127,21 @@ class VideoCardBigWrapper extends React.Component {
                         <div className="grid-100 grid-parent">
                             <div className="grid-50">
                                 <h4 className="video-title">
-                                    {title}
+                                    {name}
                                 </h4>
                             </div>
                             <div className="grid-50 grid-parent">
-                                <div className="grid-100 grid-parent">
-                                    <div className="grid-80" style={{ textAlign: 'right' }}>
-                                        <VideoRating ratings={ratings} />
-                                    </div>
-                                    <div className="grid-20 grid-parent">
-                                        <button
-                                            type="button"
-                                            className="rate-button"
-                                            onClick={this.handleClickRate}
-                                        >
-                                            Rate!
-                                        </button>
-                                    </div>
+                                <div className="grid-80 mobile-grid-70" style={{ textAlign: 'right' }}>
+                                    <VideoRating ratings={ratings} />
+                                </div>
+                                <div className="grid-20 mobile-grid-30">
+                                    <button
+                                        type="button"
+                                        className="rate-button"
+                                        onClick={this.handleClickRate}
+                                    >
+                                        Rate!
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +162,7 @@ VideoCardBigWrapper.propTypes = {
     videoData: PropTypes.shape({
         description: PropTypes.string,
         ratings: PropTypes.arrayOf(PropTypes.number),
-        title: PropTypes.sring,
+        name: PropTypes.sring,
         url: PropTypes.sring,
         _id: PropTypes.string
     })

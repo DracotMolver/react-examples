@@ -7,6 +7,7 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const VideoThumb = props => {
     const {
@@ -21,6 +22,11 @@ const VideoThumb = props => {
             </div>
         </Link>
     );
+};
+
+VideoThumb.propTypes ={
+    description: PropTypes.string,
+    id: PropTypes.string
 };
 
 export default VideoThumb;

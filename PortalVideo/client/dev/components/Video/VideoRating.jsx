@@ -6,9 +6,10 @@
  */
 // -========================== MODULES ==========================-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const VideoRating = props => {
-    const ratings = props.ratings;
+    const { ratings } = props;
 
     const getPercentRating = () => {
         const total = ratings.reduce((a, b) => a + b, 0);
@@ -19,11 +20,15 @@ const VideoRating = props => {
         <div className="video-img">
             <div
                 className="video-img-rating"
-                style={{ width: `${getPercentRating()}%`}}>
+                style={{ width: `${getPercentRating()}%` }}>
             </div>
             <img srcSet="output/stars.png" width="100%" height="100%" />
         </div>
     );
+};
+
+VideoRating.propTypes = {
+    ratings: PropTypes.arrayOf(PropTypes.number)
 };
 
 export default VideoRating;

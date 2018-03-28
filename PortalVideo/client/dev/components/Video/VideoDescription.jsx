@@ -6,6 +6,7 @@
  */
 // -========================== MODULES ==========================-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const VideoDescription = props =>
     <div>
@@ -14,5 +15,9 @@ const VideoDescription = props =>
         </p>
         <div className="line-separator"></div>
     </div>;
+
+VideoDescription.propTypes = {
+    description: PropTypes.string
+};
 
 export default VideoDescription;
