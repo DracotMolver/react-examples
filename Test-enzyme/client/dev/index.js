@@ -6,4 +6,4 @@ import Hello from './components/Hello.js';
 ReactDOM.render(
     <Hello />,
     document.getElementById('root')
-)
+);
