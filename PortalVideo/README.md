@@ -2,7 +2,7 @@
 This is just a demo that I had to do to apply for a job.
 *(If you wanna know the story... I didn't get the job because I had no idea how to make a test using Karma. Well, we are all learning)*.
 
-The app use `NodeJS`, `ExpressJS` and `MongoDB`
+The app use `NodeJS`, `ExpressJS` and `MongoDB`. It was made using NodeJS `8.10.0` and MongoDB `3.6.2`
 
 I also included webpack. I did a simple configuration that works well for this small app. But for complex larges apps, you have to find out the way to make you app faster and better :).
 
@@ -27,7 +27,3 @@ The password is the same for all the users: *react123*
     * ali
     * harry
     * tom
-
-## TODO
-* Add shuffle videos to watch when the user is watching a different video.
-* Update the rate - realtime - when the user is rating.
