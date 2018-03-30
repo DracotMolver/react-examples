@@ -10,16 +10,18 @@ import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import { LogoutForm } from './../Login/LoginForm.jsx';
+import { GREETINGS } from './../../constants/Strings';
+import { LogoutForm } from './../Login/LoginForm';
+import { USER_DATA } from '../../constants/Storage';
 
 const Header = () => {
-    const username = JSON.parse(sessionStorage.getItem('userData')).username
+    const username = JSON.parse(sessionStorage.getItem(USER_DATA)).username;
 
     return (
         <div className="grid-100 grid-parent header-nav">
             <div className="grid-container">
                 <header>
-                    <span>Hi! {username}</span>
+                    <span>{GREETINGS} {username}</span>
                     <LogoutForm />
                 </header>
             </div>

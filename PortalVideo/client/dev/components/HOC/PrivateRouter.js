@@ -8,14 +8,15 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { USER_DATA } from '../../constants/Storage';
 
-const isAuthenticated = () => !!JSON.parse(sessionStorage.getItem('userData'));
+const isAuthenticated = () => !!JSON.parse(sessionStorage.getItem(USER_DATA));
 
 const PrivateRouter = ({ component: Component, ...rest }) =>
     isAuthenticated()
         ? <Route {...rest} render={props => (
-            <Component {...props} />)
-        } />
+            <Component {...props} />
+        )} />
         : <Redirect to="/" />;
 
 export default PrivateRouter;

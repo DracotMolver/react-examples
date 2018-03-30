@@ -7,14 +7,16 @@ import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
 // -========================== COMPONENTS ==========================-
-import { LoginForm } from './../components/Login/LoginForm.jsx';
-import PrivateRouter from './../components/HOC/PrivateRouter.jsx';
-import VideoListContainer from './../containers/VideoList/VideoListContainer.jsx';
-import VideoSingleContainer from './../containers/VideoSingle/VideoSingleContainer.jsx';
+import { LoginForm } from './../components/Login/LoginForm';
+import PrivateRouter from './../components/HOC/PrivateRouter';
+import VideoListContainer from './../containers/VideoList/VideoListContainer';
+import VideoSingleContainer from './../containers/VideoSingle/VideoSingleContainer';
+import { USER_DATA } from '../constants/Storage';
+import { VIDEO_LIST_URL } from '../constants/Paths';
 
 const App = () => {
     // Check the session before the rendering happens
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
 
     return (
         <HashRouter>
@@ -22,11 +24,11 @@ const App = () => {
                 <Route exact path="/" component={LoginForm} />
                 <PrivateRouter
                     exact
-                    path="/videos-list"
+                    path={VIDEO_LIST_URL}
                     component={VideoListContainer}
                 />
                 <PrivateRouter
-                    path="/videos-list/:id"
+                    path={`${VIDEO_LIST_URL}/:id`}
                     component={VideoSingleContainer}
                 />
             </Switch>

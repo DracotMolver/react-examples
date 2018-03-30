@@ -8,6 +8,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { VIDEO_LIST_URL } from '../../constants/Paths';
 
 const VideoThumb = props => {
     const {
@@ -16,7 +17,7 @@ const VideoThumb = props => {
     } = props;
 
     return (
-        <Link to={`/videos-list/${id}`}>
+        <Link to={`${VIDEO_LIST_URL}/${id}`}>
             <div className="video-thumb">
                 <img src="" alt={description} />
             </div>

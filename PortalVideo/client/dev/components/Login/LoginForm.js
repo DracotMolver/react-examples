@@ -14,7 +14,20 @@ import SuperAgent from 'superagent';
 import MD5 from 'js-md5';
 
 // -========================== COMPONENTS ==========================-
-import Message from './../Commons/Messages.jsx'
+import Message from './../Commons/Messages.js';
+import {
+    DEFAULT_LOGIN_MESSAGE,
+    USER_AND_PASS_ERROR,
+    FORM_LOGOUT_LABEL,
+    FORM_LOGIN_LABEL,
+    INPUT_USER_LABEL,
+    INPUT_PASS_LABEL,
+    FORM_LOGIN_TITLE,
+    TYPE_WARNING,
+    TYPE_ERROR,
+} from './../../constants/Strings';
+import { LOGOUT_URL, VIDEO_LIST_URL, AUTH_URL } from '../../constants/Paths.js';
+import { USER_DATA } from '../../constants/Storage.js';
 
 /**
  * Form to login to the application.
@@ -35,18 +48,18 @@ export class LoginForm extends React.Component {
     }
 
     // -============================ OWN EVENTS ============================-
-    handleSubmitForm(e) {
-        e.preventDefault();
+    handleSubmitForm(event) {
+        event.preventDefault();
 
         const {
             username,
             password
-        } = this.refs
+        } = this.refs;
 
         if (password.value.length > 2 && username.value.length > 2) {
             // make a request to the API
             // http://localhost:3000/user/auth
-            SuperAgent.post('/user/auth')
+            SuperAgent.post(AUTH_URL)
                 .type('form') // Shorthand to use the content type as: application/x-www-form-urlencoded
                 .send({
                     'username': username.value,
@@ -55,40 +68,43 @@ export class LoginForm extends React.Component {
                 .end((err, res) => {
                     if (err) {
                         this.setState({
-                            messageText: 'There was an error. Please, try later',
-                            messageType: 'error'
+                            messageText: DEFAULT_LOGIN_MESSAGE,
+                            messageType: TYPE_ERROR
                         });
                     } else {
                         // Save in sessionStorage the params returned by the server
                         // Just in case the user refresh the website
                         if (res.body.status === 'success') {
-                            sessionStorage.setItem('userData', JSON.stringify(res.body));
-                            this.props.history.push('videos-list');
+                            sessionStorage.setItem(
+                                USER_DATA,
+                                JSON.stringify(res.body)
+                            );
+                            this.props.history.push(VIDEO_LIST_URL);
                         } else {
                             this.setState({
                                 messageText: res.body.error,
-                                messageType: 'error'
+                                messageType: TYPE_ERROR
                             });
                         }
                     }
                 });
         } else {
             this.setState({
-                messageText: 'The Username and the Password field can\'t be empty',
-                messageType: 'warning'
+                messageText: USER_AND_PASS_ERROR,
+                messageType: TYPE_WARNING
             });
         }
 
-        // leav the focus always in the user name input
+        // leave the focus always in the user name input
         username.focus();
     }
 
     // Small animation in the input filed
-    handlerFocusInputs(e) {
-        let element = e.target;
+    handlerFocusInputs(event) {
+        const element = event.currentTarget;
 
         if (!element.id.includes('lbl')) { // Does not has lbl class
-            let label = document.getElementById(`lbl-${e.target.id}`);
+            const label = document.getElementById(`lbl-${event.target.id}`);
             label.classList.contains('login-form-label-anim') || (
                 label.classList.add('login-form-label-anim'),
                 element.classList.add('login-form-input-active')
@@ -102,10 +118,9 @@ export class LoginForm extends React.Component {
         }
     }
 
-    handlerBlurInputs(e) {
+    handlerBlurInputs(event) {
         // It works along with handlerFocus function
-        let element = e.target;
-
+        const element = event.currentTarget;
         !!element.value.length || (
             element.classList.remove('login-form-input-active'),
             document.getElementById(`lbl-${element.id}`)
@@ -138,7 +153,7 @@ export class LoginForm extends React.Component {
                 <div className="grid-40 grid-parent login-form shadow">
                     <form onSubmit={this.handleSubmitForm}>
                         <div className="grid-100 grid-parent login-form-title">
-                            <span>Video portal</span>
+                            <span>{FORM_LOGIN_TITLE}</span>
                         </div>
                         <div className="grid-100 grid-parent">
                             <Message
@@ -152,7 +167,7 @@ export class LoginForm extends React.Component {
                                 id="lbl-username"
                                 className="login-form-label"
                                 htmlFor="username">
-                                User name
+                                {INPUT_USER_LABEL}
                             </label>
                         </div>
                         <div className="grid-100">
@@ -171,7 +186,7 @@ export class LoginForm extends React.Component {
                                 id="lbl-password"
                                 className="login-form-label"
                                 htmlFor="password">
-                                Password
+                                {INPUT_PASS_LABEL}
                             </label>
                         </div>
                         <div className="grid-100">
@@ -186,7 +201,7 @@ export class LoginForm extends React.Component {
                         </div>
                         <div className="grid-100">
                             <button className="button shadow" type="submit">
-                                Login
+                                {FORM_LOGIN_LABEL}
                             </button>
                         </div>
                     </form>
@@ -202,10 +217,10 @@ export class LoginForm extends React.Component {
  */
 export const LogoutForm = () => {
     const handleClickButtonForm = () => {
-        const userData = JSON.parse(sessionStorage.getItem('userData'));
+        const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
 
         if (userData) {
-            SuperAgent.get('/user/logout')
+            SuperAgent.get(LOGOUT_URL)
                 .type('form')
                 .query({
                     'sessionId': userData.sessionId
@@ -225,7 +240,7 @@ export const LogoutForm = () => {
 
     return (
         <button type="button" onClick={handleClickButtonForm}>
-            Log out
+            {FORM_LOGOUT_LABEL}
         </button>
     );
 };

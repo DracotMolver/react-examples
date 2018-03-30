@@ -10,8 +10,11 @@ import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Header from './../../components/Commons/Header.jsx';
-import VideoList from './../../components/Video/VideoList.jsx';
+import Header from './../../components/Commons/Header';
+import VideoList from './../../components/Video/VideoList';
+import { LOAD_VIDEOS_ERROR, TYPE_ERROR, TYPE_WARNING, LOAD_VIDEOS_BUTTON } from '../../constants/Strings';
+import { VIDEO_LIST_DATA, USER_DATA } from '../../constants/Storage';
+import { VIDEOS_URL } from '../../constants/Paths';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {
@@ -20,7 +23,7 @@ export default class VideoSingleContainer extends React.Component {
         this.state = {
             messageType: '',
             messageText: '',
-            lastValue: 10, // The last video on the list
+            lastValue: 5, // The last video on the list
             videoList: [] // A list container of the videos,
         }
 
@@ -39,46 +42,47 @@ export default class VideoSingleContainer extends React.Component {
         // Check always for the session
         // The list of videos are stored in the session
         // because if you refresh the browser, the list will be reseted.
-        const userData = JSON.parse(sessionStorage.getItem('userData'));
+        const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
 
         // Fetch the data from the API
         // http://localhost:3000/videos
         // ------------------------------
         // Get the last 9 videos
-        SuperAgent.get('/videos')
+        SuperAgent.get(VIDEOS_URL)
             .query({
                 sessionId: userData.sessionId.toString(),
-                skip: lastValue - 9,
+                skip: lastValue - 4 ,
                 limit: lastValue
             })
             .end((err, res) => {
                 if (err) {
                     this.setState({
-                        messageText: 'There was an error trying to load the videos. Please, try later',
-                        messageType: 'error'
+                        messageText: LOAD_VIDEOS_ERROR,
+                        messageType: TYPE_ERROR
                     });
                 } else {
                     if (res.body.status === 'success') {
+                        // #TODO
                         // Save all the ids to use them later when the user clicks on
                         // a video. Could show him some shuffles one to watch
-                        sessionStorage.setItem('videoList',
-                            JSON.stringify(
-                                res.body.data.map(v =>
-                                    ({ // Extracted from the data base (mongodb)
-                                        name: v.name,
-                                        id: v._id
-                                    })
-                                )
-                            )
-                        );
+                        // sessionStorage.setItem(VIDEO_LIST_DATA,
+                        //     JSON.stringify(
+                        //         res.body.data.map(v =>
+                        //             ({ // Extracted from the data base (mongodb)
+                        //                 name: v.name,
+                        //                 id: v._id
+                        //             })
+                        //         )
+                        //     )
+                        // );
 
                         this.setState({
                             videoList: videoList.concat(res.body.data)
                         });
                     } else {
                         this.setState({
-                            messageText: 'We can\t load some videos now. Sorry',
-                            messageType: 'warning'
+                            messageText: LOAD_VIDEOS_ERROR,
+                            messageType: TYPE_WARNING
                         });
                     }
                 }
@@ -103,7 +107,7 @@ export default class VideoSingleContainer extends React.Component {
                             className="button shadow"
                             type="button"
                         >
-                            Show me more videos!
+                            {LOAD_VIDEOS_BUTTON}
                         </button>
                     </div>
                 </div>

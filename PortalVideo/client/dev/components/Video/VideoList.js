@@ -9,12 +9,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import { VideoCardItem } from './../Video/VideoCard.jsx';
-import videoLoader from './../HOC/VideoLoader.jsx';
+import { VideoCardItem } from './../Video/VideoCard';
+import videoLoader from './../HOC/VideoLoader';
 
-const VideoList = props => {
-    // Generate the list of videos cards.
-    return props.videoList.map(video => (
+// Generate the list of videos cards.
+const VideoList = props =>
+    props.videoList.map(video =>
         <div key={`${video._id}`} id={`${video._id}`}
             className="video-list-item grid-25 mobile-grid-50">
             <VideoCardItem
@@ -24,8 +24,7 @@ const VideoList = props => {
                 ratings={video.ratings}
             />
         </div>
-    ));
-};
+    );
 
 VideoList.propTypes = {
     videoList: PropTypes.array

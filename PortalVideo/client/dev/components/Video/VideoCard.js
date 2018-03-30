@@ -17,24 +17,38 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import VideoDescription from './VideoDescription.jsx';
-import VideoRatePopPup from './VideoRatePopPup.jsx';
-import VideoFullScreen from './VideoFullScreen.jsx';
-import VideoRating from './VideoRating.jsx';
-import videoLoader from './../HOC/VideoLoader.jsx';
-import VideoThumb from './VideoThumb.jsx';
+import VideoDescription from './VideoDescription';
+import VideoRatePopPup from './VideoRatePopPup';
+import VideoFullScreen from './VideoFullScreen';
+import VideoRating from './VideoRating';
+import videoLoader from './../HOC/VideoLoader';
+import VideoThumb from './VideoThumb';
+import { BACK_BUTTON, RATE_BUTTON } from '../../constants/Strings';
+import { VIDEO_LIST_URL } from '../../constants/Paths';
 
 export class VideoCardItem extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.description === nextProps.description &&
-            this.props.ratings.length === nextProps.ratings.length &&
-            this.props.ratings.every((prevRating, index) => prevRating === nextProps.ratings[index] &&
-                this.props.name === nextProps.name)
+        const {
+            description: prevDescription,
+            ratings: prevRatings,
+            name: prevName
+        } = this.props;
+
+        const {
+            description: nextDescription,
+            ratings: nextRatings,
+            name: nextName
+        } = nextProps;
+
+        if (prevDescription === nextDescription &&
+            prevRatings.length === nextRatings.length &&
+            prevRatings.every((prevRating, index) => prevRating === nextRatings[index] &&
+                prevName === nextName)
         ) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     render() {
@@ -119,8 +133,8 @@ class VideoCardBigWrapper extends React.Component {
                 />
                 <div className="grid-container">
                     <div className="grid-100">
-                        <Link className="back-arrow" to="/videos-list">
-                            &larr; Back to the list
+                        <Link className="back-arrow" to={VIDEO_LIST_URL}>
+                            &larr; {BACK_BUTTON}
                         </Link>
                     </div>
                     <div className="grid-100 grid-parent video-container shadow">
@@ -140,7 +154,7 @@ class VideoCardBigWrapper extends React.Component {
                                         className="rate-button"
                                         onClick={this.handleClickRate}
                                     >
-                                        Rate!
+                                        {RATE_BUTTON}
                                     </button>
                                 </div>
                             </div>

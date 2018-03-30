@@ -8,6 +8,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SuperAgent from 'superagent';
+import {
+    POPUP_TITLE_SUCCESS,
+    POPUP_TITLE_INITIAL,
+    CLOSE_BUTTON,
+    POPUP_BUTTON
+} from '../../constants/Strings';
+import { USER_DATA } from '../../constants/Storage';
+import { VIDEO_RATING_URL } from '../../constants/Paths';
 
 // A common wrapper component as popup
 const PopUpParent = props => {
@@ -22,7 +30,7 @@ const PopUpParent = props => {
                 <div className="rate-close-popup"
                     onClick={handleClickClose}
                 >
-                    Close &#10005;
+                    {CLOSE_BUTTON} &#10005;
                 </div>
             </div>
             <div className="grid-100">
@@ -71,7 +79,7 @@ const InitialMessage = props => {
     return (
         <PopUpParent
             handleClickClose={handleClickClose}
-            name="How much did you enjoy the video?"
+            name={POPUP_TITLE_INITIAL}
         >
             <div>
                 <div className="grid-100 rate-stars-input">
@@ -83,7 +91,7 @@ const InitialMessage = props => {
                             className="button shadow"
                             onClick={handleClickDone}
                         >
-                            Done!
+                            {POPUP_BUTTON}
                         </button>
                     </div>
                 </div>
@@ -110,9 +118,14 @@ const SuccessMessage = props => {
         clearTimeout(time);
     }, 2600);
 
+    const closePopUp = () => {
+        handleClickClose();
+        clearTimeout(time);
+    };
+
     return <PopUpParent
-        handleClickClose={handleClickClose}
-        name="Thanks for rating the video! :)"
+        handleClickClose={closePopUp}
+        name={POPUP_TITLE_SUCCESS}
     />;
 };
 
@@ -139,9 +152,9 @@ export default class VideoRatePopPup extends React.Component {
 
     // -============================ OWN EVENTS ============================-
 
-    handleChangeRate(e) {
+    handleChangeRate(event) {
         this.setState({
-            value: e.currentTarget.value
+            value: event.currentTarget.value
         });
     }
 
@@ -162,10 +175,10 @@ export default class VideoRatePopPup extends React.Component {
             idToRate
         } = this.props;
 
-        SuperAgent.post('/video/ratings')
+        SuperAgent.post(VIDEO_RATING_URL)
             .type('form')
             .query({
-                'sessionId': JSON.parse(sessionStorage.getItem('userData')).sessionId
+                'sessionId': JSON.parse(sessionStorage.getItem(USER_DATA)).sessionId
             })
             .send({
                 'videoId': idToRate,

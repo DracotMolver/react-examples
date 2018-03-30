@@ -10,9 +10,12 @@ import React from "react";
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Header from './../../components/Commons/Header.jsx';
-import { VideoCardBig } from './../../components/Video/VideoCard.jsx';
-import Message from './../../components/Commons/Messages.jsx';
+import Header from './../../components/Commons/Header';
+import { VideoCardBig } from './../../components/Video/VideoCard';
+import Message from './../../components/Commons/Messages';
+import { LOAD_VIDEOS_ERROR, TYPE_ERROR } from "../../constants/Strings";
+import { USER_DATA } from "../../constants/Storage";
+import { VIDEO_URL, VIDEO_LIST_URL } from "../../constants/Paths";
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {
@@ -29,13 +32,13 @@ export default class VideoSingleContainer extends React.Component {
 
     // -============================ OWN EVENTS ============================-
     getVideoData() {
-        const userData = JSON.parse(sessionStorage.getItem('userData'));
+        const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
 
         const {
             videoData
         } = this.state;
 
-        SuperAgent.get('/video')
+        SuperAgent.get(VIDEO_URL)
             .query({
                 sessionId: userData.sessionId,
                 videoId: this.props.match.params.id // Match allow us to get the data from the URL
@@ -43,7 +46,7 @@ export default class VideoSingleContainer extends React.Component {
             .end((err, res) => {
                 // Redirect to the home if the sessión doesn't exist
                 if (err) {
-                    this.props.history.push('/videos-list');
+                    this.props.history.push(VIDEO_LIST_URL);
                 } else {
                     if (res.body.status === 'success') {
                         this.setState({
@@ -51,8 +54,8 @@ export default class VideoSingleContainer extends React.Component {
                         });
                     } else {
                         this.setState({
-                            messageText: 'There was an error trying to load the videos. Please, try later.',
-                            messageType: 'error'
+                            messageText: LOAD_VIDEOS_ERROR,
+                            messageType: TYPE_ERROR
                         });
                     }
                 }

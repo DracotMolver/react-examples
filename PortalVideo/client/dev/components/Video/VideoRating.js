@@ -12,8 +12,8 @@ const VideoRating = props => {
     const { ratings } = props;
 
     const getPercentRating = () => {
-        const total = ratings.reduce((a, b) => a + b, 0);
-        return ((100 * total) / (ratings.length * 5)).toString();
+        const total = ratings.reduce((ratingA, ratingB) => ratingA + ratingB);
+        return (total * (ratings.length * 5) / 100).toString();
     };
 
     return (

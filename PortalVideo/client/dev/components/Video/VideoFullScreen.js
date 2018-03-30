@@ -7,6 +7,7 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PLAY_BUTTON } from '../../constants/Strings';
 
 const VideoFullScreen = props =>
     <div className="video-full-screen">
@@ -17,7 +18,7 @@ const VideoFullScreen = props =>
             controls="true">
             <source src={props.url} type="video/mp4"></source>
         </video>
-        <div className="video-hover" >Play!</div>
+        <div className="video-hover" >{PLAY_BUTTON}</div>
     </div>;
 
 VideoFullScreen.propTypes = {
