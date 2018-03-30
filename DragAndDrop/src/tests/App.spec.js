@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
 // Own compoentns
@@ -10,7 +10,7 @@ describe('Testing the App component', () => {
     'use strict';
 
     it('App state `items` is an array of size 8', () => {
-        const app = mount(<App />);
+        const app = shallow(<App />);
 
         expect(app.state(['items']))
             .to.be.an('array')
@@ -18,7 +18,7 @@ describe('Testing the App component', () => {
     });
 
     it('App state `itemsInitPosition` is an array of size 8 with values from 1 to 8', () => {
-        const app = mount(<App />);
+        const app = shallow(<App />);
 
         expect(app.state(['itemsInitPosition']))
             .to.be.an('array')
@@ -27,7 +27,7 @@ describe('Testing the App component', () => {
     });
 
     it('App state `itemsActualPosition` is an array of size 8 filled with 0 as values', () => {
-        const app = mount(<App />);
+        const app = shallow(<App />);
 
         expect(app.state(['itemsActualPosition']))
             .to.be.an('array')
@@ -36,15 +36,15 @@ describe('Testing the App component', () => {
     });
 
     it('App state `initDrag` is false', () => {
-        const app = mount(<App />);
+        const app = shallow(<App />);
 
         expect(app.state(['initDrag']))
             .to.be.an('boolean')
             .to.be.equal(false);
     });
 
-    it('Should renders Item', () => {
-        const app = mount(<App />);
-        expect(app.contains('Item'));
+    it('Should render Item', () => {
+        const app = shallow(<App />);
+        expect(app.find('Item')).to.have.length(8);
     });
 });

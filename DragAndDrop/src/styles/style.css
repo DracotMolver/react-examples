@@ -25,10 +25,6 @@ p {
 }
 
 .item-container {
-    -webkit-transform-origin: center;
-    -moz-transform-origin: center;
-    -o-transform-origin: center;
-    transform-origin: center;
     background-color: #c5c5c5;
     box-sizing: border-box;
     cursor: pointer;
@@ -37,6 +33,10 @@ p {
 }
 
 .item {
+    -webkit-transform-origin: center;
+    -moz-transform-origin: center;
+    -o-transform-origin: center;
+    transform-origin: center;
     background-color: #fff;
     box-sizing: border-box;
     padding: 10px;

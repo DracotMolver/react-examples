@@ -15,27 +15,18 @@ class App extends React.Component {
         this.state = {
             items: [],
             itemsInitPosition: [],
-            itemsActualPosition: [],
-            initDrag: false
+            itemsActualPosition: []
         };
 
-        this.mouseDownHandler = this.mouseDownHandler.bind(this);
-        this.mouseUpHandler = this.mouseUpHandler.bind(this);
+        this.recalculateOrder = this.recalculateOrder.bind(this);
     }
 
-    mouseDownHandler(event) {
-        this.setState({
-            initDrag: true
-        });
+    // -========================== OWN EVENTS ==========================-
+    recalculateOrder(event) {
+        // Do something here
     }
 
-    mouseUpHandler(event) {
-        this.setState({
-            initDrag: false
-        });
-    }
-
-    // -========================== Life Cycle ==========================-
+    // -========================== LIFE CYCLE ==========================-
     componentWillMount() {
         const dataKeys = Object.keys(data);
 
@@ -47,8 +38,7 @@ class App extends React.Component {
                     content={value.content}
                     initPosition={iter + 1}
                     actualPosition={0}
-                    onMouseDown={this.mouseDownHandler}
-                    onMouseUp={this.mouseUpHandler}
+                    recalculateOrder={this.recalculateOrder}
                 />
             ),
             itemsInitPosition: dataKeys.map(value => Number(value) + 1),
