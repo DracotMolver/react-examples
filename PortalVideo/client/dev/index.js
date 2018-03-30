@@ -1,6 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
- * @copyright 2017
+ * @copyright 2017 - 2018
  *
  */
 // -========================== MODULES ==========================-
@@ -14,7 +14,7 @@ import './src/sass/style.sass';
 import './src/img/stars.png';
 
 // -========================== COMPONENTS ==========================-
-import App from './App/App.jsx';
+import App from './App/App';
 
 ReactDOM.render(
     <App />,
