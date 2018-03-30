@@ -1,70 +1,73 @@
 const path = require('path');
 const glob = require('glob-all');
 
-const webpack = require("webpack");
-const ExtractText = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const DEV = path.resolve(path.join(__dirname, 'client', 'dev'));
 const OUTPUT = path.resolve(path.join(__dirname, 'client', 'output'));
 
-const ExtractCss = new ExtractText({
-    filename: 'style.css',
-    allChunks: true
-});
-
 const config = {
     entry: {
-        index: DEV + '/index.jsx'
+        index: `${DEV}/index.js`,
+        vendor: [
+            'react',
+            'react-dom',
+            'react-router-dom'
+        ]
     },
     output: {
         path: OUTPUT,
-        filename: '[name].js'
+        filename: '[name].js',
+        chunkFilename: '[name].bundle.js',
     },
     module: {
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.js$/,
                 exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015', 'react'],
-                        plugins: ['syntax-dynamic-import','transform-object-rest-spread']
+                        presets: ['env', 'react'],
+                        plugins: [
+                            'syntax-dynamic-import',
+                            'transform-object-rest-spread'
+                        ]
                     }
                 }
             },
             { // -======= CSS =======-
                 test: /\.css$/,
-                use: ExtractCss.extract({
-                    fallback: 'style-loader',
-                    use:
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                url: false
-                            }
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            url: false
                         }
-                })
+                    }
+                ]
             },
             { // -======= SASS =======-
                 test: /\.sass$/,
-                use: ExtractCss.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                url: false
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                url: false
-                            }
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false
                         }
-                    ]
-                })
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            url: false
+                        }
+                    }
+                ]
             },
             { // -======= IMG =======-
                 test: /\.(png|ico|jpeg|jpg)$/,
@@ -73,22 +76,25 @@ const config = {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify("development")
-            }
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: "[id].css"
         }),
-        // new webpack.NoEmitOnErrorsPlugin(),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: 
-        //         warnings: false
-        //     },
-        //     output: {
-        //         comments: false
-        //     }
-        // }),
-        ExtractCss
-    ]
+        new HtmlWebpackPlugin({
+            template: `${DEV}/index.html`,
+            filename: path.resolve(path.join(__dirname, 'client', 'index.html')),
+            inject: 'body'
+        })
+    ],
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    }
 };
 
 module.exports = config;
