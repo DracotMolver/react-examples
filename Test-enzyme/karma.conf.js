@@ -30,7 +30,7 @@ module.exports = function karmaConfig(config) {
         // La lista de archivos puede ser basada en una configuración global
         files: [
             {
-                pattern: 'setup.js',
+                pattern: 'setupTests.js',
                 watched: false,
                 included: true
             }
@@ -42,7 +42,7 @@ module.exports = function karmaConfig(config) {
         // preprocesadores para igualar archivos antes de enviarlos
         // al servidor. disponibles: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'setup.js': ['webpack']
+            'setupTests.js': ['webpack']
         },
 
         // Reporte del resultado del test
