@@ -1,15 +1,16 @@
 const path = require('path');
 
+const CLIENT = path.resolve(path.join(__dirname, 'client'));
 
 const config = {
-    context: path.resolve(path.join(__dirname, 'client')),
+    context: CLIENT,
     entry: {
-        index: path.resolve(path.join(__dirname, 'client', 'dev', 'index.js')),
-        html: path.resolve(path.join(__dirname, 'client', 'src', 'index.html'))
+        index: path.join(CLIENT, 'dev', 'index.js'),
+        html: path.join(CLIENT, 'src', 'index.html')
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(path.join(__dirname, 'client', '/dist')),
+        path: path.join(CLIENT, '/dist')
     },
     module: {
         rules: [
