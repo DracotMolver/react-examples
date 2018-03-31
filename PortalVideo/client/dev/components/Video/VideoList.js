@@ -1,33 +1,68 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
- * 
- * Acts as video container.
  */
 // -========================== MODULES ==========================-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import { VideoCardItem } from './../Video/VideoCard';
+import { VideoCardSmall } from './../Video/VideoCard';
 import videoLoader from './../HOC/VideoLoader';
+import { LOAD_VIDEOS_BUTTON } from '../../constants/Strings';
 
-// Generate the list of videos cards.
-const VideoList = props =>
-    props.videoList.map(video =>
+// It will return a map of components
+const VideoItems = props =>
+    props.videoListItems.map(video =>
         <div key={`${video._id}`} id={`${video._id}`}
             className="video-list-item grid-25 mobile-grid-50">
-            <VideoCardItem
-                name={video.name}
-                id={video._id}
-                description={video.description}
-                ratings={video.ratings}
-            />
+            <VideoCardSmall {...video} />
         </div>
     );
 
-VideoList.propTypes = {
-    videoList: PropTypes.array
+VideoItems.propTypes = {
+    videoList: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default videoLoader('videoList')(VideoList);
+// ----------------------------------------------------------------------
+
+// Generate the list of videos cards.
+const VideoList = props => {
+    const {
+        videoListItems,
+        getMoreVideos
+    } = props;
+
+    return (
+        <React.Fragment>
+            <div className="grid-container">
+                <VideoItems videoListItems={videoListItems} />
+                <div className="grid-25 mobile-grid-100 zoomInUp-anim">
+                    <button
+                        onClick={getMoreVideos}
+                        id="show-more"
+                        className="button shadow"
+                        type="button"
+                    >
+                        {LOAD_VIDEOS_BUTTON}
+                    </button>
+                </div>
+            </div>
+        </React.Fragment>
+    );
+};
+
+VideoList.propTypes = {
+    videoListItems: PropTypes.arrayOf(
+        PropTypes.shape({
+            description: PropTypes.string,
+            ratings: PropTypes.arrayOf(PropTypes.number),
+            name: PropTypes.string,
+            url: PropTypes.string,
+            _id: PropTypes.string
+        })
+    ),
+    getMoreVideos: PropTypes.func
+};
+
+export default videoLoader('videoListItems')(VideoList);

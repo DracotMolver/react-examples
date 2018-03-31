@@ -2,12 +2,6 @@
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
  *
- * It will make a Card that contains:
- * 
- * - The image of the video
- * - The description
- * - The rating
- * 
  * There are two types of cards. One it's as items for a list
  * and the other one is for a single element for full screen
  */
@@ -18,15 +12,15 @@ import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
 import VideoDescription from './VideoDescription';
-import VideoRatePopPup from './VideoRatePopPup';
+import VideoRateContainer from './../../containers/Commons/VideoRateContainer';
 import VideoFullScreen from './VideoFullScreen';
 import VideoRating from './VideoRating';
-import videoLoader from './../HOC/VideoLoader';
 import VideoThumb from './VideoThumb';
 import { BACK_BUTTON, RATE_BUTTON } from '../../constants/Strings';
 import { VIDEO_LIST_URL } from '../../constants/Paths';
 
-export class VideoCardItem extends React.Component {
+// It will render and small card component
+export class VideoCardSmall extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
         const {
             description: prevDescription,
@@ -56,7 +50,7 @@ export class VideoCardItem extends React.Component {
             description,
             ratings,
             name,
-            id
+            _id
         } = this.props;
 
         return (
@@ -67,7 +61,7 @@ export class VideoCardItem extends React.Component {
                     </h4>
                 </div>
                 <div className="grid-100">
-                    <VideoThumb id={id} description={description} />
+                    <VideoThumb id={_id} description={description} />
                 </div>
                 <div className="grid-100">
                     <VideoDescription description={description} />
@@ -78,9 +72,9 @@ export class VideoCardItem extends React.Component {
             </div>
         );
     }
-};
+}
 
-VideoCardItem.propTypes = {
+VideoCardSmall.propTypes = {
     description: PropTypes.string,
     ratings: PropTypes.arrayOf(PropTypes.number),
     name: PropTypes.string,
@@ -89,97 +83,73 @@ VideoCardItem.propTypes = {
 
 // ----------------------------------------------------------------------
 
-class VideoCardBigWrapper extends React.Component {
-    constructor(props) {
-        super(props);
+// It will render a big (full screen) card component
+export const VideoCardBig = props => {
+    const {
+        handleClickRate,
+        displayPopUp,
+        description,
+        hidePopUp,
+        ratings,
+        name,
+        url,
+        _id
+    } = props;
 
-        this.state = {
-            displayPopUp: false
-        };
-
-        this.handleClickRate = this.handleClickRate.bind(this);
-        this.hidePopUp = this.hidePopUp.bind(this);
-    }
-
-    // -============================ OWN EVENTS ============================-
-    handleClickRate() {
-        this.setState({
-            displayPopUp: true
-        });
-    }
-
-    hidePopUp() {
-        this.setState({
-            displayPopUp: false
-        });
-    }
-
-    // -============================ REACT LIFECYLE ============================-
-    render() {
-        const {
-            description,
-            ratings,
-            name,
-            url,
-            _id
-        } = this.props.videoData;
-
-        return (
-            <div className="video-single-container">
-                <VideoRatePopPup
-                    idToRate={_id}
-                    displayPopUp={this.state.displayPopUp}
-                    hidePopUp={this.hidePopUp}
-                />
-                <div className="grid-container">
-                    <div className="grid-100">
-                        <Link className="back-arrow" to={VIDEO_LIST_URL}>
-                            &larr; {BACK_BUTTON}
-                        </Link>
+    return (
+        <div className="video-single-container">
+            <VideoRateContainer
+                idToRate={_id}
+                displayPopUp={displayPopUp}
+                hidePopUp={hidePopUp}
+            />
+            <div className="grid-container">
+                <div className="grid-100">
+                    <Link className="back-arrow" to={VIDEO_LIST_URL}>
+                        &larr; {BACK_BUTTON}
+                    </Link>
+                </div>
+                <div className="grid-100 grid-parent video-container shadow">
+                    <div className="grid-100 grid-parent">
+                        <div className="grid-50">
+                            <h4 className="video-title">
+                                {name}
+                            </h4>
+                        </div>
+                        <div className="grid-50 grid-parent">
+                            <div className="grid-80 mobile-grid-70" style={{ textAlign: 'right' }}>
+                                <VideoRating ratings={ratings} />
+                            </div>
+                            <div className="grid-20 mobile-grid-30">
+                                <button
+                                    type="button"
+                                    className="rate-button"
+                                    onClick={handleClickRate}
+                                >
+                                    {RATE_BUTTON}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div className="grid-100 grid-parent video-container shadow">
-                        <div className="grid-100 grid-parent">
-                            <div className="grid-50">
-                                <h4 className="video-title">
-                                    {name}
-                                </h4>
-                            </div>
-                            <div className="grid-50 grid-parent">
-                                <div className="grid-80 mobile-grid-70" style={{ textAlign: 'right' }}>
-                                    <VideoRating ratings={ratings} />
-                                </div>
-                                <div className="grid-20 mobile-grid-30">
-                                    <button
-                                        type="button"
-                                        className="rate-button"
-                                        onClick={this.handleClickRate}
-                                    >
-                                        {RATE_BUTTON}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="grid-100">
-                            <VideoFullScreen url={url} />
-                        </div>
-                        <div className="grid-100">
-                            <VideoDescription description={description} />
-                        </div>
+                    <div className="grid-100">
+                        <VideoFullScreen url={url} />
+                    </div>
+                    <div className="grid-100">
+                        <VideoDescription description={description} />
                     </div>
                 </div>
             </div>
-        );
-    }
-}
-
-VideoCardBigWrapper.propTypes = {
-    videoData: PropTypes.shape({
-        description: PropTypes.string,
-        ratings: PropTypes.arrayOf(PropTypes.number),
-        name: PropTypes.sring,
-        url: PropTypes.sring,
-        _id: PropTypes.string
-    })
+        </div>
+    );
 };
 
-export const VideoCardBig = videoLoader('videoData')(VideoCardBigWrapper);
+VideoCardBig.propTypes = {
+    handleClickRate: PropTypes.func,
+    displayPopUp: PropTypes.bool,
+    description: PropTypes.string,
+    hidePopUp: PropTypes.func,
+    ratings: PropTypes.arrayOf(PropTypes.number),
+    name: PropTypes.string,
+    url: PropTypes.string,
+    _id: PropTypes.string
+};

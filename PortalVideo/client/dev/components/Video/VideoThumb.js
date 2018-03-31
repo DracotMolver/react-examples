@@ -1,8 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
- *
- * The small image of the video
  */
 // -========================== MODULES ==========================-
 import React from 'react';

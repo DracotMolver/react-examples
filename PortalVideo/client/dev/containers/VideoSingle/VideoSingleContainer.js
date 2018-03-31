@@ -1,21 +1,18 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
- *
- * @class VideoSingleContainer
- * This class display only one video in a full screen mode
  */
 // -========================== MODULES ==========================-
-import React from "react";
+import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Header from './../../components/Commons/Header';
-import { VideoCardBig } from './../../components/Video/VideoCard';
+import Base from './../../components/Commons/Base';
+import VideoCardContainer from './VideoCardContainer';
 import Message from './../../components/Commons/Messages';
-import { LOAD_VIDEOS_ERROR, TYPE_ERROR } from "../../constants/Strings";
-import { USER_DATA } from "../../constants/Storage";
-import { VIDEO_URL, VIDEO_LIST_URL } from "../../constants/Paths";
+import { LOAD_VIDEOS_ERROR, TYPE_ERROR } from '../../constants/Strings';
+import { USER_DATA } from '../../constants/Storage';
+import { VIDEO_URL, VIDEO_LIST_URL } from '../../constants/Paths';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {
@@ -33,10 +30,6 @@ export default class VideoSingleContainer extends React.Component {
     // -============================ OWN EVENTS ============================-
     getVideoData() {
         const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
-
-        const {
-            videoData
-        } = this.state;
 
         SuperAgent.get(VIDEO_URL)
             .query({
@@ -75,11 +68,12 @@ export default class VideoSingleContainer extends React.Component {
         } = this.state;
 
         return (
-            <div>
-                <Header />
-                <VideoCardBig videoData={videoData}/>
-                <Message messageText={messageText} messageType={messageType} />
-            </div>
+            <Base>
+                <React.Fragment>
+                    <VideoCardContainer videoData={videoData} />
+                    <Message messageText={messageText} messageType={messageType} />
+                </React.Fragment>
+            </Base>
         );
     }
 }

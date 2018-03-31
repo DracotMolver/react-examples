@@ -10,6 +10,6 @@ const videoLoader = propname => WrapperComponent =>
                 ? <WrapperComponent {...this.props} />
                 : <div className="spinner"></div>;
         }
-    }
+    };
 
 export default videoLoader;

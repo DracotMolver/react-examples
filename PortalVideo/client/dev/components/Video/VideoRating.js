@@ -1,8 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
- *
- * It will show the amount of rating filling the starts.
  */
 // -========================== MODULES ==========================-
 import React from 'react';

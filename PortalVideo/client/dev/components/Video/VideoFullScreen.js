@@ -1,8 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
- *
- * it will get the video to render it
  */
 // -========================== MODULES ==========================-
 import React from 'react';

@@ -1,11 +1,6 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 -2018
- *
- * A simple component to disply messages:
- * Error,
- * Warning,
- * Success
  */
 // -========================== MODULES ==========================-
 import React from 'react';
@@ -41,7 +36,7 @@ const Message = props => {
 
 Message.propTypes = {
     messageText: PropTypes.string,
-    messageText: PropTypes.string
+    messageType: PropTypes.string
 };
 
 export default Message;

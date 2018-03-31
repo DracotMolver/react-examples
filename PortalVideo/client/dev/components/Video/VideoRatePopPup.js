@@ -1,21 +1,16 @@
 /**
  * @author Diego Alberto Molina Vera
  * @copyright 2017 - 2018
- *
- * This component will render a popup dialog to rate the video
  */
 // -========================== MODULES ==========================-
 import React from 'react';
 import PropTypes from 'prop-types';
-import SuperAgent from 'superagent';
 import {
     POPUP_TITLE_SUCCESS,
     POPUP_TITLE_INITIAL,
     CLOSE_BUTTON,
     POPUP_BUTTON
 } from '../../constants/Strings';
-import { USER_DATA } from '../../constants/Storage';
-import { VIDEO_RATING_URL } from '../../constants/Paths';
 
 // A common wrapper component as popup
 const PopUpParent = props => {
@@ -41,7 +36,7 @@ const PopUpParent = props => {
             </div>
         </div>
     );
-}
+};
 
 PopUpParent.propTypes = {
     name: PropTypes.string,
@@ -73,7 +68,7 @@ const InitialMessage = props => {
                     {`+${i + 1}`}
                 </div>
             </div>
-        )
+        );
     }
 
     return (
@@ -135,105 +130,42 @@ SuccessMessage.propTypes = {
 
 // ------------------------------------------------------------------------
 
-export default class VideoRatePopPup extends React.Component {
-    constructor(props) {
-        super(props);
+const VideoRatePopUp = props => {
+    const {
+        handleClickClose,
+        handleChangeRate,
+        handleClickDone,
+        displayPopUp,
+        isSuccess
+    } = props;
 
-        this.state = {
-            isSuccess: false,
-            value: 0,
-            id: '',
-        };
-
-        this.handleClickClose = this.handleClickClose.bind(this);
-        this.handleChangeRate = this.handleChangeRate.bind(this);
-        this.handleClickDone = this.handleClickDone.bind(this);
-    }
-
-    // -============================ OWN EVENTS ============================-
-
-    handleChangeRate(event) {
-        this.setState({
-            value: event.currentTarget.value
-        });
-    }
-
-    handleClickClose() {
-        this.setState({
-            isSuccess: false,
-            value: 0,
-            id: ''
-        });
-
-        // Belongs to the parent - VideoCardBigWrapper
-        this.props.hidePopUp();
-    }
-
-    handleClickDone() {
-        const {
-            hidePopUp,
-            idToRate
-        } = this.props;
-
-        SuperAgent.post(VIDEO_RATING_URL)
-            .type('form')
-            .query({
-                'sessionId': JSON.parse(sessionStorage.getItem(USER_DATA)).sessionId
-            })
-            .send({
-                'videoId': idToRate,
-                'rating': this.state.value,
-            })
-            .end((err, res) => {
-                if (err) {
-                    this.setState({
-                        isSuccess: false
-                    });
-
-                    hidePopUp();
-                } else {
-                    if (res.body.status === 'success') {
-                        this.setState({
-                            isSuccess: true
-                        });
-                    } else {
-                        hidePopUp();
+    return (
+        <div className={`rate-stars-container ${displayPopUp ? '' : 'hide'}`}>
+            <div className="grid-container">
+                <div className={`rate-stars-popup shadow ${displayPopUp ? 'fadeInDown-anim' : ''}`}>
+                    {
+                        isSuccess
+                            ? <SuccessMessage
+                                handleClickClose={handleClickClose}
+                            />
+                            : <InitialMessage
+                                handleClickClose={handleClickClose}
+                                handleChangeRate={handleChangeRate}
+                                handleClickDone={handleClickDone}
+                            />
                     }
-                }
-            });
-    }
-
-    // -============================ REACT LIFECYLE ============================-
-
-    render() {
-        const {
-            displayPopUp
-        } = this.props;
-
-        return (
-            <div className={`rate-stars-container ${displayPopUp ? '' : 'hide'}`}>
-                <div className="grid-container">
-                    <div className={`rate-stars-popup shadow ${displayPopUp ? 'fadeInDown-anim' : ''}`}>
-                        {
-                            this.state.isSuccess
-                                ? <SuccessMessage
-                                    handleClickClose={this.handleClickClose}
-                                />
-                                : <InitialMessage
-                                    handleClickClose={this.handleClickClose}
-                                    handleChangeRate={this.handleChangeRate}
-                                    handleClickDone={this.handleClickDone}
-                                />
-                        }
-                    </div>
                 </div>
             </div>
-        );
-    }
-}
-
-VideoRatePopPup.propTypes = {
-    hidePopUp: PropTypes.func,
-    idToRate: PropTypes.string,
-    displayPopUp: PropTypes.bool
+        </div>
+    );
 };
+
+VideoRatePopUp.propTypes = {
+    handleClickClose: PropTypes.func,
+    handleChangeRate: PropTypes.func,
+    handleClickDone: PropTypes.func,
+    displayPopUp: PropTypes.bool,
+    isSuccess: PropTypes.bool
+};
+
+export default VideoRatePopUp;
