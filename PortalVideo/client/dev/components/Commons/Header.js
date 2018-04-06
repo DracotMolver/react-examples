@@ -6,9 +6,9 @@
 import React from 'react';
 
 // -========================== COMPONENTS ==========================-
-import LogoutContainer from './../../containers/Login/LogoutContainer';
-import { GREETINGS } from './../../constants/Strings';
-import { USER_DATA } from '../../constants/Storage';
+import LogoutContainer from '_Login/LogoutContainer';
+import { GREETINGS } from 'Constants/Strings';
+import { USER_DATA } from 'Constants/Storage';
 
 const Header = () => {
     const username = JSON.parse(sessionStorage.getItem(USER_DATA)).username;

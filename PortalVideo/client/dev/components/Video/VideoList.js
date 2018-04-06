@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import { VideoCardSmall } from './../Video/VideoCard';
-import videoLoader from './../HOC/VideoLoader';
-import { LOAD_VIDEOS_BUTTON } from '../../constants/Strings';
+import VideoCardSmall from 'Video/VideoCard/VideoCardSmall';
+import videoLoader from 'HOC/VideoLoader';
+import { LOAD_VIDEOS_BUTTON } from 'Constants/Strings';
 
 // It will return a map of components
 const VideoItems = props =>

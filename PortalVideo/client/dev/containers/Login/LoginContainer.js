@@ -9,18 +9,18 @@ import SuperAgent from 'superagent';
 import MD5 from 'js-md5';
 
 // -========================== COMPONENTS ==========================-
-import Login from './../../components/Login/Login';
+import Login from 'Login/Login';
 import {
     TYPE_WARNING,
     USER_AND_PASS_ERROR,
     TYPE_ERROR,
     DEFAULT_ERROR_MESSAGE
-} from './../../constants/Strings';
+} from 'Constants/Strings';
 import {
     AUTH_URL,
     VIDEO_LIST_URL,
-} from './../../constants/Paths';
-import { USER_DATA } from './../../constants/Storage';
+} from 'Constants/Paths';
+import { USER_DATA } from 'Constants/Storage';
 
 export default class LoginContainer extends React.Component {
     constructor(props) {

@@ -8,11 +8,11 @@ import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
 // -========================== COMPONENTS ==========================-
-import LoginContainer from './../containers/Login/LoginContainer';
-import PrivateRouter from './../components/HOC/PrivateRouter';
-import VideoListContainer from './../containers/VideoList/VideoListContainer';
-import VideoSingleContainer from './../containers/VideoSingle/VideoSingleContainer';
-import { VIDEO_LIST_URL } from '../constants/Paths';
+import LoginContainer from '_Login/LoginContainer';
+import PrivateRouter from 'HOC/PrivateRouter';
+import VideoListContainer from '_VideoList/VideoListContainer';
+import VideoSingleContainer from '_VideoSingle/VideoSingleContainer';
+import { VIDEO_LIST_URL } from 'Constants/Paths';
 
 const App = () => {
     return (

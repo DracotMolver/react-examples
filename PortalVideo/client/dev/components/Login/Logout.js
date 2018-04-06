@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import { FORM_LOGOUT_LABEL } from '../../constants/Strings';
+import { FORM_LOGOUT_LABEL } from 'Constants/Strings';
 
 const Logout = props => {
     const {

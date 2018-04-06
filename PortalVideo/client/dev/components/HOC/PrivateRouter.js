@@ -5,7 +5,9 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { USER_DATA } from '../../constants/Storage';
+
+// -========================== Components ==========================-
+import { USER_DATA } from 'Constants/Storage';
 
 const isAuthenticated = () => !!JSON.parse(sessionStorage.getItem(USER_DATA));
 

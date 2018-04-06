@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import { VideoCardBig } from './../../components/Video/VideoCard';
-import videoLoader from './../../components/HOC/VideoLoader';
+import VideoCardBig from 'Video/VideoCard/VideoCardBig';
+import videoLoader from 'HOC/VideoLoader';
 
 class VideoCardContainer extends React.Component {
     constructor(props) {

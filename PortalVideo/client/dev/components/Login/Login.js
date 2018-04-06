@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import Message from './../Commons/Messages.js';
+import Message from 'Commons/Messages.js';
 import {
     FORM_LOGIN_LABEL,
     INPUT_USER_LABEL,
     INPUT_PASS_LABEL,
     FORM_LOGIN_TITLE
-} from './../../constants/Strings';
+} from 'Constants/Strings';
 
 export default class Login extends React.Component {
     render() {

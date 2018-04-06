@@ -5,7 +5,7 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PLAY_BUTTON } from '../../constants/Strings';
+import { PLAY_BUTTON } from 'Constants/Strings';
 
 const VideoFullScreen = props =>
     <div className="video-full-screen">

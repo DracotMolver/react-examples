@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import VideoRatePopPup from './../../components/Video/VideoRatePopPup';
-import { VIDEO_RATING_URL } from '../../constants/Paths';
-import { USER_DATA } from '../../constants/Storage';
+import VideoRatePopPup from 'Video/VideoRatePopPup';
+import { VIDEO_RATING_URL } from 'Constants/Paths';
+import { USER_DATA } from 'Constants/Storage';
 
 export default class VideoRateContainer extends React.Component {
     constructor(props) {

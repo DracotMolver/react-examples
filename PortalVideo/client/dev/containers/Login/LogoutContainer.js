@@ -8,9 +8,9 @@ import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Logout from './../../components/Login/Logout';
-import { USER_DATA } from '../../constants/Storage';
-import { LOGOUT_URL } from '../../constants/Paths';
+import Logout from 'Login/Logout';
+import { USER_DATA } from 'Constants/Storage';
+import { LOGOUT_URL } from 'Constants/Paths';
 
 export default class LogoutContainer extends React.Component {
     constructor(props) {
@@ -51,4 +51,3 @@ export default class LogoutContainer extends React.Component {
         );
     }
 }
-

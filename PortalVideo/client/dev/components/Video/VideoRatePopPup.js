@@ -10,7 +10,7 @@ import {
     POPUP_TITLE_INITIAL,
     CLOSE_BUTTON,
     POPUP_BUTTON
-} from '../../constants/Strings';
+} from 'Constants/Strings';
 
 // A common wrapper component as popup
 const PopUpParent = props => {

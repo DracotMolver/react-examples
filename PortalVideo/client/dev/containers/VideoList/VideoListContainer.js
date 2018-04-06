@@ -7,15 +7,15 @@ import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Base from './../../components/Commons/Base';
-import VideoList from './../../components/Video/VideoList';
+import Base from 'Commons/Base';
+import VideoList from 'Video/VideoList';
 import {
     LOAD_VIDEOS_ERROR,
     TYPE_ERROR,
     TYPE_WARNING
-} from '../../constants/Strings';
-import { USER_DATA } from '../../constants/Storage';
-import { VIDEOS_URL } from '../../constants/Paths';
+} from 'Constants/Strings';
+import { USER_DATA } from 'Constants/Storage';
+import { VIDEOS_URL } from 'Constants/Paths';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {

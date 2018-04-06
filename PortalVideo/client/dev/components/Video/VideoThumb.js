@@ -6,7 +6,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { VIDEO_LIST_URL } from '../../constants/Paths';
+
+// -========================== Components ==========================-
+import { VIDEO_LIST_URL } from 'Constants/Paths';
 
 const VideoThumb = props => {
     const {
