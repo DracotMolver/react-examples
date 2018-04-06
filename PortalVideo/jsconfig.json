@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "Commons/*": [
+                "client/dev/components/Commons/*"
+            ],
+            "Video/*": [
+                "client/dev/components/Video/*"
+            ],
+            "HOC/*": [
+                "client/dev/components/HOC/*"
+            ],
+            "Login/*": [
+                "client/dev/components/Login/*"
+            ],
+            "_Commons/*": [
+                "client/dev/containers/Commons/*"
+            ],
+            "_Login/*": [
+                "client/dev/containers/Login/*"
+            ],
+            "_VideoList/*": [
+                "client/dev/containers/VideoList/*"
+            ],
+            "_VideoSingle/*": [
+                "client/dev/containers/VideoSingle/*"
+            ],
+            "Constants/*": [
+                "client/dev/constants/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "output"
+    ]
+}
