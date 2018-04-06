@@ -1,17 +1,19 @@
 const path = require('path');
 const glob = require('glob-all');
 
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const DEV = path.resolve(path.join(__dirname, 'client', 'dev'));
-const OUTPUT = path.resolve(path.join(__dirname, 'client', 'output'));
+const DEV = path.join(__dirname, 'client', 'dev');
+const OUTPUT = path.join(__dirname, 'client', 'output');
 
 const config = {
+    context: process.cwd(),
     entry: {
-        index: `${DEV}/index.js`,
+        index: [path.resolve(DEV, 'index.js')],
         vendor: [
             'react',
             'react-dom',
@@ -19,15 +21,39 @@ const config = {
         ]
     },
     output: {
-        path: OUTPUT,
+        path: path.resolve(OUTPUT),
         filename: '[name].js',
-        chunkFilename: '[name].bundle.js',
+        chunkFilename: '[name].[chunkhash] .js',
+    },
+    resolve: {
+        alias: {
+            // Constants
+            Constants: path.resolve(DEV, 'constants'),
+            // Components
+            Commons: path.resolve(DEV, 'components', 'Commons'),
+            Video: path.resolve(DEV, 'components', 'Video'),
+            Login: path.resolve(DEV, 'components', 'Login'),
+            HOC: path.resolve(DEV, 'components', 'HOC'),
+            // Containers
+            _Commons: path.resolve(DEV, 'containers', 'Commons'),
+            _Login: path.resolve(DEV, 'containers', 'Login'),
+            _VideoList: path.resolve(DEV, 'containers', 'VideoList'),
+            _VideoSingle: path.resolve(DEV, 'containers', 'VideoSingle')
+        }
     },
     module: {
+        noParse: `${DEV}/constants/*.js`,
         rules: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
+                include: [
+                    DEV,
+                    `${DEV}/App`,
+                    `${DEV}/components`,
+                    `${DEV}/constants`,
+                    `${DEV}/containers`
+                ],
+                exclude: /(node_modules|output|dist)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -44,7 +70,7 @@ const config = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
-                        loader: "css-loader",
+                        loader: 'css-loader',
                         options: {
                             url: false
                         }
@@ -78,19 +104,30 @@ const config = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: "[id].css"
+            chunkFilename: '[id].css'
         }),
         new HtmlWebpackPlugin({
             template: `${DEV}/index.html`,
             filename: path.resolve(path.join(__dirname, 'client', 'index.html')),
-            inject: 'body'
+            inject: 'body',
+            cache: true
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.DllPlugin({
+            path: path.join(__dirname, '[name]-manifest.json'),
+            name: '[name]_[hash]'
         })
     ],
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 cache: true,
-                parallel: true
+                parallel: true,
+                uglifyOptions: {
+                    compress: true,
+                    mangle: true
+                },
+                extractComments: true
             }),
             new OptimizeCSSAssetsPlugin({})
         ]
