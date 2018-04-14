@@ -8,7 +8,8 @@
         "dev": "NODE_ENV=development node index.js",
         "start": "NODE_ENV=production node index.js",
         "build-dev": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode development",
-        "build-dist": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode production"
+        "build-dist": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode production",
+        "heroku-prebuild": "npm run build-dev"
     },
     "author": "",
     "license": "ISC",
