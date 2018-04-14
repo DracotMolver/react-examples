@@ -4,11 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "postinstall": "npm cache clean",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js",
-        "dev": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode development",
-        "build": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode production"
+        "postinstall": "npm cache verify --force",
+        "dev": "NODE_ENV=development node index.js",
+        "start": "NODE_ENV=production node index.js",
+        "build-dev": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode development",
+        "build-dist": "node ./node_modules/webpack-cli/bin/webpack.js --config ./webpack.config.js --mode production"
     },
     "author": "",
     "license": "ISC",

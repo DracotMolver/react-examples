@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
+import VideoRating from 'Video/VideoRating';
+import VideoDescription from 'Video/VideoDescription';
 import VideoRateContainer from '_Commons/VideoRateContainer';
 import VideoFullScreen from 'Video/VideoFullScreen';
 import { BACK_BUTTON, RATE_BUTTON } from 'Constants/Strings';
