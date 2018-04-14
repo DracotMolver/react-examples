@@ -1,5 +1,4 @@
 const path = require('path');
-const glob = require('glob-all');
 
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -11,7 +10,6 @@ const DEV = path.join(__dirname, 'client', 'dev');
 const OUTPUT = path.join(__dirname, 'client', 'output');
 
 const config = {
-    context: process.cwd(),
     entry: {
         index: [path.resolve(DEV, 'index.js')],
         vendor: [
@@ -23,7 +21,7 @@ const config = {
     output: {
         path: path.resolve(OUTPUT),
         filename: '[name].js',
-        chunkFilename: '[name].[chunkhash] .js',
+        chunkFilename: '[name].[chunkhash].js',
     },
     resolve: {
         alias: {
@@ -42,7 +40,7 @@ const config = {
         }
     },
     module: {
-        noParse: `${DEV}/constants/*.js`,
+        // noParse: `${DEV}/constants/*.js`,
         rules: [
             {
                 test: /\.js$/,
@@ -53,7 +51,7 @@ const config = {
                     `${DEV}/constants`,
                     `${DEV}/containers`
                 ],
-                exclude: /(node_modules|output|dist)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -112,11 +110,15 @@ const config = {
             inject: 'body',
             cache: true
         }),
-        new webpack.HashedModuleIdsPlugin(),
-        new webpack.DllPlugin({
-            path: path.join(__dirname, '[name]-manifest.json'),
-            name: '[name]_[hash]'
-        })
+        new webpack.HashedModuleIdsPlugin()
+        // new webpack.DllPlugin({
+        //     path: path.join(__dirname, '[name]-manifest.json'),
+        //     name: '[name]_lib'
+        // })
+        // new webpack.DllReferencePlugin({
+        //     context: __dirname,
+        //     manifest: require('[name]-manifest.json')
+        // })
     ],
     optimization: {
         minimizer: [
