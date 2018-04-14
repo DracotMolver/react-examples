@@ -1,4 +1,8 @@
 //requiring NPM modeles
+// env variables
+require('dotenv').config();
+
+// -==============================
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -11,7 +15,6 @@ db.on('error', console.error);
 //requiring local modelesc
 var configs = require('./config');
 var routes = require('./routes/routes');
-var userModel = require('./models/users');
 var helperFunctions = require('./helpers/helperFunctions');
 
 
