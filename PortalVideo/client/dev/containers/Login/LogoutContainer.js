@@ -11,10 +11,11 @@ import SuperAgent from 'superagent';
 import Logout from 'Login/Logout';
 import { USER_DATA } from 'Constants/Storage';
 import { LOGOUT_URL } from 'Constants/Paths';
+import { getUserData } from 'Helpers/getSession';
 
 export default class LogoutContainer extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.handleClickButtonForm = this.handleClickButtonForm.bind(this);
     }
@@ -22,25 +23,22 @@ export default class LogoutContainer extends React.Component {
     // -============================ OWN EVENTS ============================-
 
     handleClickButtonForm() {
-        const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
+        const { sessionId } = getUserData();
 
-        if (userData) {
-            SuperAgent.get(LOGOUT_URL)
-                .type('form')
-                .query({
-                    'sessionId': userData.sessionId
-                })
-                .end((err, res) => {
-                    if (res.body.status === 'success') {
-                        // Clean all sessions
-                        sessionStorage.clear();
-                        window.location.href = '/';
-                    } else {
-                        // #TODO
-                        // Display error message
-                    }
-                });
-        }
+        SuperAgent.get(LOGOUT_URL)
+            .type('form')
+            .query({
+                sessionId
+            })
+            .end((err, res) => {
+                if (res.body.status === 'success') {
+                    // Clean all sessions
+                    sessionStorage.clear();
+                    window.location.href = '/';
+                } else {
+                    // TODO: Display error message
+                }
+            });
     }
 
     // -============================ REACT LIFECYLE ============================-

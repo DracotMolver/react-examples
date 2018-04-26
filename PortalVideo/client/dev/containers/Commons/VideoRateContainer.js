@@ -11,10 +11,11 @@ import SuperAgent from 'superagent';
 import VideoRatePopPup from 'Video/VideoRatePopPup';
 import { VIDEO_RATING_URL } from 'Constants/Paths';
 import { USER_DATA } from 'Constants/Storage';
+import { getUserData } from 'Helpers/getSession';
 
 export default class VideoRateContainer extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.state = {
             isSuccess: false,
@@ -48,18 +49,25 @@ export default class VideoRateContainer extends React.Component {
 
     handleClickDone() {
         const {
+            state,
+            props
+        } = this;
+
+        const {
             hidePopUp,
             idToRate
-        } = this.props;
+        } = props;
+
+        const { sessionId } = getUserData();
 
         SuperAgent.post(VIDEO_RATING_URL)
             .type('form')
             .query({
-                'sessionId': JSON.parse(sessionStorage.getItem(USER_DATA)).sessionId
+                sessionId
             })
             .send({
                 'videoId': idToRate,
-                'rating': this.state.value,
+                'rating': state.value,
             })
             .end((err, res) => {
                 if (err) {
@@ -84,16 +92,20 @@ export default class VideoRateContainer extends React.Component {
 
     render() {
         const {
-            displayPopUp
-        } = this.props;
+            handleClickClose,
+            handleChangeRate,
+            handleClickDone,
+            props,
+            state,
+        } = this;
 
         return (
             <VideoRatePopPup
-                displayPopUp={displayPopUp}
-                isSuccess={this.state.isSuccess}
-                handleClickClose={this.handleClickClose}
-                handleChangeRate={this.handleChangeRate}
-                handleClickDone={this.handleClickDone}
+                displayPopUp={props.displayPopUp}
+                isSuccess={state.isSuccess}
+                handleClickClose={handleClickClose}
+                handleChangeRate={handleChangeRate}
+                handleClickDone={handleClickDone}
             />
         );
     }

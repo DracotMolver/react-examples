@@ -13,10 +13,11 @@ import Message from 'Commons/Messages';
 import { LOAD_VIDEOS_ERROR, TYPE_ERROR } from 'Constants/Strings';
 import { USER_DATA } from 'Constants/Storage';
 import { VIDEO_URL, VIDEO_LIST_URL } from 'Constants/Paths';
+import { getUserData } from 'Helpers/getSession';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.state = {
             messageText: '',
@@ -29,11 +30,11 @@ export default class VideoSingleContainer extends React.Component {
 
     // -============================ OWN EVENTS ============================-
     getVideoData() {
-        const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
+        const { sessionId } = getUserData();
 
         SuperAgent.get(VIDEO_URL)
             .query({
-                sessionId: userData.sessionId,
+                sessionId,
                 videoId: this.props.match.params.id // Match allow us to get the data from the URL
             })
             .end((err, res) => {
@@ -56,7 +57,7 @@ export default class VideoSingleContainer extends React.Component {
     }
 
     // -============================ REACT LIFECYLE ============================-
-    componentWillMount() {
+    componentDidMount() {
         this.getVideoData();
     }
 
@@ -67,6 +68,7 @@ export default class VideoSingleContainer extends React.Component {
             videoData
         } = this.state;
 
+        console.log(this.props)
         return (
             <Base>
                 <React.Fragment>

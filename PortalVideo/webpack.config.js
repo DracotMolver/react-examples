@@ -7,7 +7,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const DEV = path.join(__dirname, 'client', 'dev');
-const OUTPUT = path.join(__dirname, 'client', 'output');
+const DIST = path.join(__dirname, 'client', 'dist');
 
 const config = {
     entry: {
@@ -19,7 +19,7 @@ const config = {
         ]
     },
     output: {
-        path: path.resolve(OUTPUT),
+        path: path.resolve(DIST),
         filename: '[name].js',
         chunkFilename: '[name].[chunkhash].js',
     },
@@ -36,7 +36,9 @@ const config = {
             _Commons: path.resolve(DEV, 'containers', 'Commons'),
             _Login: path.resolve(DEV, 'containers', 'Login'),
             _VideoList: path.resolve(DEV, 'containers', 'VideoList'),
-            _VideoSingle: path.resolve(DEV, 'containers', 'VideoSingle')
+            _VideoSingle: path.resolve(DEV, 'containers', 'VideoSingle'),
+            // Helpers
+            Helpers: path.resolve(DEV, 'helpers')
         }
     },
     module: {
@@ -111,14 +113,6 @@ const config = {
             cache: true
         }),
         new webpack.HashedModuleIdsPlugin()
-        // new webpack.DllPlugin({
-        //     path: path.join(__dirname, '[name]-manifest.json'),
-        //     name: '[name]_lib'
-        // })
-        // new webpack.DllReferencePlugin({
-        //     context: __dirname,
-        //     manifest: require('[name]-manifest.json')
-        // })
     ],
     optimization: {
         minimizer: [

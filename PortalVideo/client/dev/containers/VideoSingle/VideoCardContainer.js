@@ -12,7 +12,7 @@ import videoLoader from 'HOC/VideoLoader';
 
 class VideoCardContainer extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.state = {
             displayPopUp: false
@@ -38,15 +38,18 @@ class VideoCardContainer extends React.Component {
     // -============================ REACT LIFECYLE ============================-
     render() {
         const {
-            videoData
-        } = this.props;
+            handleClickRate,
+            hidePopUp,
+            state,
+            props
+        } = this;
 
         return (
             <VideoCardBig
-                {...videoData}
-                hidePopUp={this.hidePopUp}
-                handleClickRate={this.handleClickRate}
-                displayPopUp={this.state.displayPopUp}
+                {...props.videoData}
+                hidePopUp={hidePopUp}
+                handleClickRate={handleClickRate}
+                displayPopUp={state.displayPopUp}
             />
         );
     }

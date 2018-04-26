@@ -16,15 +16,16 @@ import {
 } from 'Constants/Strings';
 import { USER_DATA } from 'Constants/Storage';
 import { VIDEOS_URL } from 'Constants/Paths';
+import { getUserData } from 'Helpers/getSession';
 
 export default class VideoSingleContainer extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.state = {
             messageType: '',
             messageText: '',
-            lastValue: 5, // The last video on the list
+            lastValue: 1, // The last video on the list
             videoListItems: [] // A list container of the videos,
         };
 
@@ -43,7 +44,7 @@ export default class VideoSingleContainer extends React.Component {
         // Check always for the session
         // The list of videos are stored in the session
         // because if you refresh the browser, the list will be reseted.
-        const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
+        const { sessionId } = getUserData();
 
         // Fetch the data from the API
         // http://localhost:3000/videos
@@ -51,9 +52,9 @@ export default class VideoSingleContainer extends React.Component {
         // Get the last 9 videos
         SuperAgent.get(VIDEOS_URL)
             .query({
-                sessionId: userData.sessionId.toString(),
-                skip: lastValue - 4,
-                limit: lastValue
+                sessionId,
+                skip: lastValue,
+                limit: 1
             })
             .end((err, res) => {
                 if (err) {
@@ -63,22 +64,9 @@ export default class VideoSingleContainer extends React.Component {
                     });
                 } else {
                     if (res.body.status === 'success') {
-                        // #TODO
-                        // Save all the ids to use them later when the user clicks on
-                        // a video. Could show him some shuffles one to watch
-                        // sessionStorage.setItem(VIDEO_LIST_DATA,
-                        //     JSON.stringify(
-                        //         res.body.data.map(v =>
-                        //             ({ // Extracted from the data base (mongodb)
-                        //                 name: v.name,
-                        //                 id: v._id
-                        //             })
-                        //         )
-                        //     )
-                        // );
-
                         this.setState({
-                            videoListItems: videoListItems.concat(res.body.data)
+                            videoListItems: videoListItems.concat(res.body.data),
+                            lastValue: lastValue + 1
                         });
                     } else {
                         this.setState({
@@ -91,16 +79,22 @@ export default class VideoSingleContainer extends React.Component {
     }
 
     // -============================ REACT LIFECYLE ============================-
-    componentWillMount() {
+    componentDidMount() {
         this.getMoreVideos();
     }
 
     render() {
+        const {
+            videoListItems,
+            lastValue
+        } = this.state;
+
         return (
             <Base>
                 <VideoList
-                    videoListItems={this.state.videoListItems}
-                    getMoreVideo={this.getMoreVideos}
+                    videoListItems={videoListItems}
+                    getMoreVideos={this.getMoreVideos}
+                    // listedVideos={lastValue}
                 />
             </Base>
         );

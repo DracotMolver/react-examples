@@ -8,8 +8,9 @@ import { Route, Redirect } from 'react-router-dom';
 
 // -========================== Components ==========================-
 import { USER_DATA } from 'Constants/Storage';
+import { getUserData } from 'Helpers/getSession';
 
-const isAuthenticated = () => !!JSON.parse(sessionStorage.getItem(USER_DATA));
+const isAuthenticated = () => !!getUserData();
 
 const PrivateRouter = ({ component: Component, ...rest }) =>
     isAuthenticated()

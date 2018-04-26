@@ -24,7 +24,7 @@ import { USER_DATA } from 'Constants/Storage';
 
 export default class LoginContainer extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.state = {
             messageText: '',
@@ -55,7 +55,7 @@ export default class LoginContainer extends React.Component {
             SuperAgent.post(AUTH_URL)
                 .type('form') // Shorthand to use the content type as: application/x-www-form-urlencoded
                 .send({
-                    'username': username,
+                    username,
                     'password': MD5(password) // Encrypt the password
                 })
                 .end((err, res) => {
@@ -92,17 +92,22 @@ export default class LoginContainer extends React.Component {
     // Small animation in the input filed
     handlerFocusInputs(event) {
         const element = event.currentTarget;
+        const {
+            id,
+            classList: elClassList
+        } = element;
 
-        if (!element.id.includes('lbl')) { // Does not has lbl class
+        if (!id.includes('lbl')) { // Does not has lbl class
             const label = document.getElementById(`lbl-${event.target.id}`);
-            label.classList.contains('login-form-label-anim') || (
-                label.classList.add('login-form-label-anim'),
-                element.classList.add('login-form-input-active')
+            const { classList } = label;
+            classList.contains('login-form-label-anim') || (
+                classList.add('login-form-label-anim'),
+                elClassList.add('login-form-input-active')
             );
         } else {
-            element.classList.contains('login-form-label-anim') || (
-                element.classList.add('login-form-label-anim'),
-                document.getElementById(element.id.replace('lbl-', ''))
+            elClassList.contains('login-form-label-anim') || (
+                elClassList.add('login-form-label-anim'),
+                document.getElementById(id.replace('lbl-', ''))
                     .classList.add('login-form-input-active')
             );
         }
@@ -111,9 +116,11 @@ export default class LoginContainer extends React.Component {
     handlerBlurInputs(event) {
         // It works along with handlerFocus function
         const element = event.currentTarget;
-        !!element.value.length || (
-            element.classList.remove('login-form-input-active'),
-            document.getElementById(`lbl-${element.id}`)
+        const { value, classList, id } = element;
+
+        !!value.length || (
+            classList.remove('login-form-input-active'),
+            document.getElementById(`lbl-${id}`)
                 .classList.remove('login-form-label-anim')
         );
     }
@@ -145,20 +152,29 @@ export default class LoginContainer extends React.Component {
     }
 
     render() {
+        const  {
+            handlerFocusInputs,
+            handlerBlurInputs,
+            handleSubmitForm,
+            setPassword,
+            setUsername,
+            state
+        } = this;
+
         const {
             messageText,
             messageType,
-        } = this.state;
+        } = state;
 
         return (
             <Login
-                handlerFocusInputs={this.handlerFocusInputs}
-                handlerBlurInputs={this.handlerBlurInputs}
-                handleSubmitForm={this.handleSubmitForm}
+                handlerFocusInputs={handlerFocusInputs}
+                handlerBlurInputs={handlerBlurInputs}
+                handleSubmitForm={handleSubmitForm}
                 messageText={messageText}
                 messageType={messageType}
-                setPassword={this.setPassword}
-                setUsername={this.setUsername}
+                setPassword={setPassword}
+                setUsername={setUsername}
             />
         );
     }

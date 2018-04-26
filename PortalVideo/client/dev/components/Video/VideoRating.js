@@ -20,7 +20,7 @@ const VideoRating = props => {
                 className="video-img-rating"
                 style={{ width: `${getPercentRating()}%` }}>
             </div>
-            <img srcSet="output/stars.png" width="100%" height="100%" />
+            <img srcSet="dist/stars.png" width="100%" height="100%" />
         </div>
     );
 };

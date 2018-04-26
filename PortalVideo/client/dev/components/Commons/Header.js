@@ -9,9 +9,10 @@ import React from 'react';
 import LogoutContainer from '_Login/LogoutContainer';
 import { GREETINGS } from 'Constants/Strings';
 import { USER_DATA } from 'Constants/Storage';
+import { getUserData } from 'Helpers/getSession';
 
 const Header = () => {
-    const username = JSON.parse(sessionStorage.getItem(USER_DATA)).username;
+    const { username } = getUserData();
 
     return (
         <div className="grid-100 grid-parent header-nav">

@@ -28,11 +28,14 @@
             ],
             "Constants/*": [
                 "client/dev/constants/*"
+            ],
+            "Helpers/*": [
+                "client/dev/herlpers/*"
             ]
         }
     },
     "exclude": [
         "node_modules",
-        "output"
+        "dist"
     ]
 }
