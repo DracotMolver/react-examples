@@ -68,7 +68,6 @@ export default class VideoSingleContainer extends React.Component {
             videoData
         } = this.state;
 
-        console.log(this.props)
         return (
             <Base>
                 <React.Fragment>

@@ -29,10 +29,13 @@ export default class VideoCardSmall extends React.Component {
             name: nextName
         } = nextProps;
 
+        const isRatingsEquals = prevRatings.every((prevRating, index) =>
+            prevRating === nextRatings[index] && prevName === nextName
+        );
+
         if (prevDescription === nextDescription &&
             prevRatings.length === nextRatings.length &&
-            prevRatings.every((prevRating, index) => prevRating === nextRatings[index] &&
-                prevName === nextName)
+            isRatingsEquals
         ) {
             return false;
         }
