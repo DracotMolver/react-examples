@@ -5,8 +5,7 @@ const CLIENT = path.resolve(path.join(__dirname, 'client'));
 const config = {
     context: CLIENT,
     entry: {
-        index: path.join(CLIENT, 'dev', 'index.js'),
-        html: path.join(CLIENT, 'src', 'index.html')
+        index: path.join(CLIENT, 'dev', 'index.js')
     },
     output: {
         filename: '[name].js',
@@ -39,7 +38,8 @@ const config = {
                 }
             }
         ]
-    }
+    },
+    mode: 'production'
 };
 
 module.exports = config;
