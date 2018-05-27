@@ -11,7 +11,7 @@ const getPercentRating = ratings => {
     return (total * (ratings.length * 5) / 100).toString();
 };
 
-const VideoRating = props => {
+const VideoRate = props => {
     const { ratings } = props;
 
     return (
@@ -25,8 +25,8 @@ const VideoRating = props => {
     );
 };
 
-VideoRating.propTypes = {
+VideoRate.propTypes = {
     ratings: PropTypes.arrayOf(PropTypes.number)
 };
 
-export default VideoRating;
+export default VideoRate;

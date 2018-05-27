@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import VideoCardBig from 'Video/VideoCard/VideoCardBig';
-import videoLoader from 'HOC/VideoLoader';
+import VideoCardBig from 'Components/Video/Card/Big';
+import Loader from 'Components/HOC/Loader';
 
 class VideoCardContainer extends React.Component {
     constructor(props) {
@@ -65,4 +65,4 @@ VideoCardContainer.propTypes = {
     })
 };
 
-export default videoLoader('videoData')(VideoCardContainer);
+export default Loader('videoData')(VideoCardContainer);

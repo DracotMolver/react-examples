@@ -7,8 +7,8 @@ import React from 'react';
 import SuperAgent from 'superagent';
 
 // -========================== COMPONENTS ==========================-
-import Base from 'Commons/Base';
-import VideoList from 'Video/VideoList';
+import Base from 'Components/Commons/Base';
+import VideoList from 'Components/Video/List';
 import {
     LOAD_VIDEOS_ERROR,
     TYPE_ERROR,
@@ -16,9 +16,9 @@ import {
 } from 'Constants/Strings';
 import { USER_DATA } from 'Constants/Storage';
 import { VIDEOS_URL } from 'Constants/Paths';
-import { getUserData } from 'Helpers/getSession';
+import { getUserData } from 'Helpers';
 
-export default class VideoSingleContainer extends React.Component {
+export default class VideoListContainer extends React.Component {
     constructor(props) {
         super();
 
@@ -94,7 +94,6 @@ export default class VideoSingleContainer extends React.Component {
                 <VideoList
                     videoListItems={videoListItems}
                     getMoreVideos={this.getMoreVideos}
-                    // listedVideos={lastValue}
                 />
             </Base>
         );

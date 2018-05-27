@@ -1,4 +1,4 @@
-import { USER_DATA } from "Constants/Storage";
+import { USER_DATA } from 'Constants/Storage';
 
 /**
  * Returns the data when the user is logged. This data is saved using

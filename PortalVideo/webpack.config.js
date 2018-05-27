@@ -18,31 +18,20 @@ const config = {
             'react-router-dom'
         ]
     },
+    resolve: {
+        alias: {
+            Constants: path.resolve(DEV, 'constants'),
+            Components: path.resolve(DEV, 'components'),
+            Containers: path.resolve(DEV, 'containers'),
+            Helpers: path.resolve(DEV, 'helpers')
+        }
+    },
     output: {
         path: path.resolve(DIST),
         filename: '[name].js',
         chunkFilename: '[name].[chunkhash].js',
     },
-    resolve: {
-        alias: {
-            // Constants
-            Constants: path.resolve(DEV, 'constants'),
-            // Components
-            Commons: path.resolve(DEV, 'components', 'Commons'),
-            Video: path.resolve(DEV, 'components', 'Video'),
-            Login: path.resolve(DEV, 'components', 'Login'),
-            HOC: path.resolve(DEV, 'components', 'HOC'),
-            // Containers
-            _Commons: path.resolve(DEV, 'containers', 'Commons'),
-            _Login: path.resolve(DEV, 'containers', 'Login'),
-            _VideoList: path.resolve(DEV, 'containers', 'VideoList'),
-            _VideoSingle: path.resolve(DEV, 'containers', 'VideoSingle'),
-            // Helpers
-            Helpers: path.resolve(DEV, 'helpers')
-        }
-    },
     module: {
-        // noParse: `${DEV}/constants/*.js`,
         rules: [
             {
                 test: /\.js$/,

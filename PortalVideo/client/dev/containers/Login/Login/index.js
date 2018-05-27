@@ -9,7 +9,7 @@ import SuperAgent from 'superagent';
 import MD5 from 'js-md5';
 
 // -========================== COMPONENTS ==========================-
-import Login from 'Login/Login';
+import Login from 'Components/Login/Login';
 import {
     TYPE_WARNING,
     USER_AND_PASS_ERROR,
@@ -152,7 +152,7 @@ export default class LoginContainer extends React.Component {
     }
 
     render() {
-        const  {
+        const {
             handlerFocusInputs,
             handlerBlurInputs,
             handleSubmitForm,

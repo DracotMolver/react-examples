@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import Message from 'Commons/Messages.js';
+import Message from 'Components/Commons/Message';
 import {
     FORM_LOGIN_LABEL,
     INPUT_USER_LABEL,

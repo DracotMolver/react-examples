@@ -11,10 +11,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import VideoRating from 'Video/VideoRating';
-import VideoDescription from 'Video/VideoDescription';
-import VideoRateContainer from '_Commons/VideoRateContainer';
-import VideoFullScreen from 'Video/VideoFullScreen';
+import VideoRating from 'Components/Video/Rate/Rate';
+import VideoDescription from 'Components/Video/Description';
+import VideoFullScreen from 'Components/Video/FullScreen';
+import VideoRateContainer from 'Containers/Video/Rate';
 import { BACK_BUTTON, RATE_BUTTON } from 'Constants/Strings';
 import { VIDEO_LIST_URL } from 'Constants/Paths';
 

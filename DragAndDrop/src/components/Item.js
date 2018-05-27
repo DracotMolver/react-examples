@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 class Item extends React.Component {
     constructor(props) {
-        super(props);
+        super();
 
         this.state = {
             pivot: {
@@ -19,6 +19,8 @@ class Item extends React.Component {
             isMouseDown: false
         };
 
+        this.itemRef = React.createRef();
+
         this.onMouseDownHandler = this.onMouseDownHandler.bind(this);
         this.onMouseMoveHandler = this.onMouseMoveHandler.bind(this);
         this.onMouseUpHandler = this.onMouseUpHandler.bind(this);
@@ -29,19 +31,25 @@ class Item extends React.Component {
     onMouseMoveHandler(event) {
         const {
             pivot,
-            isMouseDown
+            isMouseDown,
+            between
         } = this.state;
 
         if (isMouseDown) {
             const positionX = event.screenX - pivot.x;
             const positionY = event.screenY - pivot.y;
 
-            this.setState({
-                position: {
-                    x: positionX,
-                    y: positionY
-                }
+            this.setState(() => {
+                return {
+                    position: {
+                        x: positionX,
+                        y: positionY
+                    }
+                };
             });
+
+            // Check if the component is up of another one
+            console.log(positionY, between)
         }
     }
 
@@ -59,39 +67,68 @@ class Item extends React.Component {
 
         // Set the height to the parent based on the height of the child
         const child = event.currentTarget;
-        const height = child.offsetHeight;
-        const width = child.offsetWidth;
+        const {
+            offsetHeight,
+            offsetWidth,
+            offsetLeft,
+            offsetTop
+        } = child;
 
         // Using `cssText` is faster than using attributes properties
-        child.parentNode.style.cssText = `height:${height}px`;
+        child.parentNode.style.cssText = `height:${offsetHeight}px`;
 
         // set a fixed with to the child, because to move it, we will need
         // to set `position:abosolute` and that will cause to use the full scree
-        child.style.cssText = `width:${width}px; position:absolute; z-index: 10`;
+        child.style.cssText = `width:${offsetWidth}px;position:absolute;z-index:10`;
 
         // Get the item's pivot
-        const pivotX = child.offsetLeft + child.offsetWidth / 2;
-        const pivotY = child.offsetTop + child.offsetHeight;
+        const pivotX = offsetLeft + offsetWidth / 2;
+        const pivotY = offsetTop + offsetHeight;
 
-        this.setState({
-            isMouseDown: true,
-            pivot: {
-                x: pivotX,
-                y: pivotY
-            }
+        this.setState(() => {
+            return {
+                isMouseDown: true,
+                pivot: {
+                    x: pivotX,
+                    y: pivotY
+                }
+            };
         });
     }
 
     // -========================== LIFE CYCLE ==========================-
+    componentDidMount() {
+        // Let's get the height of the component
+        // This hell help to check if the dragged component is actually
+        // up of another component. This means I can take its place
+        const {
+            distanceBetweenTopAndBottom,
+            initPosition
+        } = this.props;
+
+        const { offsetHeight } = this.itemRef.current;
+
+        const top = initPosition * offsetHeight;
+        const bottom = top + offsetHeight;
+
+        distanceBetweenTopAndBottom({
+            top:
+            bottom
+        });
+    }
+
     componentWillUnmount() {
+        // Make sure to removed any listener before the component will unmount
+        // This helps to saved memory, because we clear the created object, the event listener
         window.removeEventListener('mousemove', this.onMouseMoveHandler);
     }
 
     render() {
         const {
             // recalculateOrder,
-            title,
-            content
+            // distanceBetweenTopAndBottom,
+            content,
+            title
         } = this.props;
 
         const {
@@ -102,9 +139,8 @@ class Item extends React.Component {
             transform: `translate(${position.x}px, ${position.y}px)`
         };
 
-        console.log(position);
         return (
-            <div className="item-container">
+            <div className="item-container" ref={this.itemRef}>
                 <div className="item"
                     onMouseDown={this.onMouseDownHandler}
                     onMouseUp={this.onMouseUpHandler}

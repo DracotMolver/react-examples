@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import VideoCardSmall from 'Video/VideoCard/VideoCardSmall';
-import videoLoader from 'HOC/VideoLoader';
 import { LOAD_VIDEOS_BUTTON } from 'Constants/Strings';
+import Loader from 'Components/HOC/Loader';
+import VideoCardSmall from 'Components/Video/Card/Small';
 
 // It will return a map of components
 const VideoItems = props =>
@@ -65,4 +65,4 @@ VideoList.propTypes = {
     getMoreVideos: PropTypes.func
 };
 
-export default videoLoader('videoListItems')(VideoList);
+export default Loader('videoListItems')(VideoList);

@@ -10,9 +10,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // -========================== COMPONENTS ==========================-
-import VideoDescription from 'Video/VideoDescription';
-import VideoRating from 'Video/VideoRating';
-import VideoThumb from 'Video/VideoThumb';
+import VideoDescription from 'Components/Video/Description';
+import VideoRating from 'Components/Video/Rate/Rate';
+import VideoThumb from 'Components/Video/Thumb';
 
 // It will render and small card component
 export default class VideoCardSmall extends React.Component {

@@ -6,10 +6,10 @@
 import React from 'react';
 
 // -========================== COMPONENTS ==========================-
-import LogoutContainer from '_Login/LogoutContainer';
 import { GREETINGS } from 'Constants/Strings';
 import { USER_DATA } from 'Constants/Storage';
-import { getUserData } from 'Helpers/getSession';
+import { getUserData } from 'Helpers';
+import LogoutContainer from 'Containers/Login/Logout';
 
 const Header = () => {
     const { username } = getUserData();

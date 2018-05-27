@@ -8,7 +8,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 // -========================== Components ==========================-
 import { USER_DATA } from 'Constants/Storage';
-import { getUserData } from 'Helpers/getSession';
+import { getUserData } from 'Helpers';
 
 const isAuthenticated = () => !!getUserData();
 

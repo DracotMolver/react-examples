@@ -8,8 +8,8 @@ import React from 'react';
  * @param {component} WrapperComponent - The component to render when the
  *                                       validation returns true.
  */
-const videoLoader = propname => WrapperComponent =>
-    class VideoLoader extends React.PureComponent {
+const Loader = propname => WrapperComponent =>
+    class _Loader extends React.PureComponent {
         render() {
             const { props } = this;
 
@@ -22,4 +22,4 @@ const videoLoader = propname => WrapperComponent =>
         }
     };
 
-export default videoLoader;
+export default Loader;

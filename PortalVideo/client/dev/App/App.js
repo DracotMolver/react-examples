@@ -6,13 +6,13 @@
 // -========================== MODULES ==========================-
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
+import LoginContainer from 'Containers/Login/Login';
+import PrivateRouter from 'Components/HOC/PrivateRouter';
+import VideoListContainer from 'Containers/Video/List';
+import VideoSingleContainer from 'Containers/Video/Single/Single';
+import { VIDEO_LIST_URL } from 'Constants/Paths';
 
 // -========================== COMPONENTS ==========================-
-import LoginContainer from '_Login/LoginContainer';
-import PrivateRouter from 'HOC/PrivateRouter';
-import VideoListContainer from '_VideoList/VideoListContainer';
-import VideoSingleContainer from '_VideoSingle/VideoSingleContainer';
-import { VIDEO_LIST_URL } from 'Constants/Paths';
 
 const App = () => {
     return (
