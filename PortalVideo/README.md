@@ -1,4 +1,4 @@
-# Video Portal
+# Portal Video
 This is just a demo that I had to do to apply for a job.
 *(If you wanna know the story... I didn't get the job because I had no idea how to make a test using Karma. Well, we are all learning)*.
 
