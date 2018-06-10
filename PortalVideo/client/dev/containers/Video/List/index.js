@@ -64,9 +64,11 @@ export default class VideoListContainer extends React.Component {
                     });
                 } else {
                     if (res.body.status === 'success') {
-                        this.setState({
-                            videoListItems: videoListItems.concat(res.body.data),
-                            lastValue: lastValue + 1
+                        this.setState((prevState, props) => {
+                            return {
+                                videoListItems: prevState.videoListItems.concat(res.body.data),
+                                lastValue: prevState.lastValue + 1
+                            };
                         });
                     } else {
                         this.setState({
@@ -79,7 +81,7 @@ export default class VideoListContainer extends React.Component {
     }
 
     // -============================ REACT LIFECYLE ============================-
-    componentDidMount() {
+    componentWillMount() {
         this.getMoreVideos();
     }
 

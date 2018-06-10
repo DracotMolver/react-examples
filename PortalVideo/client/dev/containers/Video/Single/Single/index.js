@@ -43,8 +43,10 @@ export default class VideoSingleContainer extends React.Component {
                     this.props.history.push(VIDEO_LIST_URL);
                 } else {
                     if (res.body.status === 'success') {
-                        this.setState({
-                            videoData: res.body.data
+                        this.setState((prevState, props) => {
+                            return {
+                                videoData: res.body.data
+                            };
                         });
                     } else {
                         this.setState({
@@ -57,7 +59,7 @@ export default class VideoSingleContainer extends React.Component {
     }
 
     // -============================ REACT LIFECYLE ============================-
-    componentDidMount() {
+    componentWillMount() {
         this.getVideoData();
     }
 
