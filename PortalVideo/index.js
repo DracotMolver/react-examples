@@ -3,19 +3,19 @@
 require('dotenv').config();
 
 // -==============================
-var express = require('express');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var db = mongoose.connection;
-var app = express();
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const db = mongoose.connection;
+const app = express();
 
 db.on('error', console.error);
 
 //requiring local modelesc
-var configs = require('./config');
-var routes = require('./routes/routes');
-var helperFunctions = require('./helpers/helperFunctions');
+const configs = require('./config');
+const routes = require('./routes/routes');
+const helperFunctions = require('./helpers/helperFunctions');
 
 
 // Uncomment the following lines to start logging requests to consoles.
