@@ -1,10 +1,9 @@
 // -====================== Configuración de Enzyme y JS ======================
-import { configure } from 'enzyme';
+import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() });
 
 // -====================== Obtener todos los test a ejecutar ======================
-let context = require.context('./test', true, /.*\.(test|spect)\.js$/);
+const context = require.context('./tests', true, /.*\.(test|spect)\.js$/);
 context.keys().forEach(context);
-module.exports = context;
