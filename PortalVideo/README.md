@@ -1,6 +1,6 @@
 # Portal Video
 This is just a demo that I had to do to apply for a job.
-*(If you wanna know the story... I didn't get the job because I had no idea how to make a test using Karma. Well, we are all learning)*.
+*(If you wanna know the story... I didn't get the job because I had no idea how to make a tests using Karma. Well, we are all learning)*.
 
 The app use `NodeJS`, `ExpressJS` and `MongoDB`. It was made using NodeJS `8.10.0` and MongoDB `3.6.2`
 

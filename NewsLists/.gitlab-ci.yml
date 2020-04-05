@@ -1,0 +1,35 @@
+image: node:12
+
+stages:
+  - test
+  - lint
+
+cache:
+  paths:
+  - node_modules/
+
+variables:
+  NODE_ENV: "development"
+  DB_NAME_DEV: "reign_development"
+  DB_HOST_DEV: "mongo"
+
+services:
+  - mongo
+
+test_api:
+  stage: test
+  script:
+    - cd server
+    - npm install --silent
+    - npm run test
+  only:
+    - master
+
+eslint:
+  stage: lint
+  script:
+    - cd server
+    - npm install eslint
+    - node_modules/eslint/bin/eslint.js .
+  only:
+    - master

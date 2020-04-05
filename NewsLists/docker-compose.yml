@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  server:
+    image: server-dev
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    container_name: server
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+      - 5000:5000
+
+  client:
+    image: client-dev
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    container_name: client
+    ports:
+      - 8080:8080
+      - 8000:8000
+    stdin_open: true
+
+  db:
+    image: mongo
+    container_name: db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:

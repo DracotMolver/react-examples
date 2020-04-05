@@ -1,23 +1,21 @@
 version: "3.2"
 services:
   webapp:
+    image: 12.16.1-alpine
     depends_on:
       - db
-    build:
-      context: .
-      dockerfile: Dockerfile
     volumes:
       - .:/app
     ports:
       - 3000:3000
   db:
     image: mongo:latest
-    ports:
-      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
     volumes:
-      - mongo-volume:/data/db
+      - mongodb_data_container:/data/db
 volumes:
-  mongo-volume:
+  mongodb_data_container:
