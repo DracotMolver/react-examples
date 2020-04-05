@@ -1,36 +1,30 @@
-var userModel = require('../models/users');
+const userModel = require('../models/users');
 
-var users = {};
+const users = {};
 
 // controller that handles user login request
-users.auth = function (req, res) {
-	if(!req.body.username || !req.body.password)
-	{
-		res.status(400);
-		res.send({status:'error',error:'Username or password is missing.'});	
-	}
-	
-	var user = userModel.authUser(req.body.username, req.body.password);
+users.auth = (req, res) => {
+  const { username, password } = req.body;
 
-	user.then(function(users){
-		res.send(users);	
-	}, function(){
-		res.send({status:'error',error:'Error occured while fetching data from database.'});
-	});
+  if (!username || !password) {
+    res.status(400);
+    res.send({ status: 'error', error: 'Username or password is missing.' });
+  }
 
+  const user = userModel.authUser(username, password);
+
+  user.then(data => {
+    res.send(data);
+  }).catch(() => {
+    res.send({ status: 'error', error: 'Error occured while fetching data from database.' });
+  });
 };
 
 // controller that handles user logout request
-users.logout = function (req, res) {
+users.logout = (req, res) => {
+  userModel.logout(req.query.sessionId);
 
-	var sessionId = req.query.sessionId;
-
-	var user = userModel.logout(sessionId);
-
-	res.send({status:'success'});	
-	
-
+  res.send({ status: 'success' });
 };
-
 
 module.exports = users;

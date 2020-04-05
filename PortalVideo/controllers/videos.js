@@ -1,59 +1,55 @@
-var videoModel = require('../models/videos');
+const videoModel = require('../models/videos');
 
-var videos = {};
+const videos = {};
 
 // controller that handles video listings fetch request.
-videos.get = function (req, res) {
-	
-	var skip = req.query.skip;
-	var limit = req.query.limit;
+videos.get = (req, res) => {
+  const { skip, limit } = req.query.skip;
 
-	var videosData = videoModel.get(skip, limit);
-	videosData.then(function(data){
-		var response = {};
-		response.status='success';
-		response.data=data;
-		res.send(response);
-	}, function(err){
-		res.send(err);
-	});
-
+  videoModel
+    .get(skip, limit)
+    .then(data => {
+      res.send({
+        status: 'success',
+        data
+      });
+    }).catch(err => {
+      res.send(err);
+    });
 };
 
 // controller that handles single video fetch request.
 videos.getOne = function (req, res) {
-	
-	var videoid = req.query.videoId;
+  const { videoId } = req.query;
 
-	var videosData = videoModel.getOne(videoid);
-	videosData.then(function(data){
-		var response = {};
-		response.status='success';
-		response.data=data;
-		res.send(response);
-	}, function(err){
-		res.status(400);
-		res.send(err);
-	});
+  videoModel
+    .getOne(videoId)
+    .then(data => {
+      res.send({
+        status: 'success',
+        data
+      });
+    }).catch(err => {
+      res.status(400);
+      res.send(err);
+    });
 };
 
 // controller that handles video rate request
-videos.rate = function (req, res) {
-	var videoId = req.body.videoId;
-	var rating = req.body.rating;
+videos.rate = (req, res) => {
+  const { videoId, rating } = req.body;
 
-	var videosData = videoModel.rate(videoId, rating);
-	videosData.then(function(data){
-		var response = {};
-		response.status='success';
-		response.data=data;
-		res.send(response);
-	}, function(err){
-		res.status(400);
-		res.send(err);
-	});
-		
+  videoModel
+    .rate(videoId, rating)
+    .then(function (data) {
+      res.send({
+        status: 'success',
+        data
+      });
+    }).catch(err => {
+      res.status(400);
+      res.send(err);
+    });
 };
-
 
 module.exports = videos;

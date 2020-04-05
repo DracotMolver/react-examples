@@ -1,137 +1,126 @@
 
-var mongoose = require('mongoose');
-var q = require('q');
+const mongoose = require('mongoose');
 
 //defining schema for users table
-var userSchema = new mongoose.Schema({
-	  username: { type: String }, 
-	  password: String,
-	  activeSession: String
+const userSchema = new mongoose.Schema({
+  username: { type: String },
+  password: String,
+  activeSession: String
 });
 
-var User = mongoose.model('Users', userSchema);
+const User = mongoose.model('Users', userSchema);
 
 //generating random session id
 //todo: make sure no 2 users can have single sessionId
-function makeSessionId()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function makeSessionId() {
+  let text = "";
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 32; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+  const possibleSize = possible.length;
+  for (let i = 0; i < 32; i += 1) {
+    text += possible.charAt(Math.floor(Math.random() * possibleSize));
+  }
 
-    return text;
+  return text;
 }
 
 
 //Initlizing interface object of this model.
-var userModel = {};
+const userModel = {};
 
 //seeding database with default users
-userModel.seed = function(){
-	var defaultUser = new User({username:'ali', password:'2a4026c992682b7c4c76d79240d72f86', activeSession:''});
-	defaultUser.save(function(err, user) {
-	  if(err) console.dir('error occured in populating database');
-	});
+userModel.seed = () => {
+  (new User({ username: 'ali', password: '2a4026c992682b7c4c76d79240d72f86', activeSession: '' }))
+    .save((err, user) => {
+      if (err) {
+        console.dir('error occured in populating database');
+      }
+    });
 
-	defaultUser = new User({username:'harry', password:'2a4026c992682b7c4c76d79240d72f86', activeSession:''});
-	defaultUser.save(function(err, user) {
-	  if(err) console.dir('error occured in populating database');
-	});
+  (new User({ username: 'harry', password: '2a4026c992682b7c4c76d79240d72f86', activeSession: '' }))
+    .save((err, user) => {
+      if (err) {
+        console.dir('error occured in populating database');
+      }
+    });
 
-	defaultUser = new User({username:'tom', password:'2a4026c992682b7c4c76d79240d72f86', activeSession:''});
-	defaultUser.save(function(err, user) {
-	  if(err) console.dir('error occured in populating database');
-	});
+  (new User({ username: 'tom', password: '2a4026c992682b7c4c76d79240d72f86', activeSession: '' }))
+    .save((err, user) => {
+      if (err) {
+        console.dir('error occured in populating database')
+      };
+    });
 
-	console.log('users table populated.');
+  console.log('users table populated.');
 }
 
 //Function to auth user baed on username and password.
-userModel.authUser = function(username, password){
-	var results = q.defer();
+userModel.authUser = (username, password) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ username: username, password: password }).exec((err, dbuser) => {
+      if (err) {
+        reject(err);
+      }
 
-	User.findOne({username: username, password: password},function(err, dbuser) {
-		if (err){
-			results.reject(err);
-		} 
-
-
-		if(dbuser){
-			
-			dbuser.activeSession = makeSessionId();
-			dbuser.markModified('string');
-			dbuser.save(function(err, dbuser){
-				var response = {};
-
-				response.status = 'success';
-				response.sessionId = dbuser.activeSession;
-				response.username = dbuser.username;
-			  	results.resolve(response);
-			});
-
-				
-		} else{
-			var response = {};
-			response.status = 'error';
-			response.error = 'Invalid username or password';
-		  	results.resolve(response);	
-		}
-	});
-
-	return results.promise;
+      if (dbuser) {
+        dbuser.activeSession = makeSessionId();
+        dbuser.markModified('string');
+        dbuser.save((err, dbuser) => {
+          resolve({
+            status: 'success',
+            sessionId: dbuser.activeSession,
+            username: dbuser.username
+          });
+        });
+      } else {
+        resolve({
+          status: 'error',
+          error: 'Invalid username or password'
+        });
+      }
+    });
+  });
 }
 
 //Function to return users by its sessionID.
-userModel.getBySessionId = function(sessionId){
-	var results = q.defer();
+userModel.getBySessionId = function (sessionId) {
+  var results = q.defer();
 
-	User.findOne({activeSession: sessionId},function(err, dbuser) {
-		if (err){
-			results.reject(err);
-		} 
-		
-		results.resolve(dbuser);
-	});
+  User.findOne({ activeSession: sessionId }, function (err, dbuser) {
+    if (err) {
+      results.reject(err);
+    }
 
-	return results.promise;
+    results.resolve(dbuser);
+  });
+
+  return results.promise;
 }
 
 //Function to return all users.
-userModel.get = function(){
-	var results = q.defer();
-
-	User.find(function(err, users) {
-	  if (err){
-	  	results.reject(err);
-	  } 
-	  results.resolve(users);
-	});
-
-	return results.promise;
+userModel.get = function () {
+  return User.find().exec();
 }
 
 
 //Function to logout user.
-userModel.logout = function(sessionId){
-	var results = q.defer();
+userModel.logout = function (sessionId) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ activeSession: sessionId }, (err, dbuser) => {
+      if (err) {
+        reject(err);
+      }
 
-	User.findOne({activeSession: sessionId},function(err, dbuser) {
-		if (err){
-			results.reject(err);
-		} 
-		if(dbuser){
-			dbuser.activeSession='';
-			dbuser.markModified('string');
-			dbuser.save();
-			results.resolve(dbuser);	
-		}
-		results.reject({status:'error', error:'No active session'});
-		
-	});
+      if (dbuser) {
+        dbuser.activeSession = '';
+        dbuser.markModified('string');
+        dbuser.save();
+        resolve(dbuser);
+      }
 
-	return results.promise;
+      reject({ status: 'error', error: 'No active session' });
+    });
+  });
 }
 
 module.exports = userModel;

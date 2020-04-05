@@ -1,8 +1,14 @@
-FROM node:12.16.1-alpine as development
+FROM node:12.16.1-alpine
 
-COPY . /app
+RUN mkdir /app
 WORKDIR /app
 
-RUN apk update && apk upgrade
+COPY package.json /app
+
+RUN npm install --silent
+
+COPY . /app
 
 EXPOSE 3000
+
+CMD ["npm", "start"]
