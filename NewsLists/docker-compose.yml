@@ -3,12 +3,11 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile
       target: dev
     volumes:
       - ./server:/server
       - /server/node_modules
-    container_name: server
+    container_name: newlist_server
     depends_on:
       - db
     ports:
@@ -18,12 +17,11 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile
       target: dev
     volumes:
       - ./client:/client
       - /client/node_modules
-    container_name: client
+    container_name: newlist_client
     ports:
       - 8080:8080
       - 8000:8000
@@ -31,7 +29,7 @@ services:
 
   db:
     image: mongo
-    container_name: db
+    container_name: newlist_db
     ports:
       - 27017:27017
     volumes:
