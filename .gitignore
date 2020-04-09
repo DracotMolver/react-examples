@@ -27,3 +27,6 @@ package-lock.json
 build/
 
 .nyc_output
+
+NewLists/.git/
+PortalVideo/.git/

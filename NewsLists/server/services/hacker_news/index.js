@@ -33,47 +33,39 @@ function _getNews() {
 }
 
 function _insertNews(data) {
-  let dataNews = null;
-
   if (data.hits) {
-    // We need news with url to be able to open it
-    dataNews = data.hits
-      .filter(({ story_url, url }) => story_url || url)
-      .map(({
-        story_title,
-        created_at,
-        story_url,
-        objectID,
-        author,
-        title,
-        url
-      }) => ({
-        story_id: objectID,
-        story_title,
-        created_at: new Date(created_at),
-        story_url,
-        author,
-        title,
-        url
-      }));
-
-    dataNews.forEach(dataNew => {
-      News.updateOne({
-        story_id: dataNew.story_id
-      },
-        dataNew,
-        { upsert: true, setDefaultsOnInsert: true },
-        (err, raw) => {
-          if (err) {
-            console.log(err);
-            clearInterval(time);
-            process.exit(1);
+    return News.bulkWrite(
+      data.hits
+        .filter(({ story_url, url }) => story_url || url) // We need news with url to be able to open it
+        .map(({
+          story_title,
+          created_at,
+          story_url,
+          objectID,
+          author,
+          title,
+          url
+        }) => ({
+          updateOne: {
+            filter: {
+              story_id: objectID
+            },
+            update: {
+              $set: {
+                story_id: objectID,
+                story_title,
+                created_at: new Date(created_at),
+                story_url,
+                author,
+                title,
+                url
+              }
+            },
+            upsert: true, setDefaultsOnInsert: true
           }
-        })
-    });
+        }))
+    );
   }
-
-  return dataNews;
 }
 
 function hackerNewsService() {

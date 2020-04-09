@@ -1,7 +1,10 @@
 version: "3.7"
 services:
   server:
-    image: server-dev
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: dev
     volumes:
       - ./server:/server
       - /server/node_modules
@@ -13,7 +16,10 @@ services:
       - 5000:5000
 
   client:
-    image: client-dev
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: dev
     volumes:
       - ./client:/client
       - /client/node_modules

@@ -3,11 +3,11 @@ FROM node:12 as base
 RUN mkdir /server
 WORKDIR /server
 
-COPY package.json /server
+COPY package.json ./
 
 RUN npm install
 
-COPY . /server
+COPY ./ ./
 
 # ------------------------
 

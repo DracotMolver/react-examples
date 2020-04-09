@@ -14,8 +14,9 @@ chai.use(chaiHttp);
 describe('Set of APIs', () => {
   before(done => {
     hackerNewsService.__get__('_getNews')().then(data => {
-      hackerNewsService.__get__('_insertNews')(data);
-      done();
+      hackerNewsService.__get__('_insertNews')(data).then(() => {
+        done();
+      });
     });
   });
 

@@ -20,8 +20,9 @@ describe('Testing the service to get the news from Hack News and savece them onc
   beforeEach(done => {
     mongoose.connection.collections.news.drop(() => {
       hackerNewsService.__get__('_getNews')().then(data => {
-        hackerNewsService.__get__('_insertNews')(data);
-        done();
+        hackerNewsService.__get__('_insertNews')(data).then(() => {
+          done();
+        });
       });
     });
   });
@@ -53,16 +54,16 @@ describe('Testing the service to get the news from Hack News and savece them onc
 
   it('Expect to insert data to the News collection', done => {
     hackerNewsService.__get__('_getNews')().then(data => {
-      const newsLists = hackerNewsService.__get__('_insertNews')(data);
-
-      if (newsLists) {
-        News.find().exec().then(res => {
-          expect(res).to.be.an('array');
+      hackerNewsService.__get__('_insertNews')(data).then(newsLists => {
+        if (newsLists) {
+          News.find().exec().then(res => {
+            expect(res).to.be.an('array');
+            done();
+          });
+        } else {
           done();
-        });
-      } else {
-        done();
-      }
+        }
+      });
     });
   });
 });

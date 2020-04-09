@@ -3,11 +3,11 @@ FROM node:12 as base
 RUN mkdir /client
 WORKDIR /client
 
-COPY package.json /client
+COPY package.json ./
 
 RUN npm install
 
-COPY . /client
+COPY ./ ./
 
 # ------------------------
 
