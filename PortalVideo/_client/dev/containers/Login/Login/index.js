@@ -89,42 +89,6 @@ export default class LoginContainer extends React.Component {
         }
     }
 
-    // Small animation in the input filed
-    handlerFocusInputs(event) {
-        const element = event.currentTarget;
-        const {
-            id,
-            classList: elClassList
-        } = element;
-
-        if (!id.includes('lbl')) { // Does not has lbl class
-            const label = document.getElementById(`lbl-${event.target.id}`);
-            const { classList } = label;
-            classList.contains('login-form-label-anim') || (
-                classList.add('login-form-label-anim'),
-                elClassList.add('login-form-input-active')
-            );
-        } else {
-            elClassList.contains('login-form-label-anim') || (
-                elClassList.add('login-form-label-anim'),
-                document.getElementById(id.replace('lbl-', ''))
-                    .classList.add('login-form-input-active')
-            );
-        }
-    }
-
-    handlerBlurInputs(event) {
-        // It works along with handlerFocus function
-        const element = event.currentTarget;
-        const { value, classList, id } = element;
-
-        !!value.length || (
-            classList.remove('login-form-input-active'),
-            document.getElementById(`lbl-${id}`)
-                .classList.remove('login-form-label-anim')
-        );
-    }
-
     setPassword(event) {
         this.setState({
             password: event.currentTarget.value
@@ -153,7 +117,6 @@ export default class LoginContainer extends React.Component {
 
     render() {
         const {
-            handlerFocusInputs,
             handlerBlurInputs,
             handleSubmitForm,
             setPassword,
@@ -168,8 +131,8 @@ export default class LoginContainer extends React.Component {
 
         return (
             <Login
-                handlerFocusInputs={handlerFocusInputs}
-                handlerBlurInputs={handlerBlurInputs}
+                // handlerFocusInputs={handlerFocusInputs}
+                // handlerBlurInputs={handlerBlurInputs}
                 handleSubmitForm={handleSubmitForm}
                 messageText={messageText}
                 messageType={messageType}

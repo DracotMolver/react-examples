@@ -1,0 +1,52 @@
+@import './../../utils/sass/utils.scss';
+
+.login-form {
+    background-color: $white-color;
+    border-radius: 5px;
+    margin: 86px 30% 5px;
+
+    &-title {
+        @include linear-gradient(to right, #4a148c, #512da8, #3f51b5);
+        margin-bottom: 1em;
+        line-height: 2em;
+        text-align: center;
+        font-size: 2.2em;
+        color: $white-color;
+    }
+
+    &-input {
+        @include prefix((box-shadow: inset 0 0 2px #e0e0e0));
+        border-bottom: 2px solid $grey-dark-color;
+        box-sizing: border-box;
+        line-height: 1.6em;
+        font-size: 1.1em;
+        padding: .3em;
+        border: none;
+        width: 100%;
+
+        margin: {
+            bottom: 15px;
+            top: 15px;
+        }
+
+        &-active {
+            border-bottom-color: $cyan-light-color,
+        }
+    }
+
+    &-label {
+        @include prefix((transition: all .256s ease-in));
+        padding-left: 6px;
+        position: relative;
+        z-index: 1;
+        cursor: text;
+        color: $blue-dark-color;
+        top: 47px;
+
+        &-anim {
+            color: $cyan-light-color;
+            font-size: .86em;
+            top: 0;
+        }
+    }
+}
