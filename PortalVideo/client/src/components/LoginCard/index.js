@@ -1,6 +1,6 @@
 import React from "react";
 // components
-import Message from "../../Widgets/Message";
+import Message from "../Widgets/Message";
 // styles
 import './styles.scss';
 
@@ -21,7 +21,6 @@ const LoginCard = ({
         </div>
         <div className="grid-100">
           <label
-            // onFocus={handlerFocusInputs}
             className="login-form-label"
             htmlFor="username"
             id="lbl-username"
@@ -31,8 +30,6 @@ const LoginCard = ({
         </div>
         <div className="grid-100">
           <input
-            // onFocus={handlerFocusInputs}
-            // onBlur={handlerBlurInputs}
             className="login-form-input"
             onChange={onChangeHandler}
             type="text"

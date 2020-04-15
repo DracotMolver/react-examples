@@ -7,7 +7,7 @@ import MD5 from "js-md5";
 // project
 import { VIDEO_LIST_URL, USER_DATA, AUTH_URL } from "./../../utils/constants";
 // components
-import LoginCard from "../../components/Cards/LoginCard";
+import LoginCard from "../../components/LoginCard";
 
 const Login = () => {
   const [state, setState] = useState({

@@ -1,6 +1,8 @@
 import React from "react";
 // project
 import { getUserData } from "./../../../utils/functions";
+// components
+import Logout from './../../../containers/Logout';
 // styles
 import "./styles.scss";
 
@@ -12,7 +14,7 @@ const BarHeader = () => {
       <div className="grid-container">
         <header>
           <span>Hi {username}!</span>
-          {/* <LogoutContainer /> */}
+          <Logout />
         </header>
       </div>
     </div>
