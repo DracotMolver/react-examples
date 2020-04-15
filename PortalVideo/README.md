@@ -1,8 +1,6 @@
 # Portal Video
 The app is Dockerized. Therefore, don't worry about the NodeJS version nor MongoDB. The client and the server are under the same root folder `(app)`.
 
-You can visit this link https://portal-video.herokuapp.com/ or download the project
-
 ## What is the app about?
 It's a simple portal video where you first have to log in and you can check a list of videos. You can watch them and also rate them. I only did the front, the back waw already done.
 
