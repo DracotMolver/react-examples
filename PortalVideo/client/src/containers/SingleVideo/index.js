@@ -1,8 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import SuperAgent from "superagent";
 import produce from "immer";
 import { is } from "quartzjs";
-
+// project
+import { getUserData } from "./../../utils/functions";
+// components
+import VideoCardBig from "./../../components/Videos/Cards/VideoCardBig";
 
 const SingleVideo = (props) => {
   const [state, setState] = useState({
@@ -14,6 +18,7 @@ const SingleVideo = (props) => {
   const history = useHistory();
   const { id } = useParams();
   console.log(id);
+
   useEffect(() => {
     const { sessionId } = getUserData();
 

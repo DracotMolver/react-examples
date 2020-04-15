@@ -200,3 +200,28 @@ a {
 
   }
 }
+
+.line-separator {
+  border-bottom: 1px solid $cyan-light-color;
+  position: relative;
+
+  &:after {
+    margin-left: -9px;
+    position: absolute;
+    overflow: hidden;
+    content: "";
+    display: inline-block;
+    border: 9px solid $cyan-light-color;
+    height: 0;
+
+    border: {
+      bottom-color: transparent;
+      left-color: transparent;
+      right-color: transparent;
+    }
+
+    width: 0;
+    left: 50%;
+
+  }
+}

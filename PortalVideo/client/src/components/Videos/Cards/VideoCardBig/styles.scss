@@ -1,0 +1,53 @@
+@import './../../../../utils/sass/vars.scss';
+
+.video-single-container {
+  & .video-container {
+    height: auto;
+  }
+
+  & .video-hover {
+    display: none;
+  }
+
+  & .video-description {
+    overflow-y: auto;
+    height: 200px;
+  }
+
+  & .video-img {
+    display: inline-block;
+    height: 20px;
+    margin: 1em 0;
+    width: 30%;
+    float: right;
+  }
+
+  & .rate-button {
+    font: {
+      size: 1.2em;
+      weight: 100;
+    }
+
+    background-color: #fbfbfb;
+    line-height: 62px;
+    text-align: center;
+    cursor: pointer;
+    color: $grey-dark-color;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: #dfdfdf;
+  }
+
+  & .button {
+    text-align: center;
+    font-size: 1.14em;
+    display: inline-block;
+    margin: 0;
+  }
+
+  & .line-separator {
+    display: none;
+  }
+}
