@@ -51,7 +51,6 @@ export default class LoginContainer extends React.Component {
 
         if (password.length > 2 && username.length > 2) {
             // make a request to the API
-            // http://localhost:3000/user/auth
             SuperAgent.post(AUTH_URL)
                 .type('form') // Shorthand to use the content type as: application/x-www-form-urlencoded
                 .send({

@@ -1,5 +1,5 @@
 var configs = {};
-configs.applicationPort = process.env.PORT || 3000;
+configs.applicationPort = process.env.PORT || 5000;
 configs.dbName = process.env.NODE_ENV === 'production'
     ? process.env.DB_NAME
     : process.env.DB_NAME_DEV;

@@ -5,24 +5,23 @@ import { VIDEO_LIST_URL } from "./../utils/constants";
 import PrivateRouter from "./../utils/HOC/PrivateRouter";
 // Containers
 import Login from "./../containers/Login";
+import VideoLists from "./../containers/VideoLists";
 // styles
-import './styles.scss';
+import "./styles.scss";
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        {/* <PrivateRouter exact path={VIDEO_LIST_URL}>
-          <VideoLists />
-        </PrivateRouter> */}
-        {/* <PrivateRouter
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <PrivateRouter exact path={VIDEO_LIST_URL}>
+        <VideoLists />
+      </PrivateRouter>
+      {/* <PrivateRouter
           path={`${VIDEO_LIST_URL}/:id`}
           component={VideoSingleContainer}
         /> */}
-      </Switch>
-    </BrowserRouter>
-  );
-};
+    </Switch>
+  </BrowserRouter>
+);
 
 export default App;

@@ -1,6 +1,6 @@
 import React from "react";
 // components
-import Message from "./../../Widgets/Message";
+import Message from "../../Widgets/Message";
 // styles
 import './styles.scss';
 

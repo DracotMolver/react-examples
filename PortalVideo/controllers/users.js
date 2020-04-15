@@ -16,7 +16,7 @@ users.auth = (req, res) => {
   user.then(data => {
     res.send(data);
   }).catch(() => {
-    res.send({ status: 'error', error: 'Error occured while fetching data from database.' });
+    res.send({ status: 'error', error: 'Error occurred while fetching data from database.' });
   });
 };
 

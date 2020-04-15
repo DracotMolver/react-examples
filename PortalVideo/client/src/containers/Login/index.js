@@ -3,10 +3,11 @@ import { useHistory } from "react-router-dom";
 import SuperAgent from "superagent";
 import produce from "immer";
 import { is } from "quartzjs";
+import MD5 from "js-md5";
 // project
-import { VIDEO_LIST_URL } from "./../../utils/constants";
+import { VIDEO_LIST_URL, USER_DATA } from "./../../utils/constants";
 // components
-import LoginCard from "../../components/Card/LoginCard";
+import LoginCard from "../../components/Cards/LoginCard";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -23,7 +24,7 @@ const Login = () => {
 
     setState(
       produce((draft) => {
-        draft[event.currentTarget.id] = event.currentTarget.value;
+        draft[event.target.id] = event.target.value;
       })
     );
   }
@@ -36,14 +37,18 @@ const Login = () => {
       is.moreOrEqual(state.username, 2, true)
     ) {
       // make a request to the API
-      SuperAgent.post("http://localhost:3000/user/auth")
+      SuperAgent.post("http://localhost:5000/user/auth")
         .type("form") // Shorthand to use the content type as: application/x-www-form-urlencoded
         .send({
           username: state.username,
-          password: state.password,
+          password: MD5(state.password),
         })
         .end((err, res) => {
-          if (err || res.body.status !== "success") {
+          if (
+            is.truthty(err) ||
+            (is.truthty(res) && res.body.status !== "success") ||
+            is.falsy(res)
+          ) {
             setState(
               produce((draft) => {
                 draft.messageText = err
@@ -52,13 +57,10 @@ const Login = () => {
                 draft.messageType = "error";
               })
             );
-          }
-
-          // Save in sessionStorage the params returned by the server
-          // Just in case the user refresh the website
-          if (res.body.status === "success") {
-            sessionStorage.setItem("userData", JSON.stringify(res.body));
-
+          } else {
+            // Save in sessionStorage the params returned by the server
+            // Just in case the user refresh the website
+            sessionStorage.setItem(USER_DATA, JSON.stringify(res.body));
             history.push(VIDEO_LIST_URL);
           }
         });
