@@ -30,6 +30,7 @@ const SingleVideo = (props) => {
         videoId: id,
       })
       .end((err, res) => {
+        console.log(res)
         // Redirect to the home if the sessión doesn't exist
         if (is.truthty(err)) {
           history.goBack();

@@ -12,37 +12,6 @@ import {
     POPUP_BUTTON
 } from 'Constants/Strings';
 
-// A common wrapper component as popup
-const PopUpParent = props => {
-    const {
-        handleClickClose,
-        name
-    } = props;
-
-    return (
-        <div>
-            <div className="grid-100">
-                <div className="rate-close-popup"
-                    onClick={handleClickClose}
-                >
-                    {CLOSE_BUTTON} &#10005;
-                </div>
-            </div>
-            <div className="grid-100">
-                <h3>{name}</h3>
-            </div>
-            <div className="grid-100 grid-parent">
-                {props.children}
-            </div>
-        </div>
-    );
-};
-
-PopUpParent.propTypes = {
-    name: PropTypes.string,
-    handleClickClose: PropTypes.func
-};
-
 // ------------------------------------------------------------------------
 
 const InitialMessage = props => {
@@ -127,45 +96,3 @@ const SuccessMessage = props => {
 SuccessMessage.propTypes = {
     handleClickClose: PropTypes.func
 };
-
-// ------------------------------------------------------------------------
-
-const VideoRatePopUp = props => {
-    const {
-        handleClickClose,
-        handleChangeRate,
-        handleClickDone,
-        displayPopUp,
-        isSuccess
-    } = props;
-
-    return (
-        <div className={`rate-stars-container ${displayPopUp ? '' : 'hide'}`}>
-            <div className="grid-container">
-                <div className={`rate-stars-popup shadow ${displayPopUp ? 'fadeInDown-anim' : ''}`}>
-                    {
-                        isSuccess
-                            ? <SuccessMessage
-                                handleClickClose={handleClickClose}
-                            />
-                            : <InitialMessage
-                                handleClickClose={handleClickClose}
-                                handleChangeRate={handleChangeRate}
-                                handleClickDone={handleClickDone}
-                            />
-                    }
-                </div>
-            </div>
-        </div>
-    );
-};
-
-VideoRatePopUp.propTypes = {
-    handleClickClose: PropTypes.func,
-    handleChangeRate: PropTypes.func,
-    handleClickDone: PropTypes.func,
-    displayPopUp: PropTypes.bool,
-    isSuccess: PropTypes.bool
-};
-
-export default VideoRatePopUp;

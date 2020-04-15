@@ -12,7 +12,7 @@ const VideoRate = ({ ratings }) => (
   <div className="video-img">
     <div
       className="video-img-rating"
-      style={{ width: `${getPercentRating(ratings)}%` }}
+      style={{ width: `${getPercentRating(ratings || [])}%` }}
     ></div>
     <img srcSet={img} width="100%" height="100%" />
   </div>

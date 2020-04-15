@@ -1,107 +1,82 @@
-import React from 'react';
-import SuperAgent from 'superagent';
+import React, { useState } from "react";
+import SuperAgent from "superagent";
+import produce from "immer";
+import { is } from "quartzjs";
+// project
+import { getUserData } from "../../utils/functions";
+import { VIDEO_RATING_URL } from "../../utils/constants";
 
-// import VideoRatePopPup from 'Components/Video/Rate/PopUp';
-// import { VIDEO_RATING_URL } from 'Constants/Paths';
-// import { USER_DATA } from 'Constants/Storage';
-// import { getUserData } from 'Helpers';
+const VideoRating = (props) => {
+  const [state, setState] = useState({
+    isSuccess: false,
+    value: 0,
+    id: "",
+  });
 
-export default class VideoRateContainer extends React.Component {
-    // constructor(props) {
-    //     super();
+  function onChangeRateHandler(event) {
+    event.persist();
 
-    //     this.state = {
-    //         isSuccess: false,
-    //         value: 0,
-    //         id: '',
-    //     };
+    setState(
+      produce((draft) => {
+        draft.value = event.target.value;
+      })
+    );
+  }
 
-    //     this.handleClickClose = this.handleClickClose.bind(this);
-    //     this.handleChangeRate = this.handleChangeRate.bind(this);
-    //     this.handleClickDone = this.handleClickDone.bind(this);
-    // }
+  function onClickCloseHandler() {
+    setState(
+      produce((draft) => {
+        draft.isSuccess = false;
+        draft.value = 0;
+        draft.id = "";
+      })
+    );
 
-    // // -============================ OWN EVENTS ============================-
+    // Belongs to the parent - VideoCardBigWrapper
+    const { onClickHideModalHandler } = props;
+    onClickHideModalHandler();
+  }
 
-    // handleChangeRate(event) {
-    //     this.setState({
-    //         value: event.currentTarget.value
-    //     });
-    // }
+  function onClickVoteHandler() {
+    const { onClickHideModalHandler, idToRate } = props;
 
-    // handleClickClose() {
-    //     this.setState({
-    //         isSuccess: false,
-    //         value: 0,
-    //         id: ''
-    //     });
+    const { sessionId } = getUserData();
 
-    //     // Belongs to the parent - VideoCardBigWrapper
-    //     this.props.hidePopUp();
-    // }
+    SuperAgent.post(VIDEO_RATING_URL)
+      .type("form")
+      .query({
+        sessionId,
+      })
+      .send({
+        videoId: idToRate,
+        rating: state.value,
+      })
+      .end((err, res) => {
+        if (
+          is.falsy(err) ||
+          (is.truthty(res) && res.body.status === "success")
+        ) {
+          setState(
+            produce((draft) => {
+              draft.isSuccess = true;
+            })
+          );
+        }
+        onClickHideModalHandler();
+      });
+  }
 
-    // handleClickDone() {
-    //     const {
-    //         state,
-    //         props
-    //     } = this;
+  const { displayModal } = props;
 
-    //     const {
-    //         hidePopUp,
-    //         idToRate
-    //     } = props;
+  return (
+    <VideoRateModal
+      onClickCloseHandler={onClickCloseHandler}
+      onChangeRateHandler={onChangeRateHandler}
+      onClickVoteHandler={onClickVoteHandler}
+      displayModal={displayModal}
+      isSuccess={state.isSuccess}
+    />
+  );
+};
 
-    //     const { sessionId } = getUserData();
-
-    //     SuperAgent.post(VIDEO_RATING_URL)
-    //         .type('form')
-    //         .query({
-    //             sessionId
-    //         })
-    //         .send({
-    //             'videoId': idToRate,
-    //             'rating': state.value,
-    //         })
-    //         .end((err, res) => {
-    //             if (err) {
-    //                 this.setState({
-    //                     isSuccess: false
-    //                 });
-
-    //                 hidePopUp();
-    //             } else {
-    //                 if (res.body.status === 'success') {
-    //                     this.setState({
-    //                         isSuccess: true
-    //                     });
-    //                 } else {
-    //                     hidePopUp();
-    //                 }
-    //             }
-    //         });
-    // }
-
-    // // -============================ REACT LIFECYLE ============================-
-
-    // render() {
-    //     const {
-    //         handleClickClose,
-    //         handleChangeRate,
-    //         handleClickDone,
-    //         props,
-    //         state,
-    //     } = this;
-
-    //     return (
-    //         <VideoRatePopPup
-    //             displayPopUp={props.displayPopUp}
-    //             isSuccess={state.isSuccess}
-    //             handleClickClose={handleClickClose}
-    //             handleChangeRate={handleChangeRate}
-    //             handleClickDone={handleClickDone}
-    //         />
-    //     );
-    // }
-}
-
-export default videora
+export default VideoRating;
