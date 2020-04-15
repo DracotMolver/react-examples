@@ -1,10 +1,10 @@
 import React from "react";
 
-const Loader = (propName) => (WrapperComponent) =>
+const Spinner = (propName) => (WrapperComponent) =>
   class _Loader extends React.PureComponent {
     render() {
       const { props } = this;
-
+console.log(props, propName)
       // Check if the prop to validate is an object or an array
       return (
         typeof props[propName] === "object"
@@ -18,4 +18,4 @@ const Loader = (propName) => (WrapperComponent) =>
     }
   };
 
-export default Loader;
+export default Spinner;

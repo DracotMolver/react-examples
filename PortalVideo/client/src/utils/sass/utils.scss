@@ -45,6 +45,73 @@
   background: linear-gradient($direction, $color-stops);
 }
 
+
+@function is-prefixed($element) {
+  $prefixElements: 'animation', 'box-reflect', 'box-shadow', 'filter', 'font-feature-settings', 'mask-image', 'transform', 'appearance', 'stroke';
+  $prefixed: false;
+
+  @each $prefixElement in $prefixElements {
+    @if str-index(nth($element, 1), $prefixElement) {
+      $prefixed: true;
+    }
+  }
+
+  @return $prefixed;
+}
+
+@mixin setPrefix($prefix, $percent, $listValues) {
+  #{$percent} {
+    @each $prop in $listValues {
+      @if is-prefixed($prop) {
+        -#{$prefix}-#{nth($prop, 1)}: #{nth($prop, 2)}
+      }
+
+      @else {
+        #{nth($prop, 1)}: #{nth($prop, 2)}
+      }
+    }
+  }
+}
+
+@mixin frames($name, $elements) {
+  @keyframes #{$name} {
+
+    @each $percent,
+    $listValues in $elements {
+      #{$percent} {
+        @each $prop in $listValues {
+          #{nth($prop, 1)}: #{nth($prop, 2)}
+        }
+      }
+    }
+  }
+
+  @-webkit-keyframes #{$name} {
+
+    @each $percent,
+    $listValues in $elements {
+      @include setPrefix('webkit', $percent, $listValues);
+    }
+  }
+
+  @-moz-keyframes #{$name} {
+
+    @each $percent,
+    $listValues in $elements {
+      @include setPrefix('moz', $percent, $listValues);
+    }
+  }
+
+  @-o-keyframes #{$name} {
+
+    @each $percent,
+    $listValues in $elements {
+      @include setPrefix('o', $percent, $listValues);
+    }
+  }
+}
+
+
 // Prefix elements
 // @author Diego Molina
 @mixin prefix($declarations) {
