@@ -31,8 +31,9 @@
   }
 }
 
-.rate-button-container {
-  position: relative;
-  margin: 1.6em auto;
-  width: 180px;
+.rate-close-popup {
+  text-align: right;
+  font-size: 1.1em;
+  padding: .5em .1em;
+  cursor: pointer;
 }

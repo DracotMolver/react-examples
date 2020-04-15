@@ -3,8 +3,10 @@ import SuperAgent from "superagent";
 import produce from "immer";
 import { is } from "quartzjs";
 // project
-import { getUserData } from "../../utils/functions";
 import { VIDEO_RATING_URL } from "../../utils/constants";
+import { getUserData } from "../../utils/functions";
+// components
+import VideoRateModal from "./../../components/Videos/VideoRateModal";
 
 const VideoRating = (props) => {
   const [state, setState] = useState({

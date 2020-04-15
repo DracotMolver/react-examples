@@ -6,15 +6,15 @@ const Modal = (props) => {
   function onAutoCloseHandler() {
     const { onClickCloseHandler } = props;
 
-    handleClickClose();
+    onClickCloseHandler();
     clearTimeout(time);
   }
+
+  const { isCloseDelay, children, name } = props;
 
   if (isCloseDelay) {
     time = setTimeout(onAutoCloseHandler, 2600);
   }
-
-  const { children, name } = props;
 
   return (
     <div>

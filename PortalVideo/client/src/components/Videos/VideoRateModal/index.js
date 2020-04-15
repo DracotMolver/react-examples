@@ -2,7 +2,7 @@ import React from "react";
 // components
 import Modal from "../../Widgets/Modal";
 // styles
-import './styles.scss';
+import "./styles.scss";
 
 const VideoRateModal = ({
   onClickCloseHandler,
@@ -21,7 +21,11 @@ const VideoRateModal = ({
         <Modal
           onClickCloseHandler={onClickCloseHandler}
           isCloseDelay={isSuccess}
-          name={isSuccess ? "Thanks for rating the video! :)" : ""}
+          name={
+            isSuccess
+              ? "Thanks for rating the video! :)"
+              : "How much did you enjoy the video?"
+          }
         >
           {!isSuccess && (
             <div>
@@ -84,7 +88,7 @@ const VideoRateModal = ({
                     className="button shadow"
                     onClick={onClickVoteHandler}
                   >
-                    {POPUP_BUTTON}
+                    Vote
                   </button>
                 </div>
               </div>

@@ -107,7 +107,7 @@ videosModel.rate = function (id, ratting) {
   ratting = Number(ratting);
   var error = false;
 
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     if (!id) {
       reject({ status: "error", error: "Video Id not supplied." });
       error = true;
