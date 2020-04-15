@@ -11,7 +11,7 @@ const BarHeader = () => {
     <div className="grid-100 grid-parent header-nav">
       <div className="grid-container">
         <header>
-          <span>Hi! {username}</span>
+          <span>Hi {username}!</span>
           {/* <LogoutContainer /> */}
         </header>
       </div>

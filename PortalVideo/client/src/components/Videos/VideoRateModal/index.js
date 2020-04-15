@@ -11,11 +11,15 @@ const VideoRateModal = ({
   displayModal,
   isSuccess,
 }) => (
-  <div className={`rate-stars-container ${displayModal ? "" : "hide"}`}>
+  <div
+    className={`rate-stars-container ${
+      displayModal || isSuccess ? "" : "hide"
+    }`}
+  >
     <div className="grid-container">
       <div
         className={`rate-stars-popup shadow ${
-          displayModal ? "fadeInDown-anim" : ""
+          displayModal || isSuccess ? "fadeInDown-anim" : ""
         }`}
       >
         <Modal

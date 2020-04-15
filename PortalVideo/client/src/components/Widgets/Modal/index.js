@@ -13,7 +13,9 @@ const Modal = (props) => {
   const { isCloseDelay, children, name } = props;
 
   if (isCloseDelay) {
-    time = setTimeout(onAutoCloseHandler, 2600);
+    time = setTimeout(() => {
+      onAutoCloseHandler();
+    }, 2600);
   }
 
   return (
