@@ -1,36 +1,44 @@
 import React from "react";
+// components
+import Message from "./../../Widgets/Message";
+// styles
+import './styles.scss';
 
-const LoginCard = ({ onChangePasswordHandler, onSubmitHandler }) => (
+const LoginCard = ({
+  onChangeHandler,
+  onSubmitHandler,
+  messageText,
+  messageType,
+}) => (
   <div className="grid-container">
     <div className="grid-40 grid-parent login-form shadow">
       <form onSubmit={onSubmitHandler}>
-        {/* <div className="grid-100 grid-parent login-form-title">
-          <span>{FORM_LOGIN_TITLE}</span>
+        <div className="grid-100 grid-parent login-form-title">
+          <span>Portal video</span>
         </div>
         <div className="grid-100 grid-parent">
-          <Message messageText={messageText} messageType={messageType} />
+          <Message type={messageType}>{messageText}</Message>
         </div>
         <div className="grid-100">
           <label
-            onFocus={handlerFocusInputs}
-            id="lbl-username"
+            // onFocus={handlerFocusInputs}
             className="login-form-label"
             htmlFor="username"
+            id="lbl-username"
           >
-            {INPUT_USER_LABEL}
+            User name
           </label>
         </div>
         <div className="grid-100">
           <input
-            onFocus={handlerFocusInputs}
-            onBlur={handlerBlurInputs}
-            onChange={setUsername}
+            // onFocus={handlerFocusInputs}
+            // onBlur={handlerBlurInputs}
             className="login-form-input"
+            onChange={onChangeHandler}
             type="text"
             id="username"
           />
         </div>
-        */}
         <div className="grid-100">
           <label className="login-form-label" htmlFor="password">
             Password
@@ -38,18 +46,17 @@ const LoginCard = ({ onChangePasswordHandler, onSubmitHandler }) => (
         </div>
         <div className="grid-100">
           <input
-            onChange={onChangePasswordHandler}
+            onChange={onChangeHandler}
             className="login-form-input"
             type="password"
             id="password"
           />
         </div>
-        {/* 
         <div className="grid-100">
           <button className="button shadow" type="submit">
-            {FORM_LOGIN_LABEL}
+            Log in
           </button>
-        </div> */}
+        </div>
       </form>
     </div>
   </div>

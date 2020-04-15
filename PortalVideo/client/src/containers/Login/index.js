@@ -6,7 +6,7 @@ import { is } from "quartzjs";
 // project
 import { VIDEO_LIST_URL } from "./../../utils/constants";
 // components
-import LoginCard from "../../components/LoginCard";
+import LoginCard from "../../components/Card/LoginCard";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -18,12 +18,12 @@ const Login = () => {
 
   const history = useHistory();
 
-  function onChangePasswordHandler(event) {
+  function onChangeHandler(event) {
     event.persist();
 
     setState(
       produce((draft) => {
-        draft.username = event.currentTarget.value;
+        draft[event.currentTarget.id] = event.currentTarget.value;
       })
     );
   }
@@ -75,8 +75,10 @@ const Login = () => {
 
   return (
     <LoginCard
-      onChangePasswordHandler={onChangePasswordHandler}
+      onChangeHandler={onChangeHandler}
       onSubmitHandler={onSubmitHandler}
+      messageText={state.messageText}
+      messageType={state.messageType}
     />
   );
 };

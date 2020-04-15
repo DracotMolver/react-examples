@@ -1,11 +1,5 @@
-// -============= VARIABLES =============-
-$grey-light-color: #fafafa;
-$cyan-light-color: #00acc1;
-$grey-dark-color: #4b636e;
-$blue-dark-color: #0d47a1;
-$white-color: #fff;
-
-$shadow-value: 0 2px 2px 0 rgba(0, 0, 0, .14) 0 3px 1px -2px rgba(0, 0, 0, .12) 0 1px 5px 0 rgba(0, 0, 0, .2);
+@import './../utils/sass/vars.scss';
+@import './../utils/sass/utils.scss';
 
 // -============= GENERALS =============-
 * {
@@ -32,7 +26,6 @@ html {
 
 html,
 body {
-
   overflow: hidden;
   background-color: $grey-light-color;
   padding: 0;
@@ -82,4 +75,38 @@ a {
     cursor: pointer;
     color: $grey-dark-color;
   }
+}
+
+.shadow {
+  @include prefix((box-shadow: $shadow-value));
+}
+
+
+.button {
+  @include prefix((transition: all .3s ease-in));
+  background-color: $blue-dark-color;
+  line-height: 3em;
+  width: 100%;
+
+  font: {
+    weight: 700;
+    size: 1.08em;
+  }
+
+  margin: {
+    bottom: 1.4em;
+    top: 1.4em;
+  }
+
+  color: $white-color;
+
+  &:hover {
+    background-color: $cyan-light-color;
+    cursor: pointer;
+    color: $white-color;
+  }
+}
+
+.hide {
+  display: none;
 }
