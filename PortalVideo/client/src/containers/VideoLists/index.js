@@ -4,6 +4,7 @@ import produce from "immer";
 import { is } from "quartzjs";
 // project
 import { getUserData } from "../../utils/functions";
+import { VIDEOS_URL } from "../../utils/constants";
 // components
 import BarHeader from "../../components/Widgets/BarHeader";
 import VideoList from "../../components/Videos/VideoList";
@@ -22,7 +23,7 @@ const VideoLists = (props) => {
     // because if you refresh the browser, the list will be reset.
     const { sessionId } = getUserData();
     // Get the last 9 videos
-    SuperAgent.get("http://localhost:5000/videos")
+    SuperAgent.get(VIDEOS_URL)
       .query({
         sessionId,
         skip: state.lastValue,

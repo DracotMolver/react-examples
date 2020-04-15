@@ -5,7 +5,7 @@ import produce from "immer";
 import { is } from "quartzjs";
 import MD5 from "js-md5";
 // project
-import { VIDEO_LIST_URL, USER_DATA } from "./../../utils/constants";
+import { VIDEO_LIST_URL, USER_DATA, AUTH_URL } from "./../../utils/constants";
 // components
 import LoginCard from "../../components/Cards/LoginCard";
 
@@ -37,7 +37,7 @@ const Login = () => {
       is.moreOrEqual(state.username, 2, true)
     ) {
       // make a request to the API
-      SuperAgent.post("http://localhost:5000/user/auth")
+      SuperAgent.post(AUTH_URL)
         .type("form") // Shorthand to use the content type as: application/x-www-form-urlencoded
         .send({
           username: state.username,

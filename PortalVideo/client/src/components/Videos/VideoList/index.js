@@ -11,8 +11,8 @@ const VideoList = ({ videoLists }) =>
   videoLists.map((video) => (
     <div
       className="video-list-item grid-25 mobile-grid-50"
-      key={`${video._id}`}
-      id={`${video._id}`}
+      key={video._id}
+      id={video._id}
     >
       <VideoCardSmall video={video} />
     </div>

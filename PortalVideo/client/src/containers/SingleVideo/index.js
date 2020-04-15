@@ -5,11 +5,14 @@ import produce from "immer";
 import { is } from "quartzjs";
 // project
 import { getUserData } from "./../../utils/functions";
+import { VIDEO_URL } from "../../utils/constants";
 // components
 import VideoCardBig from "./../../components/Videos/Cards/VideoCardBig";
+import BarHeader from "./../../components/Widgets/BarHeader";
 
 const SingleVideo = (props) => {
   const [state, setState] = useState({
+    displayModal: false,
     messageText: "",
     messageType: "",
     videoData: {},
@@ -17,12 +20,11 @@ const SingleVideo = (props) => {
 
   const history = useHistory();
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const { sessionId } = getUserData();
 
-    SuperAgent.get("http://localhost:5000/video")
+    SuperAgent.get(VIDEO_URL)
       .query({
         sessionId,
         videoId: id,
@@ -47,53 +49,31 @@ const SingleVideo = (props) => {
       });
   }, []);
 
-  /**
-   * constructor(props) {
-        super();
+  function onClickRateHandler() {
+    setState(
+      produce((draft) => {
+        draft.displayModal = true;
+      })
+    );
+  }
 
-        this.state = {
-            displayPopUp: false
-        };
-
-        this.handleClickRate = this.handleClickRate.bind(this);
-        this.hidePopUp = this.hidePopUp.bind(this);
-    }
-
-    // -============================ OWN EVENTS ============================-
-    handleClickRate() {
-        this.setState({
-            displayPopUp: true
-        });
-    }
-
-    hidePopUp() {
-        this.setState({
-            displayPopUp: false
-        });
-    }
-
-    // -============================ REACT LIFECYLE ============================-
-    render() {
-        const {
-            handleClickRate,
-            hidePopUp,
-            state,
-            props
-        } = this;
-
-        return (
-            <VideoCardBig
-                {...props.videoData}
-                hidePopUp={hidePopUp}
-                handleClickRate={handleClickRate}
-                displayPopUp={state.displayPopUp}
-            />
-        );
-   */
+  function onClickHideModalHandler() {
+    setState(
+      produce((draft) => {
+        draft.displayModal = false;
+      })
+    );
+  }
 
   return (
     <Fragment>
-      <VideoCardBig videoData={state.videoData} />
+      <BarHeader />
+      <VideoCardBig
+        onClickHideModalHandler={onClickHideModalHandler}
+        onClickRateHandler={onClickRateHandler}
+        displayModal={state.displayModal}
+        videoData={state.videoData}
+      />
       {/* <Message messageText={messageText} messageType={messageType} /> */}
     </Fragment>
   );

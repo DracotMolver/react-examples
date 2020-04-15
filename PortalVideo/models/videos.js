@@ -85,7 +85,7 @@ videosModel.get = (skip, limit) => {
 
 //function to get single video by its id.
 videosModel.getOne = (id) => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     Video.findOne({ _id: id }, (err, dbVideo) => {
       if (err) {
         reject(err);
