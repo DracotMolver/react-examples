@@ -1,36 +1,22 @@
 import React, { Fragment, useEffect, useState } from "react";
-import SuperAgent from 'superagent';
+import SuperAgent from "superagent";
 import produce from "immer";
 import { is } from "quartzjs";
 // project
 import { getUserData } from "../../utils/functions";
 // components
 import BarHeader from "../../components/Widgets/BarHeader";
-
-// import VideoLists from 'Components/Video/List';
-// import {
-//     LOAD_VIDEOS_ERROR,
-//     TYPE_ERROR,
-//     TYPE_WARNING
-// } from 'Constants/Strings';
-// import { USER_DATA } from 'Constants/Storage';
-// import { VIDEOS_URL } from 'Constants/Paths';
-// import { getUserData } from 'Helpers';
+import VideoList from "../../components/Videos/VideoList";
 
 const VideoLists = (props) => {
   const [state, setState] = useState({
     messageType: "",
     messageText: "",
     lastValue: 1, // The last video on the list
-    videoListItems: [], // A list container of the videos,
+    videoLists: [], // A list container of the videos,
   });
 
   useEffect(() => {
-    // const {
-    //         lastValue,
-    //         videoListItems
-    //     } = this.state;
-
     // Check always for the session
     // The list of videos are stored in the session
     // because if you refresh the browser, the list will be reset.
@@ -58,7 +44,7 @@ const VideoLists = (props) => {
         } else {
           setState(
             produce((draft) => {
-              draft.videoListItems = state.videoListItems.concat(res.body.data);
+              draft.videoLists = state.videoLists.concat(res.body.data);
               draft.lastValue = state.lastValue + 1;
             })
           );
@@ -69,13 +55,20 @@ const VideoLists = (props) => {
   return (
     <Fragment>
       <BarHeader />
+      <div className="grid-container">
+        <VideoList videoLists={state.videoLists} />
+        <div className="grid-25 mobile-grid-100 zoomInUp-anim">
+          <button
+            // onClick={getMoreVideos}
+            className="button shadow"
+            type="button"
+            id="show-more"
+          >
+            Show me more videos!
+          </button>
+        </div>
+      </div>
     </Fragment>
-    //         <Base>
-    //             <VideoLists
-    //                 videoListItems={videoListItems}
-    //                 getMoreVideos={this.getMoreVideos}
-    //             />
-    //         </Base>
   );
 };
 

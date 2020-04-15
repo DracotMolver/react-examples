@@ -1,0 +1,26 @@
+@import './../../../../utils/sass/utils.scss';
+@import './../../../../utils/sass/vars.scss';
+
+.video {
+  &-title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: .6em;
+    font-size: 1.2em;
+    overflow: hidden;
+  }
+
+  &-container {
+    @include prefix((transform-origin: center));
+    background-color: $white-color;
+    border-radius: 2px;
+    height: 390px;
+
+    margin: {
+      bottom: 15px;
+      top: 15px;
+    }
+
+    cursor: pointer;
+  }
+}
