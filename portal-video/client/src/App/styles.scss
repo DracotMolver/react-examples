@@ -1,0 +1,227 @@
+@import './../utils/sass/vars.scss';
+@import './../utils/sass/utils.scss';
+
+// -============= GENERALS =============-
+* {
+  -webkit-: {
+    font-variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures;
+    text-size-adjust: 100%;
+    font-smoothing: antialiased;
+    tap-highlight-color: transparent;
+  }
+
+  -ms-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'PT Sans',
+  sans-serif;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+html {
+  overflow-y: auto;
+}
+
+body {
+  overflow: hidden;
+}
+
+html,
+body {
+  background-color: $grey-light-color;
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  color: $grey-dark-color;
+  right: 0;
+  left: 0;
+  top: 0;
+
+  font: {
+    size: 100%;
+    variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures;
+    stretch: condensed;
+
+  }
+}
+
+
+section,
+article,
+header,
+footer,
+input,
+div,
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+  margin: {
+    bottom: 0;
+    top: 0;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    cursor: pointer;
+    color: $grey-dark-color;
+  }
+}
+
+.shadow {
+  @include prefix((box-shadow: $shadow-value));
+}
+
+
+.button {
+  @include prefix((transition: all .3s ease-in));
+  background-color: $blue-dark-color;
+  line-height: 3em;
+  width: 100%;
+
+  font: {
+    weight: 700;
+    size: 1.08em;
+  }
+
+  margin: {
+    bottom: 1.4em;
+    top: 1.4em;
+  }
+
+  color: $white-color;
+
+  &:hover {
+    background-color: $cyan-light-color;
+    cursor: pointer;
+    color: $white-color;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+// -============= ANIMACIONES =============-
+
+// https://github.com/tobiasahlin/SpinKit
+.spinner {
+  @include prefix((animation: rotatePlane 1.2s infinite ease-in-out));
+  background-color: $white-color;
+  border: 5px dotted $blue-dark-color;
+  margin: 100px auto;
+  height: 40px;
+  width: 40px;
+}
+
+@include frames('rotatePlane', ('0%': (transform: perspective(120px)), '50%': (transform: perspective(120px) rotateY(180deg)), '100%': (transform: perspective(120px) rotateY(180deg) rotateX(180deg))));
+
+.zoomInUp-anim {
+  @include prefix((animation-duration: 1s));
+  @include prefix((animation-fill-mode: forwards));
+  @include prefix((animation-name: zoomInUp));
+}
+
+@include frames('zoomInUp', ('0%': (opacity: 0, transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0), animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190)), '60%': (opacity: 1, transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0), animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1)), '100%': (opacity: 1)));
+
+.fadeInDown-anim {
+  @include prefix((animation-duration: .65s));
+  @include prefix((animation-fill-mode: forwards));
+  @include prefix((animation-name: fadeInDown));
+}
+
+@include frames('fadeInDown', ('0%' :(opacity: 0, transform: translate3d(0, -100%, 0)), '100%': (opacity: 1, transform: none)));
+
+// Cool animation extracted from
+// https://codepen.io/wilder_taype/pen/pNXwMW
+@include frames('clickWave', ('0%': (height: 40px, width: 40px, opacity: 0.35, position: relative), '100%': (height: 200px, width: 200px, margin-left: -80px, margin-top: -80px, opacity: 0)));
+
+.option-input {
+  @include prefix((appearance: none));
+  @include prefix((transition: all 0.15s ease-out 0s));
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  background: #d2d2d2;
+  position: relative;
+  z-index: 1000;
+  display: inline-block;
+  bottom: 0;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  right: 0;
+  color: $white-color;
+  left: 0;
+  top: 8px;
+
+  &::after {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    background: $grey-light-color;
+  }
+
+  &:checked {
+    background: $cyan-light-color;
+
+    &::before {
+      line-height: 40px;
+      text-align: center;
+      font-size: 26.66667px;
+      position: absolute;
+      display: inline-block;
+      content: '✔';
+      height: 40px;
+      width: 40px;
+    }
+
+    &::after {
+      @include prefix((animation: clickWave .6s));
+      background: $cyan-light-color;
+      position: relative;
+      content: '';
+      display: block;
+      z-index: 100;
+    }
+
+  }
+}
+
+.line-separator {
+  border-bottom: 1px solid $cyan-light-color;
+  position: relative;
+
+  &:after {
+    margin-left: -9px;
+    position: absolute;
+    overflow: hidden;
+    content: "";
+    display: inline-block;
+    border: 9px solid $cyan-light-color;
+    height: 0;
+
+    border: {
+      bottom-color: transparent;
+      left-color: transparent;
+      right-color: transparent;
+    }
+
+    width: 0;
+    left: 50%;
+
+  }
+}

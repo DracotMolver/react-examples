@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/client/node_modules
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    tty: true
+
+  db:
+    image: mongo
+    container_name: db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+volumes:
+  mongodb_data_container:

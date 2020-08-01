@@ -1,0 +1,49 @@
+@import './../../../../utils/sass/utils.scss';
+@import './../../../../utils/sass/vars.scss';
+
+.video {
+  &-title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: .6em;
+    font-size: 1.2em;
+    overflow: hidden;
+  }
+
+  &-container {
+    @include prefix((transform-origin: center));
+    background-color: $white-color;
+    border-radius: 2px;
+    height: 390px;
+
+    margin: {
+      bottom: 15px;
+      top: 15px;
+    }
+
+    cursor: pointer;
+  }
+
+  &-hover {
+    @include prefix((transition: all .3s ease-in));
+
+    font: {
+      weight: 700;
+      size: 2em;
+    }
+
+    line-height: 126px;
+    background: rgba($cyan-light-color, .6);
+    text-align: center;
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    color: $white-color;
+    top: 0;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
