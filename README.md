@@ -6,4 +6,3 @@ These app are part of my journy learning React and I totally felt in love with i
 
 * [React Tutorial](https://github.com/DracotMolver/React-Practicing/tree/master/ReactTutorial) - *The tic-tac-toe game tutorial that you find on the React's website*
 
-* [Test Enzyme setup](https://github.com/DracotMolver/React-Practicing/tree/master/Test-enzyme) - *A very simple configuration to work with Enzyme to test your app. It make use of Karma. (This was my first successful React testing).*
