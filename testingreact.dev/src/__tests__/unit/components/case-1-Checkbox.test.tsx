@@ -20,7 +20,8 @@ describe('The <Checkbox /> component', () => {
     checked: false,
   }
 
-  const setupCheckbox = () => render(<Checkbox {...defaultCheckboxProps} />)
+  const setupCheckbox = (props = defaultCheckboxProps) =>
+    render(<Checkbox {...props} />)
 
   it('Should render the label and checkbox the user will see', () => {
     const { asFragment } = setupCheckbox()
@@ -29,16 +30,35 @@ describe('The <Checkbox /> component', () => {
   })
 
   it('Should make the checkbox accessible by setting the id and htmlFor attributes on label and checkbox', () => {
-    const { getByLabelText } = setupCheckbox();
+    const { getByLabelText } = setupCheckbox()
 
     const label = getByLabelText('TEST_CHECKBOX_LABEL')
 
     expect(label).toBeInTheDocument()
   })
 
-  it('❌ Should call the onChange handler when it is provided', () => {})
+  it('Should call the onChange handler when it is provided', () => {
+    const { getByLabelText } = setupCheckbox()
 
-  it('❌ Should change state correctly when clicked (checked and unchecked)', () => {})
+    const checkbox = getByLabelText('TEST_CHECKBOX_LABEL')
 
-  it('❌ should not fail any accessibility tests', async () => {})
+    fireEvent.click(checkbox)
+
+    expect(defaultCheckboxProps.onChange).toHaveBeenCalled()
+  })
+
+  it('Should change state correctly when clicked (checked and unchecked)', () => {
+    const { getByLabelText } = setupCheckbox({
+      ...defaultCheckboxProps,
+      checked: true,
+    })
+
+    expect(getByLabelText('TEST_CHECKBOX_LABEL')).toBeChecked()
+  })
+
+  it('should not fail any accessibility tests', async () => {
+    const { container } = setupCheckbox()
+
+    expect(await axe(container)).toHaveNoViolations()
+  })
 })
