@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Header component renders header correctly 1`] = `
+<DocumentFragment>
+  <header
+    class="sc-hKFyIo jZqUMA"
+  >
+    <span
+      class="sc-dlnjPT dJhbuP"
+    />
+    <div
+      class="sc-bdnylx jVQHbZ"
+    >
+      TESTING 
+      <span />
+      REACT.DEV
+    </div>
+    <button
+      class="sc-gtssRu dmklmv"
+      data-testid="FilterButton"
+    >
+      Filter
+    </button>
+  </header>
+</DocumentFragment>
+`;
